@@ -12,10 +12,10 @@ learningRate, weightDecay = 0.01, 0.001
 numEpochs=1
 testEvery=1
 
-cuda=torch.device("cuda:0") ######### GPU
-print(device)				######### GPU
+cuda=torch.device("cuda:0" if torch.cuda.is_available() else "cpu") ######### GPU
+print(cuda)				######### GPU
 
-model=nnu.LSTM_LogSoftMax_RNN(dimIn,dimHidden,dimOut,hiddenLayers)
+model=nnu.LSTM_LogSoftMax_RNN(dimIn,dimHidden,dimOut,hiddenLayers,cuda)
 model=model.to(cuda)		######### GPU
 lossFunction=torch.nn.NLLLoss()
 optimizer=torch.optim.Adamax(model.parameters(), weight_decay=weightDecay)

@@ -4,7 +4,7 @@ import torch
 
 class LSTM_LogSoftMax_RNN(torch.nn.Module):
 
-	def __init__(self,inDim,hiddenDim,outDim,hiddenLayers):
+	def __init__(self,inDim,hiddenDim,outDim,hiddenLayers,device):
 		super(LSTM_LogSoftMax_RNN, self).__init__()
 		
 		self.hiddenDim=hiddenDim
@@ -14,13 +14,17 @@ class LSTM_LogSoftMax_RNN(torch.nn.Module):
 		self.h2o=torch.nn.Linear(hiddenDim,outDim)
 		
 		self.hidden = self.initHidden()
+		
+		self.device=device
 	
 	def initHidden(self):
 		return (torch.zeros(self.hiddenLayers, 1, self.hiddenDim),
 				torch.zeros(self.hiddenLayers, 1, self.hiddenDim))
 	
 	def forward(self, netInput):
-		lstmOut,self.hidden=self.lstm(netInput.view(len(netInput),1,-1).float(),self.hidden)
+		formattedNetInp=netInput.view(len(netInput),1,-1).float().to(self.device)
+		self.hidden=self.hidden[0].to(self.device),self.hidden[1].to(self.device)
+		lstmOut,self.hidden=self.lstm(formattedNetInp,self.hidden)
 		h2oOut=self.h2o(lstmOut.view(len(netInput),-1))
 		netOut=torch.nn.functional.log_softmax(h2oOut,dim=1)
 		return netOut
