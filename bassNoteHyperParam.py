@@ -14,7 +14,7 @@ learningRate, weightDecay = 0.01, 0.001
 numEpochs=1
 testEvery=1
 
-cuda=torch.device("cuda")
+cuda=torch.device("cuda:0")
 print(device)
 
 model=nnu.LSTM_LogSoftMax_RNN(dimIn,dimHidden,dimOut,hiddenLayers)
@@ -55,8 +55,10 @@ while epoch <= numEpochs:
 		noteBuffer=mu.getBassNoteIntervalsFromBassline(bassline)
 					
 		if len(noteBuffer) > 1:
-			netInputSeq=torch.tensor(nnu.oneHot(noteBuffer[:-1],12),device=cuda)
-			netTargetSeq=torch.tensor([interval % 12 for interval in noteBuffer[1:]],device=cuda)
+			netInputSeq=torch.tensor(nnu.oneHot(noteBuffer[:-1],12))
+			netTargetSeq=torch.tensor([interval % 12 for interval in noteBuffer[1:]])
+			netInputSeq=netInputSeq.to(cuda)
+			netTargetSeq=netTargetSeq.to(cuda)
 			if testingIteration:
 				with torch.no_grad():
 					predictedInterval=model(netInputSeq)
