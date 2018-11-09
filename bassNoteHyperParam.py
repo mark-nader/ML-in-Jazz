@@ -9,8 +9,8 @@ trainSize, testSize = 1, 1
 
 learningRate, weightDecay = 0.01, 0.001
 
-numEpochs=1
-testEvery=1
+numEpochs=10
+testEvery=5
 
 cuda=torch.device("cuda:0" if torch.cuda.is_available() else "cpu") ######### GPU
 print(cuda)				######### GPU
@@ -71,7 +71,7 @@ while epoch <= numEpochs:
 	if testingIteration:
 		print("testing set loss: {} -- epoch {}/{} [|TEST DATA|]".format(printLoss/numBassLines,epoch,numEpochs))
 		printedTestLoss=True
-	else:
+	elif epoch % testEvery == 0:
 		print("training set loss: {} -- epoch {}/{}".format(printLoss/numBassLines,epoch,numEpochs))
 		
 

@@ -1,0 +1,352 @@
+=================== NOT NORMALISED ===================
+
+	training on single song, 1000 epochs
+		
+		standard hyperparameters
+		network structure [6,8,8,12] 			-- error 1.01
+		
+		standard hyperparameters
+		network structure [6,12,12,12] 			-- error 0.70
+		
+		standard hyperparameters
+		network structure [6,12,12,12,12]	 	-- error 0.53
+		
+		standard hyperparameters
+		network structure [6,12,12,12,12,12] 	-- error 0.48
+		
+		change learning rate to 0.005
+		network structure [6,12,12,12,12,12]	-- error 0.94
+		
+		change momentum gamma to 0.65
+		network structure [6,12,12,12,12,12]	-- error 0.46
+		
+	training on 5 songs, 1000 epochs
+	
+		change momentum gamma to 0.65
+		network structure [6,12,12,12,12,12]	-- error 1.78
+		
+	training on 100 songs, 1000 epochs
+	
+		change momentum gamma to 0.65
+		network structure [6,12,12,12,12,12]	-- error 2.13
+
+	training on 100 songs, 1000 epochs
+	
+		change learning rate to 0.005
+		change momentum gamma to 0.6
+		network structure [6,12,12,12,12,12]	-- error 2.18
+
+NEW NETWORK STRUCTURE: [72,12,12,12,12,12]
+inputs are note intervals mod 12 represented as 6 sets of 12 numbers
+each 12 numbers has eleven 0s and one 1, the index of the 1 denotes
+the interval
+
+	training on single song, 1000 epochs
+		
+		standard hyperparameters
+		network structure [72,12,12,12,12,12] 	-- error 0.25
+
+		change learning rate to 0.005
+		network structure [72,12,12,12,12,12] 	-- error 0.31
+		
+	training on 10 songs, 1000 epochs
+	
+		change momentum gamma to 0.65
+		network structure [72,12,12,12,12,12] 	-- error 1.44
+		
+		change momentum gamma to 0.35
+		network structure [72,12,12,12,12,12] 	-- error 1.28
+		
+		change momentum gamma to 0.35
+		network structure [72,36,24,24,24,12] 	-- error 0.18
+		
+		change momentum gamma to 0.35
+		network structure [72,72,36,24,24,12] 	-- error 0.26
+		
+	training on 100 songs, 1000 epochs
+		
+		change momentum gamma to 0.35
+		network structure [72,72,36,24,24,12] 	-- error 1.34, 1.49
+		
+		change momentum gamma to 0.35
+		network structure [72,72,72,36,24,12] 	-- error 1.42, 1.44
+		
+		change momentum gamma to 0.3
+		change learning rate to 0.005
+		network structure [72,72,72,36,24,12] 	-- error 1.69
+		
+		change momentum gamma to 0.4
+		change learning rate to 0.0005
+		network structure [72,72,36,36,24,12] 	-- error 1.42
+		
+		change momentum gamma to 0.4
+		network structure [72,72,36,24,12,12] 	-- error 1.51
+		
+		change momentum gamma to 0.35
+		change l2 Lambda to 0.005
+		network structure [72,36,24,24,24,12] 	-- error 1.92
+		
+		change momentum gamma to 0.35
+		change l2 Lambda to 0.005
+		change learning rate to 0.0005
+		network structure [72,72,24,24,24,12] 	-- error 2.07
+		
+		change momentum gamma to 0.3
+		change learning rate to 0.0005
+		network structure [72,72,72,36,24,12] 	-- error 1.23, 1.36, 1.25
+		
+		change momentum gamma to 0.2
+		change learning rate to 0.0005
+		network structure [72,72,72,36,24,12] 	-- error 1.17, 1.45, 1.33
+		
+		change momentum gamma to 0.1
+		change learning rate to 0.0005
+		network structure [72,72,72,36,24,12] 	-- error 1.35, 1.29
+		
+		change momentum gamma to 0.2
+		network structure [72,72,72,36,24,12] 	-- error 1.46
+		
+	training on 10 songs, 1000 epochs
+		
+		change momentum gamma to 0.3
+		change learning rate to 0.0005
+		network structure [72,72,72,36,24,12] 	-- error 0.31
+		
+		change momentum gamma to 0.2
+		change learning rate to 0.0005
+		network structure [72,72,72,36,24,12] 	-- error 0.29
+		
+		change momentum gamma to 0.1
+		change learning rate to 0.0005
+		network structure [72,72,72,36,24,12] 	-- error 0.27
+		
+		change useMomentum to False
+		change learning rate to 0.0005
+		network structure [72,72,72,36,24,12] 	-- error 0.29
+		
+NEW NETWORK STRUCTURE ADDING 3 EXTRA NOTES FOR A TOTAL OF 9
+input size now 108
+
+	training on 100 songs, 100 epochs
+	
+		useMomentum=False
+		network structure [108,108,108,54,27,12]	-- error 1.17
+		
+NEW NETWORK STRUCTURE ADDING 2 EXTRA NOTES FOR A TOTAL OF 8
+input size now 96
+
+	training on 100 songs, 100 epochs
+	
+		useMomentum=False
+		network structure [96,96,96,48,24,12]	-- error 1.14
+		
+		useMomentum=True
+		momentumGamma=0.1
+		learningRate=0.0005
+		network structure [96,96,96,48,24,12]	-- error 1.23
+		
+	training on 1000 songs, 100 epochs
+		
+		useMomentum=False
+		network structure [96,96,96,48,24,12]	-- error 1.71
+		
+	these proved no better in BassNoteNetsCategorise so i will use the 6 note input network
+	
+NEW NETWORK MODEL
+USING RNN/LSTM
+
+	batchSize, dimIn, dimHidden, dimOut, hiddenLayers = 1, 12, 128, 12, 2
+	trainSize, testSize = 800, 200
+	learningRate, weightDecay = 0.01, 0.001
+	numEpochs=50
+	testEvery=10
+	Adamax
+		training set loss: 2.189668893814087 -- epoch 1/50
+		training set loss: 2.1422476768493652 -- epoch 2/50
+		training set loss: 2.1304028034210205 -- epoch 3/50
+		training set loss: 2.1123194694519043 -- epoch 4/50
+		training set loss: 2.103243350982666 -- epoch 5/50
+		training set loss: 2.095299243927002 -- epoch 6/50
+		training set loss: 2.0825464725494385 -- epoch 7/50
+		training set loss: 2.076180934906006 -- epoch 8/50
+		training set loss: 2.0586307048797607 -- epoch 9/50
+		training set loss: 2.0466115474700928 -- epoch 10/50
+		testing set loss: 2.048365592956543 -- epoch 10/50 [|TEST DATA|]
+		training set loss: 2.030287265777588 -- epoch 11/50
+		training set loss: 2.0176503658294678 -- epoch 12/50
+		training set loss: 2.006927967071533 -- epoch 13/50
+		training set loss: 1.9950599670410156 -- epoch 14/50
+		training set loss: 1.9816741943359375 -- epoch 15/50
+		training set loss: 1.9667783975601196 -- epoch 16/50
+		training set loss: 1.9555357694625854 -- epoch 17/50
+		training set loss: 1.9419357776641846 -- epoch 18/50
+		training set loss: 1.9340484142303467 -- epoch 19/50
+		training set loss: 1.9269239902496338 -- epoch 20/50
+		testing set loss: 1.9987833499908447 -- epoch 20/50 [|TEST DATA|]
+		training set loss: 1.919940710067749 -- epoch 21/50
+		training set loss: 1.9103509187698364 -- epoch 22/50
+		training set loss: 1.901627540588379 -- epoch 23/50
+		training set loss: 1.8924254179000854 -- epoch 24/50
+		training set loss: 1.8825923204421997 -- epoch 25/50
+		training set loss: 1.875089406967163 -- epoch 26/50
+		training set loss: 1.870046615600586 -- epoch 27/50
+		training set loss: 1.8659167289733887 -- epoch 28/50
+		training set loss: 1.8617284297943115 -- epoch 29/50
+		training set loss: 1.8574923276901245 -- epoch 30/50
+		testing set loss: 1.9484519958496094 -- epoch 30/50 [|TEST DATA|]
+		training set loss: 1.8519959449768066 -- epoch 31/50
+		training set loss: 1.8485119342803955 -- epoch 32/50
+		training set loss: 1.8436039686203003 -- epoch 33/50
+		training set loss: 1.8399109840393066 -- epoch 34/50
+		training set loss: 1.8359771966934204 -- epoch 35/50
+		training set loss: 1.828449010848999 -- epoch 36/50
+		training set loss: 1.8286688327789307 -- epoch 37/50
+		training set loss: 1.8239907026290894 -- epoch 38/50
+		training set loss: 1.8242837190628052 -- epoch 39/50
+		training set loss: 1.821153163909912 -- epoch 40/50
+		testing set loss: 1.9336471557617188 -- epoch 40/50 [|TEST DATA|]
+		training set loss: 1.8213768005371094 -- epoch 41/50
+		training set loss: 1.8170483112335205 -- epoch 42/50
+		training set loss: 1.8165879249572754 -- epoch 43/50
+		training set loss: 1.815971851348877 -- epoch 44/50
+		training set loss: 1.8136063814163208 -- epoch 45/50
+		training set loss: 1.808601975440979 -- epoch 46/50
+		training set loss: 1.8071969747543335 -- epoch 47/50
+		training set loss: 1.8043893575668335 -- epoch 48/50
+		training set loss: 1.8042726516723633 -- epoch 49/50
+		training set loss: 1.8018072843551636 -- epoch 50/50
+		testing set loss: 1.9249690771102905 -- epoch 50/50 [|TEST DATA|]
+		
+	batchSize, dimIn, dimHidden, dimOut, hiddenLayers = 1, 12, 128, 12, 2
+	trainSize, testSize = 800, 200
+	learningRate, weightDecay = 0.01, 0.001
+	numEpochs=50
+	testEvery=10
+	Adamax
+		training set loss: 2.170910120010376 -- epoch 1/100
+		training set loss: 2.135667324066162 -- epoch 2/100
+		training set loss: 2.105414628982544 -- epoch 3/100
+		training set loss: 2.0992960929870605 -- epoch 4/100
+		training set loss: 2.0952155590057373 -- epoch 5/100
+		testing set loss: 2.180678367614746 -- epoch 5/100 [|TEST DATA|]
+		training set loss: 2.090794086456299 -- epoch 6/100
+		training set loss: 2.076085329055786 -- epoch 7/100
+		training set loss: 2.063037395477295 -- epoch 8/100
+		training set loss: 2.0552093982696533 -- epoch 9/100
+		training set loss: 2.0505173206329346 -- epoch 10/100
+		testing set loss: 2.1175625324249268 -- epoch 10/100 [|TEST DATA|]
+		training set loss: 2.047637939453125 -- epoch 11/100
+		training set loss: 2.0451598167419434 -- epoch 12/100
+		training set loss: 2.0428366661071777 -- epoch 13/100
+		training set loss: 2.0406417846679688 -- epoch 14/100
+		training set loss: 2.038604974746704 -- epoch 15/100
+		testing set loss: 2.1032450199127197 -- epoch 15/100 [|TEST DATA|]
+		training set loss: 2.036451816558838 -- epoch 16/100
+		training set loss: 2.034058094024658 -- epoch 17/100
+		training set loss: 2.0309319496154785 -- epoch 18/100
+		training set loss: 2.026547431945801 -- epoch 19/100
+		training set loss: 2.0233492851257324 -- epoch 20/100
+		testing set loss: 2.0785133838653564 -- epoch 20/100 [|TEST DATA|]
+		training set loss: 2.0201921463012695 -- epoch 21/100
+		training set loss: 2.015183687210083 -- epoch 22/100
+		training set loss: 2.0050735473632812 -- epoch 23/100
+		training set loss: 1.9952346086502075 -- epoch 24/100
+		training set loss: 1.9891637563705444 -- epoch 25/100
+		testing set loss: 2.0234317779541016 -- epoch 25/100 [|TEST DATA|]
+		training set loss: 1.9840785264968872 -- epoch 26/100
+		training set loss: 1.9794294834136963 -- epoch 27/100
+		training set loss: 1.975376844406128 -- epoch 28/100
+		training set loss: 1.9716145992279053 -- epoch 29/100
+		training set loss: 1.9681365489959717 -- epoch 30/100
+		testing set loss: 2.004693031311035 -- epoch 30/100 [|TEST DATA|]
+		training set loss: 1.9646469354629517 -- epoch 31/100
+		training set loss: 1.9618093967437744 -- epoch 32/100
+		training set loss: 1.9587208032608032 -- epoch 33/100
+		training set loss: 1.9548710584640503 -- epoch 34/100
+		training set loss: 1.9519050121307373 -- epoch 35/100
+		testing set loss: 1.9859728813171387 -- epoch 35/100 [|TEST DATA|]
+		training set loss: 1.9482924938201904 -- epoch 36/100
+		training set loss: 1.944685697555542 -- epoch 37/100
+		training set loss: 1.94102144241333 -- epoch 38/100
+		training set loss: 1.9367880821228027 -- epoch 39/100
+		training set loss: 1.931434988975525 -- epoch 40/100
+		testing set loss: 1.960845947265625 -- epoch 40/100 [|TEST DATA|]
+		training set loss: 1.9296224117279053 -- epoch 41/100
+		training set loss: 1.9266647100448608 -- epoch 42/100
+		training set loss: 1.9241013526916504 -- epoch 43/100
+		training set loss: 1.9204171895980835 -- epoch 44/100
+		training set loss: 1.9172959327697754 -- epoch 45/100
+		testing set loss: 1.9370160102844238 -- epoch 45/100 [|TEST DATA|]
+		training set loss: 1.915494680404663 -- epoch 46/100
+		training set loss: 1.9117989540100098 -- epoch 47/100
+		training set loss: 1.9106152057647705 -- epoch 48/100
+		training set loss: 1.9093097448349 -- epoch 49/100
+		training set loss: 1.9055432081222534 -- epoch 50/100
+		testing set loss: 1.922635793685913 -- epoch 50/100 [|TEST DATA|]
+		training set loss: 1.9024770259857178 -- epoch 51/100
+		training set loss: 1.9018104076385498 -- epoch 52/100
+		training set loss: 1.8983945846557617 -- epoch 53/100
+		training set loss: 1.8948259353637695 -- epoch 54/100
+		training set loss: 1.8938347101211548 -- epoch 55/100
+		testing set loss: 1.9084842205047607 -- epoch 55/100 [|TEST DATA|]
+		training set loss: 1.8925727605819702 -- epoch 56/100
+		training set loss: 1.889521598815918 -- epoch 57/100
+		training set loss: 1.8864480257034302 -- epoch 58/100
+		training set loss: 1.8847085237503052 -- epoch 59/100
+		training set loss: 1.8791606426239014 -- epoch 60/100
+		testing set loss: 1.8991153240203857 -- epoch 60/100 [|TEST DATA|]
+		training set loss: 1.8775757551193237 -- epoch 61/100
+		training set loss: 1.8778644800186157 -- epoch 62/100
+		training set loss: 1.8762832880020142 -- epoch 63/100
+		training set loss: 1.8747457265853882 -- epoch 64/100
+		training set loss: 1.8718980550765991 -- epoch 65/100
+		testing set loss: 1.8931350708007812 -- epoch 65/100 [|TEST DATA|]
+		training set loss: 1.8705817461013794 -- epoch 66/100
+		training set loss: 1.8701403141021729 -- epoch 67/100
+		training set loss: 1.8672633171081543 -- epoch 68/100
+		training set loss: 1.8664891719818115 -- epoch 69/100
+		training set loss: 1.8641659021377563 -- epoch 70/100
+		testing set loss: 1.8851499557495117 -- epoch 70/100 [|TEST DATA|]
+		training set loss: 1.8611522912979126 -- epoch 71/100
+		training set loss: 1.8617664575576782 -- epoch 72/100
+		training set loss: 1.8610061407089233 -- epoch 73/100
+		training set loss: 1.8598575592041016 -- epoch 74/100
+		training set loss: 1.8581088781356812 -- epoch 75/100
+		testing set loss: 1.8740812540054321 -- epoch 75/100 [|TEST DATA|]
+		training set loss: 1.8567196130752563 -- epoch 76/100
+		training set loss: 1.8560534715652466 -- epoch 77/100
+		training set loss: 1.85342276096344 -- epoch 78/100
+		training set loss: 1.8525328636169434 -- epoch 79/100
+		training set loss: 1.8500944375991821 -- epoch 80/100
+		testing set loss: 1.8714498281478882 -- epoch 80/100 [|TEST DATA|]
+		training set loss: 1.8468358516693115 -- epoch 81/100
+		training set loss: 1.845099925994873 -- epoch 82/100
+		training set loss: 1.845393419265747 -- epoch 83/100
+		training set loss: 1.8457794189453125 -- epoch 84/100
+		training set loss: 1.8437912464141846 -- epoch 85/100
+		testing set loss: 1.8610854148864746 -- epoch 85/100 [|TEST DATA|]
+		training set loss: 1.844026803970337 -- epoch 86/100
+		training set loss: 1.8413052558898926 -- epoch 87/100
+		training set loss: 1.8413496017456055 -- epoch 88/100
+		training set loss: 1.8401274681091309 -- epoch 89/100
+		training set loss: 1.840063452720642 -- epoch 90/100
+		testing set loss: 1.8564053773880005 -- epoch 90/100 [|TEST DATA|]
+		training set loss: 1.8395519256591797 -- epoch 91/100
+		training set loss: 1.8375011682510376 -- epoch 92/100
+		training set loss: 1.83749258518219 -- epoch 93/100
+		training set loss: 1.8357185125350952 -- epoch 94/100
+		training set loss: 1.8353298902511597 -- epoch 95/100
+		testing set loss: 1.8476060628890991 -- epoch 95/100 [|TEST DATA|]
+		training set loss: 1.8331865072250366 -- epoch 96/100
+		training set loss: 1.8322407007217407 -- epoch 97/100
+		training set loss: 1.8310272693634033 -- epoch 98/100
+		training set loss: 1.8312638998031616 -- epoch 99/100
+		training set loss: 1.8288111686706543 -- epoch 100/100
+		testing set loss: 1.8437261581420898 -- epoch 100/100 [|TEST DATA|]
+
+	
+	
+
+
+		
+		
