@@ -3,8 +3,6 @@ import NeuralNetUtils as nnu
 import MidiUtils as mu
 import random
 
-# N is batch size; D_in is input dimension;
-# H is hidden dimension; D_out is output dimension.
 batchSize, dimIn, dimHidden, dimOut, hiddenLayers = 1, 12, 128, 12, 2
 
 trainSize, testSize = 1, 1
@@ -14,11 +12,11 @@ learningRate, weightDecay = 0.01, 0.001
 numEpochs=1
 testEvery=1
 
-cuda=torch.device("cuda:0")
-print(device)
+cuda=torch.device("cuda:0") ######### GPU
+print(device)				######### GPU
 
 model=nnu.LSTM_LogSoftMax_RNN(dimIn,dimHidden,dimOut,hiddenLayers)
-model=model.to(cuda)
+model=model.to(cuda)		######### GPU
 lossFunction=torch.nn.NLLLoss()
 optimizer=torch.optim.Adamax(model.parameters(), weight_decay=weightDecay)
 
@@ -57,8 +55,8 @@ while epoch <= numEpochs:
 		if len(noteBuffer) > 1:
 			netInputSeq=torch.tensor(nnu.oneHot(noteBuffer[:-1],12))
 			netTargetSeq=torch.tensor([interval % 12 for interval in noteBuffer[1:]])
-			netInputSeq=netInputSeq.to(cuda)
-			netTargetSeq=netTargetSeq.to(cuda)
+			netInputSeq=netInputSeq.to(cuda)	######### GPU
+			netTargetSeq=netTargetSeq.to(cuda)	######### GPU
 			if testingIteration:
 				with torch.no_grad():
 					predictedInterval=model(netInputSeq)
