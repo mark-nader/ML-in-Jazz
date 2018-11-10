@@ -220,7 +220,7 @@ USING RNN/LSTM
 	batchSize, dimIn, dimHidden, dimOut, hiddenLayers = 1, 12, 128, 12, 2
 	trainSize, testSize = 800, 200
 	learningRate, weightDecay = 0.01, 0.001
-	numEpochs=50
+	numEpochs=100
 	testEvery=10
 	Adamax
 		training set loss: 2.170910120010376 -- epoch 1/100
@@ -343,6 +343,214 @@ USING RNN/LSTM
 		training set loss: 1.8312638998031616 -- epoch 99/100
 		training set loss: 1.8288111686706543 -- epoch 100/100
 		testing set loss: 1.8437261581420898 -- epoch 100/100 [|TEST DATA|]
+		
+	batchSize, dimIn, dimHidden, dimOut, hiddenLayers = 1, 12, 128, 12, 2
+	trainSize, testSize = 800, 200
+	learningRate, weightDecay = 0.01, 0.001
+	numEpochs=1000
+	testEvery=10
+	Adamax	
+		training set loss: 2.0334510803222656 -- epoch 10/1000
+		testing set loss: 2.057041883468628 -- epoch 10/1000 [|TEST DATA|]
+		training set loss: 1.9156447649002075 -- epoch 20/1000
+		testing set loss: 1.9977762699127197 -- epoch 20/1000 [|TEST DATA|]
+		training set loss: 1.8478145599365234 -- epoch 30/1000
+		testing set loss: 1.953131079673767 -- epoch 30/1000 [|TEST DATA|]
+		training set loss: 1.8077646493911743 -- epoch 40/1000
+		testing set loss: 1.9292511940002441 -- epoch 40/1000 [|TEST DATA|]
+		training set loss: 1.781253695487976 -- epoch 50/1000
+		testing set loss: 1.9143973588943481 -- epoch 50/1000 [|TEST DATA|]
+		training set loss: 1.7578071355819702 -- epoch 60/1000
+		testing set loss: 1.904611349105835 -- epoch 60/1000 [|TEST DATA|]
+		training set loss: 1.7343542575836182 -- epoch 70/1000
+		testing set loss: 1.8932178020477295 -- epoch 70/1000 [|TEST DATA|]
+		training set loss: 1.7211569547653198 -- epoch 80/1000
+		testing set loss: 1.8861576318740845 -- epoch 80/1000 [|TEST DATA|]
+		training set loss: 1.7000981569290161 -- epoch 90/1000
+		testing set loss: 1.8769643306732178 -- epoch 90/1000 [|TEST DATA|]
+		training set loss: 1.6977128982543945 -- epoch 100/1000
+		testing set loss: 1.8738603591918945 -- epoch 100/1000 [|TEST DATA|]
+		training set loss: 1.688948154449463 -- epoch 110/1000
+		testing set loss: 1.8726270198822021 -- epoch 110/1000 [|TEST DATA|]
+		training set loss: 1.6784311532974243 -- epoch 120/1000
+		testing set loss: 1.8704426288604736 -- epoch 120/1000 [|TEST DATA|]
+		training set loss: 1.6723366975784302 -- epoch 130/1000
+		testing set loss: 1.8654757738113403 -- epoch 130/1000 [|TEST DATA|]
+		training set loss: 1.665102243423462 -- epoch 140/1000
+		testing set loss: 1.862173318862915 -- epoch 140/1000 [|TEST DATA|]
+		training set loss: 1.6615797281265259 -- epoch 150/1000
+		testing set loss: 1.8589084148406982 -- epoch 150/1000 [|TEST DATA|]
+		training set loss: 1.656358003616333 -- epoch 160/1000
+		testing set loss: 1.859833002090454 -- epoch 160/1000 [|TEST DATA|]
+		training set loss: 1.6517292261123657 -- epoch 170/1000
+		testing set loss: 1.8574347496032715 -- epoch 170/1000 [|TEST DATA|]
+		training set loss: 1.646571397781372 -- epoch 180/1000
+		testing set loss: 1.8593672513961792 -- epoch 180/1000 [|TEST DATA|]
+		training set loss: 1.6390661001205444 -- epoch 190/1000
+		testing set loss: 1.856015920639038 -- epoch 190/1000 [|TEST DATA|]
+		training set loss: 1.6391292810440063 -- epoch 200/1000
+		testing set loss: 1.855830430984497 -- epoch 200/1000 [|TEST DATA|]
+		training set loss: 1.6306309700012207 -- epoch 210/1000
+		testing set loss: 1.8504292964935303 -- epoch 210/1000 [|TEST DATA|]
+		training set loss: 1.6339282989501953 -- epoch 220/1000
+		testing set loss: 1.8505016565322876 -- epoch 220/1000 [|TEST DATA|]
+		training set loss: 1.6307201385498047 -- epoch 230/1000
+		testing set loss: 1.8547519445419312 -- epoch 230/1000 [|TEST DATA|]
+		training set loss: 1.6281163692474365 -- epoch 240/1000
+		testing set loss: 1.8527199029922485 -- epoch 240/1000 [|TEST DATA|]
+		training set loss: 1.6283410787582397 -- epoch 250/1000
+		testing set loss: 1.8505406379699707 -- epoch 250/1000 [|TEST DATA|]
+		training set loss: 1.6248035430908203 -- epoch 260/1000
+		testing set loss: 1.8493765592575073 -- epoch 260/1000 [|TEST DATA|]
+		training set loss: 1.6258039474487305 -- epoch 270/1000
+		testing set loss: 1.8491874933242798 -- epoch 270/1000 [|TEST DATA|]
+		training set loss: 1.6185979843139648 -- epoch 280/1000
+		testing set loss: 1.8578438758850098 -- epoch 280/1000 [|TEST DATA|]
+		training set loss: 1.6198186874389648 -- epoch 290/1000
+		testing set loss: 1.8543035984039307 -- epoch 290/1000 [|TEST DATA|]
+		training set loss: 1.6197785139083862 -- epoch 300/1000
+		testing set loss: 1.8556090593338013 -- epoch 300/1000 [|TEST DATA|]
+		training set loss: 1.6164458990097046 -- epoch 310/1000
+		testing set loss: 1.8548129796981812 -- epoch 310/1000 [|TEST DATA|]
+		training set loss: 1.6150023937225342 -- epoch 320/1000
+		testing set loss: 1.8486700057983398 -- epoch 320/1000 [|TEST DATA|]
+		training set loss: 1.6128337383270264 -- epoch 330/1000
+		testing set loss: 1.854000210762024 -- epoch 330/1000 [|TEST DATA|]
+		training set loss: 1.6069326400756836 -- epoch 340/1000
+		testing set loss: 1.8572666645050049 -- epoch 340/1000 [|TEST DATA|]
+		training set loss: 1.611854910850525 -- epoch 350/1000
+		testing set loss: 1.859883189201355 -- epoch 350/1000 [|TEST DATA|]
+		training set loss: 1.6103897094726562 -- epoch 360/1000
+		testing set loss: 1.8521287441253662 -- epoch 360/1000 [|TEST DATA|]
+		training set loss: 1.610964298248291 -- epoch 370/1000
+		testing set loss: 1.8582600355148315 -- epoch 370/1000 [|TEST DATA|]
+		training set loss: 1.6079177856445312 -- epoch 380/1000
+		testing set loss: 1.8513352870941162 -- epoch 380/1000 [|TEST DATA|]
+		training set loss: 1.607796311378479 -- epoch 390/1000
+		testing set loss: 1.8515595197677612 -- epoch 390/1000 [|TEST DATA|]
+		training set loss: 1.6057066917419434 -- epoch 400/1000
+		testing set loss: 1.850815773010254 -- epoch 400/1000 [|TEST DATA|]
+		training set loss: 1.6051329374313354 -- epoch 410/1000
+		testing set loss: 1.8560508489608765 -- epoch 410/1000 [|TEST DATA|]
+		training set loss: 1.6036514043807983 -- epoch 420/1000
+		testing set loss: 1.8556796312332153 -- epoch 420/1000 [|TEST DATA|]
+		training set loss: 1.6020491123199463 -- epoch 430/1000
+		testing set loss: 1.8560024499893188 -- epoch 430/1000 [|TEST DATA|]
+		training set loss: 1.6049072742462158 -- epoch 440/1000
+		testing set loss: 1.8475550413131714 -- epoch 440/1000 [|TEST DATA|]
+		training set loss: 1.6053880453109741 -- epoch 450/1000
+		testing set loss: 1.861566424369812 -- epoch 450/1000 [|TEST DATA|]
+		training set loss: 1.6037461757659912 -- epoch 460/1000
+		testing set loss: 1.8487273454666138 -- epoch 460/1000 [|TEST DATA|]
+		training set loss: 1.600318193435669 -- epoch 470/1000
+		testing set loss: 1.8514654636383057 -- epoch 470/1000 [|TEST DATA|]
+		training set loss: 1.5919185876846313 -- epoch 480/1000
+		testing set loss: 1.8453741073608398 -- epoch 480/1000 [|TEST DATA|]
+		training set loss: 1.5988227128982544 -- epoch 490/1000
+		testing set loss: 1.8496274948120117 -- epoch 490/1000 [|TEST DATA|]
+		training set loss: 1.5970895290374756 -- epoch 500/1000
+		testing set loss: 1.8491421937942505 -- epoch 500/1000 [|TEST DATA|]
+		training set loss: 1.5983092784881592 -- epoch 510/1000
+		testing set loss: 1.849287748336792 -- epoch 510/1000 [|TEST DATA|]
+		training set loss: 1.5937970876693726 -- epoch 520/1000
+		testing set loss: 1.8485924005508423 -- epoch 520/1000 [|TEST DATA|]
+		training set loss: 1.5941590070724487 -- epoch 530/1000
+		testing set loss: 1.8486263751983643 -- epoch 530/1000 [|TEST DATA|]
+		training set loss: 1.5946396589279175 -- epoch 540/1000
+		testing set loss: 1.8449013233184814 -- epoch 540/1000 [|TEST DATA|]
+		training set loss: 1.595263123512268 -- epoch 550/1000
+		testing set loss: 1.8514037132263184 -- epoch 550/1000 [|TEST DATA|]
+		training set loss: 1.5935659408569336 -- epoch 560/1000
+		testing set loss: 1.8472026586532593 -- epoch 560/1000 [|TEST DATA|]
+		training set loss: 1.591005563735962 -- epoch 570/1000
+		testing set loss: 1.8439828157424927 -- epoch 570/1000 [|TEST DATA|]
+		training set loss: 1.5933856964111328 -- epoch 580/1000
+		testing set loss: 1.8461555242538452 -- epoch 580/1000 [|TEST DATA|]
+		training set loss: 1.5919091701507568 -- epoch 590/1000
+		testing set loss: 1.8516560792922974 -- epoch 590/1000 [|TEST DATA|]
+		training set loss: 1.5906734466552734 -- epoch 600/1000
+		testing set loss: 1.8491610288619995 -- epoch 600/1000 [|TEST DATA|]
+		training set loss: 1.595398187637329 -- epoch 610/1000
+		testing set loss: 1.8470004796981812 -- epoch 610/1000 [|TEST DATA|]
+		training set loss: 1.5929042100906372 -- epoch 620/1000
+		testing set loss: 1.845974087715149 -- epoch 620/1000 [|TEST DATA|]
+		training set loss: 1.585881233215332 -- epoch 630/1000
+		testing set loss: 1.8464499711990356 -- epoch 630/1000 [|TEST DATA|]
+		training set loss: 1.5937590599060059 -- epoch 640/1000
+		testing set loss: 1.847567081451416 -- epoch 640/1000 [|TEST DATA|]
+		training set loss: 1.5933685302734375 -- epoch 650/1000
+		testing set loss: 1.8546526432037354 -- epoch 650/1000 [|TEST DATA|]
+		training set loss: 1.5941133499145508 -- epoch 660/1000
+		testing set loss: 1.8546228408813477 -- epoch 660/1000 [|TEST DATA|]
+		training set loss: 1.5915412902832031 -- epoch 670/1000
+		testing set loss: 1.8501520156860352 -- epoch 670/1000 [|TEST DATA|]
+		training set loss: 1.5918587446212769 -- epoch 680/1000
+		testing set loss: 1.8477317094802856 -- epoch 680/1000 [|TEST DATA|]
+		training set loss: 1.5876808166503906 -- epoch 690/1000
+		testing set loss: 1.8527027368545532 -- epoch 690/1000 [|TEST DATA|]
+		training set loss: 1.5810573101043701 -- epoch 700/1000
+		testing set loss: 1.8467880487442017 -- epoch 700/1000 [|TEST DATA|]
+		training set loss: 1.5868977308273315 -- epoch 710/1000
+		testing set loss: 1.8502180576324463 -- epoch 710/1000 [|TEST DATA|]
+		training set loss: 1.586108684539795 -- epoch 720/1000
+		testing set loss: 1.8452293872833252 -- epoch 720/1000 [|TEST DATA|]
+		training set loss: 1.5848935842514038 -- epoch 730/1000
+		testing set loss: 1.852478265762329 -- epoch 730/1000 [|TEST DATA|]
+		training set loss: 1.5878952741622925 -- epoch 740/1000
+		testing set loss: 1.8466225862503052 -- epoch 740/1000 [|TEST DATA|]
+		training set loss: 1.590090274810791 -- epoch 750/1000
+		testing set loss: 1.8533130884170532 -- epoch 750/1000 [|TEST DATA|]
+		training set loss: 1.5879707336425781 -- epoch 760/1000
+		testing set loss: 1.8540455102920532 -- epoch 760/1000 [|TEST DATA|]
+		training set loss: 1.5864182710647583 -- epoch 770/1000
+		testing set loss: 1.8468632698059082 -- epoch 770/1000 [|TEST DATA|]
+		training set loss: 1.5809601545333862 -- epoch 780/1000
+		testing set loss: 1.8486096858978271 -- epoch 780/1000 [|TEST DATA|]
+		training set loss: 1.6026978492736816 -- epoch 790/1000
+		testing set loss: 1.8502713441848755 -- epoch 790/1000 [|TEST DATA|]
+		training set loss: 1.5850911140441895 -- epoch 800/1000
+		testing set loss: 1.8544856309890747 -- epoch 800/1000 [|TEST DATA|]
+		training set loss: 1.5875381231307983 -- epoch 810/1000
+		testing set loss: 1.8558636903762817 -- epoch 810/1000 [|TEST DATA|]
+		training set loss: 1.5906833410263062 -- epoch 820/1000
+		testing set loss: 1.8565467596054077 -- epoch 820/1000 [|TEST DATA|]
+		training set loss: 1.5891634225845337 -- epoch 830/1000
+		testing set loss: 1.8587208986282349 -- epoch 830/1000 [|TEST DATA|]
+		training set loss: 1.5783778429031372 -- epoch 840/1000
+		testing set loss: 1.850871205329895 -- epoch 840/1000 [|TEST DATA|]
+		training set loss: 1.58008873462677 -- epoch 850/1000
+		testing set loss: 1.848441243171692 -- epoch 850/1000 [|TEST DATA|]
+		training set loss: 1.5824841260910034 -- epoch 860/1000
+		testing set loss: 1.855180263519287 -- epoch 860/1000 [|TEST DATA|]
+		training set loss: 1.589300513267517 -- epoch 870/1000
+		testing set loss: 1.8499062061309814 -- epoch 870/1000 [|TEST DATA|]
+		training set loss: 1.5799115896224976 -- epoch 880/1000
+		testing set loss: 1.85084867477417 -- epoch 880/1000 [|TEST DATA|]
+		training set loss: 1.6484980583190918 -- epoch 890/1000
+		testing set loss: 1.894814372062683 -- epoch 890/1000 [|TEST DATA|]
+		training set loss: 1.5868942737579346 -- epoch 900/1000
+		testing set loss: 1.8590950965881348 -- epoch 900/1000 [|TEST DATA|]
+		training set loss: 1.5846415758132935 -- epoch 910/1000
+		testing set loss: 1.864229679107666 -- epoch 910/1000 [|TEST DATA|]
+		training set loss: 1.5823702812194824 -- epoch 920/1000
+		testing set loss: 1.849926471710205 -- epoch 920/1000 [|TEST DATA|]
+		training set loss: 1.5770944356918335 -- epoch 930/1000
+		testing set loss: 1.8613442182540894 -- epoch 930/1000 [|TEST DATA|]
+		training set loss: 1.580749750137329 -- epoch 940/1000
+		testing set loss: 1.8608214855194092 -- epoch 940/1000 [|TEST DATA|]
+		training set loss: 1.5797778367996216 -- epoch 950/1000
+		testing set loss: 1.850558876991272 -- epoch 950/1000 [|TEST DATA|]
+		training set loss: 1.5791306495666504 -- epoch 960/1000
+		testing set loss: 1.8488967418670654 -- epoch 960/1000 [|TEST DATA|]
+		training set loss: 1.5803301334381104 -- epoch 970/1000
+		testing set loss: 1.849347710609436 -- epoch 970/1000 [|TEST DATA|]
+		training set loss: 1.5836971998214722 -- epoch 980/1000
+		testing set loss: 1.8563576936721802 -- epoch 980/1000 [|TEST DATA|]
+		training set loss: 1.5798964500427246 -- epoch 990/1000
+		testing set loss: 1.8482590913772583 -- epoch 990/1000 [|TEST DATA|]
+		training set loss: 1.5823261737823486 -- epoch 1000/1000
+		testing set loss: 1.867995023727417 -- epoch 1000/1000 [|TEST DATA|]
+
 
 	
 	
