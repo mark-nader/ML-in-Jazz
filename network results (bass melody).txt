@@ -551,8 +551,53 @@ USING RNN/LSTM
 		training set loss: 1.5823261737823486 -- epoch 1000/1000
 		testing set loss: 1.867995023727417 -- epoch 1000/1000 [|TEST DATA|]
 
+	batchSize, dimIn, dimHidden, dimOut, hiddenLayers = 1, 12, 128, 12, 4
+	trainSize, testSize = 800, 200
+	learningRate, weightDecay = 0.01, 0.001
+	numEpochs=1000
+	testEvery=50
+	SGD
+		training set loss: 2.2110204696655273 -- epoch 50/1000
+		testing set loss: 2.2108728885650635 -- epoch 50/1000 [|TEST DATA|]
+		training set loss: 2.2107207775115967 -- epoch 100/1000
+		testing set loss: 2.2106754779815674 -- epoch 100/1000 [|TEST DATA|]
+		training set loss: 2.210599184036255 -- epoch 150/1000
+		testing set loss: 2.21061635017395 -- epoch 150/1000 [|TEST DATA|]
+		training set loss: 2.210542678833008 -- epoch 200/1000
+		testing set loss: 2.210592269897461 -- epoch 200/1000 [|TEST DATA|]
+		training set loss: 2.2105135917663574 -- epoch 250/1000
+		testing set loss: 2.2105789184570312 -- epoch 250/1000 [|TEST DATA|]
+		training set loss: 2.2104954719543457 -- epoch 300/1000
+		testing set loss: 2.2105712890625 -- epoch 300/1000 [|TEST DATA|]
+		training set loss: 2.210484266281128 -- epoch 350/1000
+		testing set loss: 2.2105648517608643 -- epoch 350/1000 [|TEST DATA|]
+		training set loss: 2.210477590560913 -- epoch 400/1000
+		testing set loss: 2.2105600833892822 -- epoch 400/1000 [|TEST DATA|]
+		training set loss: 2.210472583770752 -- epoch 450/1000
+		testing set loss: 2.2105555534362793 -- epoch 450/1000 [|TEST DATA|]
+		training set loss: 2.210470676422119 -- epoch 500/1000
+		testing set loss: 2.2105531692504883 -- epoch 500/1000 [|TEST DATA|]
+		training set loss: 2.2104690074920654 -- epoch 550/1000
+		testing set loss: 2.2105507850646973 -- epoch 550/1000 [|TEST DATA|]
+		training set loss: 2.210468053817749 -- epoch 600/1000
+		testing set loss: 2.2105488777160645 -- epoch 600/1000 [|TEST DATA|]
+		training set loss: 2.2104673385620117 -- epoch 650/1000
+		testing set loss: 2.2105464935302734 -- epoch 650/1000 [|TEST DATA|]
+		training set loss: 2.21046781539917 -- epoch 700/1000
+		testing set loss: 2.210545778274536 -- epoch 700/1000 [|TEST DATA|]
+		training set loss: 2.210468053817749 -- epoch 750/1000
+		testing set loss: 2.2105448246002197 -- epoch 750/1000 [|TEST DATA|]
+		training set loss: 2.210468292236328 -- epoch 800/1000
+		testing set loss: 2.2105438709259033 -- epoch 800/1000 [|TEST DATA|]
+		training set loss: 2.210468292236328 -- epoch 850/1000
+		testing set loss: 2.2105438709259033 -- epoch 850/1000 [|TEST DATA|]
+		training set loss: 2.210468053817749 -- epoch 900/1000
+		testing set loss: 2.210543632507324 -- epoch 900/1000 [|TEST DATA|]
+		training set loss: 2.210468053817749 -- epoch 950/1000
+		testing set loss: 2.210543632507324 -- epoch 950/1000 [|TEST DATA|]
+		training set loss: 2.210468053817749 -- epoch 1000/1000
+		testing set loss: 2.2105441093444824 -- epoch 1000/1000 [|TEST DATA|]
 
-	
 	
 
 
