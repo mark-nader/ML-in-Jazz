@@ -5,13 +5,13 @@ import random
 
 dimIn, dimHidden, dimOut, hiddenLayers = 12, 64, 12, 6
 
-trainSize, testSize = 5, 2
+trainSize, testSize = 1, 1
 
 learningRate, weightDecay = 0.001, 0.001
 
 repeatWeight, fifthWeight = 0.5, 0.5
 
-sequenceLength = 12
+sequenceLength = 8
 
 numEpochs=10
 testEvery=2
@@ -23,7 +23,7 @@ print(cuda)				######### GPU
 
 model=nnu.LSTM_LogSoftMax_RNN(dimIn,dimHidden,dimOut,hiddenLayers,cuda)
 model=model.to(cuda)		######### GPU
-lossFunction=torch.nn.NLLLoss(weight=torch.tensor([repeatWeight,1,1,1,1,1,1,fifthWeight,1,1,1,1]))
+lossFunction=torch.nn.NLLLoss(weight=torch.tensor([repeatWeight,1,1,1,1,1,1,fifthWeight,1,1,1,1]).to(cuda))
 optimizer=torch.optim.SGD(model.parameters(), lr=learningRate, weight_decay=weightDecay)
 
 songList=mu.getSongList("projectMidiTraining")
@@ -39,8 +39,8 @@ for i,songName in enumerate(testList,1):
 	print("loading testing song: {} -- {}/{}".format(songName,i,testSize))
 	allTestSongBassLines.extend(mu.getInstrumentFromSong("projectMidiTraining/{}".format(songName),32,39))
 	
-epoch=1
-testingIteration=False
+epoch=0
+testingIteration=True
 printedTestLoss=False
 while epoch <= numEpochs:
 	basslineList=allTrainSongBassLines
@@ -48,6 +48,7 @@ while epoch <= numEpochs:
 		basslineList=allTestSongBassLines
 
 	printTopKAvg=0
+	printTop3Acc=0
 	j=0
 	basslineSectionsTrained=0
 	for i,bassline in enumerate(basslineList):
@@ -72,22 +73,26 @@ while epoch <= numEpochs:
 					predictedInterval=model(netInputSeq)
 					basslineTopKAvg=nnu.topKAverage(netTargetSeq.tolist(),predictedInterval)
 					printTopKAvg+=basslineTopKAvg
+					basslineTop3Acc=nnu.top3Accuracy(netTargetSeq.tolist(),predictedInterval)
+					printTop3Acc+=basslineTop3Acc
 					basslineSectionsTrained+=1
 			else:
 				predictedInterval=model(netInputSeq)
 				loss=lossFunction(predictedInterval,netTargetSeq)
 				basslineTopKAvg=nnu.topKAverage(netTargetSeq.tolist(),predictedInterval)
 				printTopKAvg+=basslineTopKAvg
+				basslineTop3Acc=nnu.top3Accuracy(netTargetSeq.tolist(),predictedInterval)
+				printTop3Acc+=basslineTop3Acc
 				basslineSectionsTrained+=1
 				loss.backward()
 				optimizer.step()
 					
 					
 	if testingIteration:
-		print("testing set loss: {} -- epoch {}/{} [|TEST DATA|]".format(printTopKAvg/basslineSectionsTrained,epoch,numEpochs))
+		print("testing average: {} | top 3 accuracy: {} -- epoch {}/{} [|TEST DATA|]".format(printTopKAvg/basslineSectionsTrained,printTop3Acc/basslineSectionsTrained,epoch,numEpochs))
 		printedTestLoss=True
 	elif epoch % testEvery == 0:
-		print("training set loss: {} -- epoch {}/{}".format(printTopKAvg/basslineSectionsTrained,epoch,numEpochs))
+		print("training average: {} | top 3 accuracy: {} -- epoch {}/{}".format(printTopKAvg/basslineSectionsTrained,printTop3Acc/basslineSectionsTrained,epoch,numEpochs))
 		
 
 	testingIteration=(epoch % testEvery == 0 and not printedTestLoss)
