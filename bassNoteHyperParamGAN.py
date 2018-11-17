@@ -6,21 +6,21 @@ import numpy as np
 import math
 
 sequenceLength = 6
-dimInG, dimHiddenG, hiddenLayersG = 5, 6*12, 3
-dimHiddenD, hiddenLayersD = 6*12*2, 4
+dimInG, dimHiddenG, numHiddenG = 5, 6*12, 4
+dimHiddenD, numHiddenD = 6*12*2, 4
 trainSize = 5
 learningRate, adamBetas, gumbelTemp = 0.0002, (0.5, 0.999), 0.1
-numEpochs=1000
-testEvery=10
+numEpochs=10
+testEvery=1
 
 optimisationAlg="Adam" #change this below also
 
 cuda=torch.device("cuda:0" if torch.cuda.is_available() else "cpu") ######### GPU
 print(cuda)				######### GPU
 
-modelD=nnu.NoteDiscriminator(sequenceLength,dimHiddenD,hiddenLayersD,cuda)
+modelD=nnu.NoteDiscriminator(sequenceLength,dimHiddenD,numHiddenD,cuda)
 modelD=modelD.to(cuda)
-modelG=nnu.NoteGenerator(dimInG,dimHiddenG,hiddenLayersG,sequenceLength,gumbelTemp,cuda)
+modelG=nnu.NoteGenerator(dimInG,dimHiddenG,numHiddenG,sequenceLength,gumbelTemp,cuda)
 modelG=modelG.to(cuda)
 
 criterion=torch.nn.BCELoss()
@@ -43,8 +43,8 @@ for i,bassline in enumerate(allTrainSongBassLines):
 	basslineTrainIntervalsOneHot.append(nnu.oneHot(singleOctaveBassNoteIntervals,12))
 	
 for epoch in range(numEpochs):
-	errD=0
-	errG=0
+	epochErrD=0
+	epochErrG=0
 	for i,bassline in enumerate(basslineTrainIntervalsOneHot):
 		basslineLen=len(bassline)
 		if basslineLen >= sequenceLength:
@@ -74,7 +74,7 @@ for epoch in range(numEpochs):
 			output=modelD([fI.detach() for fI in fakeInputD])
 			errFakeD=criterion(output,fakeLabels)
 			errFakeD.backward()
-			errD=(errRealD+errFakeD)/2
+			epochErrD+=(errRealD+errFakeD)/2
 			optimizerD.step()
 			
 			# train G
@@ -83,18 +83,18 @@ for epoch in range(numEpochs):
 			output=modelD(fakeInputD)
 			errG=criterion(output,realLabels)
 			errG.backward()
+			epochErrG+=errG
 			optimizerG.step()
 					
-					
 	if epoch % testEvery == 0:
-		print("Discriminator Accuracy: {} | Generator Accuracy: {} -- epoch {}/{}".format(math.exp(-errD),math.exp(-errG),epoch,numEpochs))
+		print("Discriminator Accuracy: {} | Generator Accuracy: {} -- epoch {}/{}".format(math.exp(-epochErrD/numBasslines),math.exp(-epochErrG/numBasslines),epoch+1,numEpochs))
 
 torch.save(modelG.state_dict(), "bassNotes.pt")
 
 print("################################################")
 print("Sequence length = {}".format(sequenceLength))
-print("Generator: Input dimension = {}, Hidden dimension ={} Hidden layers = {}".format(dimInG,dimHiddenG,hiddenLayersG))
-print("Discriminator: Hidden dimension ={} Hidden layers = {}".format(dimHiddenD,hiddenLayersD))
+print("Generator: Input dimension = {}, Hidden dimension = {}, Hidden Depth = {}".format(dimInG,dimHiddenG,numHiddenG))
+print("Discriminator: Hidden dimension = {}, Hidden Depth = {}".format(dimHiddenD,numHiddenD))
 print("Train set size = {}".format(trainSize))
 print("Learning Rate = {}, Adam Betas = {}, Gumbel Temperature = {}".format(learningRate,adamBetas,gumbelTemp))
 print("Epochs = {}".format(numEpochs))

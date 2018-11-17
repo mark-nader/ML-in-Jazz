@@ -1,6 +1,6 @@
 import torch
 
-# credit to the pytorch tutorial on LSTMs
+# credit to the pytorch tutorials on LSTMs and GANs
 
 	
 def oneHot(inputs,vectorSize):
@@ -63,51 +63,37 @@ class NoteDiscriminator(torch.nn.Module):
 	def __init__(self,numNotesIn,hiddenDim,numHiddenLayers,device):
 		super(NoteDiscriminator,self).__init__()
 		self.numNotesIn=numNotesIn
-		self.numHiddenLayers=numHiddenLayers
-		self.inLayer=torch.nn.Linear(numNotesIn*12,hiddenDim)
-		self.hiddenLayers=[]
+		layers=[torch.nn.Linear(numNotesIn*12,hiddenDim),torch.nn.ELU()]
 		for i in range(numHiddenLayers):
-			self.hiddenLayers.append(torch.nn.Linear(hiddenDim,hiddenDim))
-		self.outLayer=torch.nn.Linear(hiddenDim,1)
+			layers.extend([torch.nn.Linear(hiddenDim,hiddenDim),torch.nn.ELU()])
+		layers.extend([torch.nn.Linear(hiddenDim,1),torch.nn.Sigmoid()])
 		self.device=device
+		self.main=torch.nn.Sequential(*layers)
 
 	def forward(self,inNotes):
 		catInps=inNotes[0]
 		for i in range(1,self.numNotesIn):
 			catInps=torch.cat((catInps,inNotes[i]),dim=1)
 		netInp=catInps.float().to(self.device)
-		x=self.inLayer(netInp)
-		x=torch.nn.functional.elu(x)
-		for i in range(self.numHiddenLayers):
-			x=self.hiddenLayers[i](x)
-			x=torch.nn.functional.elu(x)
-		x=self.outLayer(x)
-		x=torch.sigmoid(x)
-		return x
+		return self.main(netInp)
 		
 class NoteGenerator(torch.nn.Module):
 	def __init__(self,noiseDim,hiddenDim,numHiddenLayers,numNotesOut,temp,device):
 		super(NoteGenerator,self).__init__()
 		self.numNotesOut=numNotesOut
-		self.numHiddenLayers=numHiddenLayers
-		self.inLayer=torch.nn.Linear(noiseDim,hiddenDim)
-		self.hiddenLayers=[]
+		layers=[torch.nn.Linear(noiseDim,hiddenDim),torch.nn.ELU()]
 		for i in range(numHiddenLayers):
-			self.hiddenLayers.append(torch.nn.Linear(hiddenDim,hiddenDim))
-		self.outLayer=torch.nn.Linear(hiddenDim,numNotesOut*12)
+			layers.extend([torch.nn.Linear(hiddenDim,hiddenDim),torch.nn.ELU()])
+		layers.append(torch.nn.Linear(hiddenDim,numNotesOut*12))
 		self.temp=temp
 		self.device=device
+		self.main=torch.nn.Sequential(*layers)
 		
 	def forward(self,noise):
 		batchSize=len(noise)
-		netInp=noise.view(batchSize,-1).float().to(self.device)
-		x=self.inLayer(netInp)
-		x=torch.nn.functional.elu(x)
-		for i in range(self.numHiddenLayers):
-			x=self.hiddenLayers[i](x)
-			x=torch.nn.functional.elu(x)
-		x=self.outLayer(x)
-		xs=torch.chunk(x,self.numNotesOut,dim=1)
+		netInp=noise.to(self.device)
+		main=self.main(netInp)
+		xs=torch.chunk(main,self.numNotesOut,dim=1)
 		xs=tuple([torch.nn.functional.log_softmax(x.view(batchSize,-1),dim=1) for x in xs])
 		xs=tuple([torch.nn.functional.gumbel_softmax(x.view(batchSize,-1), tau=self.temp, hard=True) for x in xs])
 		return xs
