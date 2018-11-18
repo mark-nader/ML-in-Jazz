@@ -5,12 +5,12 @@ import random
 import numpy as np
 import math
 
-sequenceLength = 6
-dimInG, dimHiddenG, numHiddenG = 5, 6*12, 4
+sequenceLength = 8
+dimInG, dimHiddenG, numHiddenG = 5, 6*12*2, 4
 dimHiddenD, numHiddenD = 6*12*2, 4
-trainSize = 5
+trainSize = 500
 learningRate, adamBetas, gumbelTemp = 0.0002, (0.5, 0.999), 0.1
-numEpochs=10
+numEpochs=1000
 testEvery=1
 
 optimisationAlg="Adam" #change this below also
@@ -42,7 +42,7 @@ for i,bassline in enumerate(allTrainSongBassLines):
 	singleOctaveBassNoteIntervals=np.array(mu.getBassNoteIntervalsFromBassline(bassline)) % 12
 	basslineTrainIntervalsOneHot.append(nnu.oneHot(singleOctaveBassNoteIntervals,12))
 	
-for epoch in range(numEpochs):
+for epoch in range(numEpochs+1):
 	epochErrD=0
 	epochErrG=0
 	for i,bassline in enumerate(basslineTrainIntervalsOneHot):
@@ -89,7 +89,7 @@ for epoch in range(numEpochs):
 	if epoch % testEvery == 0:
 		print("Discriminator Accuracy: {} | Generator Accuracy: {} -- epoch {}/{}".format(math.exp(-epochErrD/numBasslines),math.exp(-epochErrG/numBasslines),epoch+1,numEpochs))
 
-torch.save(modelG.state_dict(), "bassNotes.pt")
+torch.save(modelG.state_dict(), "bassNotesGAN.pt")
 
 print("################################################")
 print("Sequence length = {}".format(sequenceLength))

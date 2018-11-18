@@ -444,7 +444,247 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 		training set loss: 3.5082522791852764 -- epoch 8/10
 		testing set loss: 3.5247111661167736 -- epoch 8/10 [|TEST DATA|]
 		training set loss: 3.5083514703162026 -- epoch 10/10
-		testing set loss: 3.5247111661167736 -- epoch 10/10 [|TEST DATA|]	
-	
-
+		testing set loss: 3.5247111661167736 -- epoch 10/10 [|TEST DATA|]
 		
+	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
+	Train set size = 200, Test set size = 50
+	Learning Rate = 0.01, Weight decay = 0.005
+	Repeat note weight = 0.5, Fith note weight = 0.5
+	Sequence length = 8
+	Epochs = 100
+	Optimisation algorithm = SGD
+		testing set loss: 5.660342810342782 -- epoch 0/100 [|TEST DATA|]
+		training set loss: 3.237012661849995 -- epoch 20/100
+		testing set loss: 3.9072247572249177 -- epoch 20/100 [|TEST DATA|]
+		training set loss: 3.2368982044496075 -- epoch 40/100
+		testing set loss: 3.9072247572249177 -- epoch 40/100 [|TEST DATA|]
+		training set loss: 3.2368664107272784 -- epoch 60/100
+		testing set loss: 3.9072247572249177 -- epoch 60/100 [|TEST DATA|]
+		training set loss: 3.236863231355046 -- epoch 80/100
+		testing set loss: 3.9072247572249177 -- epoch 80/100 [|TEST DATA|]
+		training set loss: 3.236863231355046 -- epoch 100/100
+		testing set loss: 3.9072247572249177 -- epoch 100/100 [|TEST DATA|]
+
+	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 3
+	Train set size = 200, Test set size = 50
+	Learning Rate = 0.01, Weight decay = 0.005
+	Repeat note weight = 0.5, Fith note weight = 0.5
+	Sequence length = 8
+	Epochs = 100
+	Optimisation algorithm = SGD
+		testing set loss: 4.2457287369180765 -- epoch 0/100 [|TEST DATA|]
+		training set loss: 3.079000783666478 -- epoch 20/100
+		testing set loss: 4.276635666503779 -- epoch 20/100 [|TEST DATA|]
+		training set loss: 3.0789301706066645 -- epoch 40/100
+		testing set loss: 4.276635666503779 -- epoch 40/100 [|TEST DATA|]
+		training set loss: 3.0789329397462653 -- epoch 60/100
+		testing set loss: 4.276635666503779 -- epoch 60/100 [|TEST DATA|]
+		training set loss: 3.078931555176465 -- epoch 80/100
+		testing set loss: 4.276635666503779 -- epoch 80/100 [|TEST DATA|]
+		training set loss: 3.078931555176465 -- epoch 100/100
+		testing set loss: 4.276635666503779 -- epoch 100/100 [|TEST DATA|]
+
+	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 2
+	Train set size = 200, Test set size = 50
+	Learning Rate = 0.01, Weight decay = 0.005
+	Repeat note weight = 0.5, Fith note weight = 0.5
+	Sequence length = 8
+	Epochs = 100
+	Optimisation algorithm = SGD
+		testing set loss: 6.674607698302782 -- epoch 0/100 [|TEST DATA|]
+		training set loss: 3.371976051266716 -- epoch 20/100
+		testing set loss: 4.329306594390874 -- epoch 20/100 [|TEST DATA|]
+		training set loss: 3.3718398832044434 -- epoch 40/100
+		testing set loss: 4.329306594390874 -- epoch 40/100 [|TEST DATA|]
+		training set loss: 3.3717963655762944 -- epoch 60/100
+		testing set loss: 4.329306594390874 -- epoch 60/100 [|TEST DATA|]
+		training set loss: 3.371778116248362 -- epoch 80/100
+		testing set loss: 4.329306594390874 -- epoch 80/100 [|TEST DATA|]
+		training set loss: 3.3717781162483615 -- epoch 100/100
+		testing set loss: 4.329306594390874 -- epoch 100/100 [|TEST DATA|]
+
+
+	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
+	Train set size = 200, Test set size = 50
+	Learning Rate = 0.01, Weight decay = 0.005
+	Repeat note weight = 0.65, Fith note weight = 0.5
+	Sequence length = 8
+	Epochs = 100
+	Optimisation algorithm = SGD
+		testing set loss: 4.911702641547827 -- epoch 0/100 [|TEST DATA|]
+		training set loss: 3.3381523096905914 -- epoch 20/100
+		testing set loss: 4.283080365087897 -- epoch 20/100 [|TEST DATA|]
+		training set loss: 3.338073072357686 -- epoch 40/100
+		testing set loss: 4.283080365087897 -- epoch 40/100 [|TEST DATA|]
+		training set loss: 3.338051320932971 -- epoch 60/100
+		testing set loss: 4.283080365087897 -- epoch 60/100 [|TEST DATA|]
+		training set loss: 3.3380311231814472 -- epoch 80/100
+		testing set loss: 4.283080365087897 -- epoch 80/100 [|TEST DATA|]
+		training set loss: 3.3380249084886695 -- epoch 100/100
+		testing set loss: 4.283080365087897 -- epoch 100/100 [|TEST DATA|]
+
+	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
+	Train set size = 200, Test set size = 50
+	Learning Rate = 0.01, Weight decay = 0.005
+	Repeat note weight = 0.6, Fith note weight = 0.5
+	Sequence length = 8
+	Epochs = 100
+	Optimisation algorithm = SGD
+		testing set loss: 6.979633549894129 -- epoch 0/100 [|TEST DATA|]
+		training set loss: 3.3777710799384892 -- epoch 20/100
+		testing set loss: 3.304215967987081 -- epoch 20/100 [|TEST DATA|]
+		training set loss: 3.377645236515671 -- epoch 40/100
+		testing set loss: 3.304215967987081 -- epoch 40/100 [|TEST DATA|]
+		training set loss: 3.3776219321781125 -- epoch 60/100
+		testing set loss: 3.304215967987081 -- epoch 60/100 [|TEST DATA|]
+		training set loss: 3.3775955205955484 -- epoch 80/100
+		testing set loss: 3.304215967987081 -- epoch 80/100 [|TEST DATA|]
+		training set loss: 3.377581537993013 -- epoch 100/100
+		testing set loss: 3.304215967987081 -- epoch 100/100 [|TEST DATA|]
+
+	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 2
+	Train set size = 200, Test set size = 50
+	Learning Rate = 0.01, Weight decay = 0.005
+	Repeat note weight = 0.4, Fith note weight = 0.5
+	Sequence length = 8
+	Epochs = 100
+	Optimisation algorithm = SGD
+		testing set loss: 4.926531350067252 -- epoch 0/100 [|TEST DATA|]
+		training set loss: 3.1793228041666732 -- epoch 20/100
+		testing set loss: 4.331874289846051 -- epoch 20/100 [|TEST DATA|]
+		training set loss: 3.1792270244204563 -- epoch 40/100
+		testing set loss: 4.331874289846051 -- epoch 40/100 [|TEST DATA|]
+		training set loss: 3.1791989510465646 -- epoch 60/100
+		testing set loss: 4.331874289846051 -- epoch 60/100 [|TEST DATA|]
+		training set loss: 3.17919729967163 -- epoch 80/100
+		testing set loss: 4.331874289846051 -- epoch 80/100 [|TEST DATA|]
+		training set loss: 3.17919729967163 -- epoch 100/100
+		testing set loss: 4.331874289846051 -- epoch 100/100 [|TEST DATA|]
+
+	FROM THIS POINT ON ALL TESTS HAVE A CORRESPONDING NETWORK SAVED WHICH CAN BE HEARD	
+		
+	ID for trained network: 5251
+	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
+	Train set size = 200, Test set size = 50
+	Learning Rate = 0.01, Weight decay = 0.005
+	Repeat note weight = 0.6, Fith note weight = 0.4
+	Sequence length = 8
+	Epochs = 100
+	Optimisation algorithm = SGD
+		testing set loss: 6.042879986534344 -- epoch 0/100 [|TEST DATA|]
+		training set loss: 3.272604976527615 -- epoch 20/100
+		testing set loss: 3.6513453723518863 -- epoch 20/100 [|TEST DATA|]
+		training set loss: 3.272380766828145 -- epoch 40/100
+		testing set loss: 3.6513453723518863 -- epoch 40/100 [|TEST DATA|]
+		training set loss: 3.2722802590318327 -- epoch 60/100
+		testing set loss: 3.6513453723518863 -- epoch 60/100 [|TEST DATA|]
+		training set loss: 3.2722617037463584 -- epoch 80/100
+		testing set loss: 3.6513453723518863 -- epoch 80/100 [|TEST DATA|]
+		training set loss: 3.272252426103623 -- epoch 100/100
+		testing set loss: 3.6513453723518863 -- epoch 100/100 [|TEST DATA|]
+
+	ID for trained network: 5252
+	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
+	Train set size = 200, Test set size = 50
+	Learning Rate = 0.01, Weight decay = 0.005
+	Repeat note weight = 0.6, Fith note weight = 0.6
+	Sequence length = 8
+	Epochs = 100
+	Optimisation algorithm = SGD
+		testing set loss: 6.433046666487015 -- epoch 0/100 [|TEST DATA|]
+		training set loss: 3.0960099849370617 -- epoch 20/100
+		testing set loss: 3.405548216644677 -- epoch 20/100 [|TEST DATA|]
+		training set loss: 3.095891192062733 -- epoch 40/100
+		testing set loss: 3.405548216644677 -- epoch 40/100 [|TEST DATA|]
+		training set loss: 3.0958864403477584 -- epoch 60/100
+		testing set loss: 3.405548216644677 -- epoch 60/100 [|TEST DATA|]
+		training set loss: 3.09587693691781 -- epoch 80/100
+		testing set loss: 3.405548216644677 -- epoch 80/100 [|TEST DATA|]
+		training set loss: 3.0958785208228017 -- epoch 100/100
+		testing set loss: 3.405548216644677 -- epoch 100/100 [|TEST DATA|]
+
+	ID for trained network: 5253		
+	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
+	Train set size = 200, Test set size = 50
+	Learning Rate = 0.01, Weight decay = 0.005
+	Repeat note weight = 0.6, Fith note weight = 0.7
+	Sequence length = 8
+	Epochs = 100
+	Optimisation algorithm = SGD
+		testing set loss: 5.728212111502678 -- epoch 0/100 [|TEST DATA|]
+		training set loss: 2.9809956256666985 -- epoch 20/100
+		testing set loss: 3.7709582551380167 -- epoch 20/100 [|TEST DATA|]
+		training set loss: 2.980991431675011 -- epoch 40/100
+		testing set loss: 3.7709582551380167 -- epoch 40/100 [|TEST DATA|]
+		training set loss: 2.980991431675011 -- epoch 60/100
+		testing set loss: 3.7709582551380167 -- epoch 60/100 [|TEST DATA|]
+		training set loss: 2.980991431675011 -- epoch 80/100
+		testing set loss: 3.7709582551380167 -- epoch 80/100 [|TEST DATA|]
+		training set loss: 2.980991431675011 -- epoch 100/100
+		testing set loss: 3.7709582551380167 -- epoch 100/100 [|TEST DATA|]
+	
+	
+		
+GAN model results:
+
+	ID for trained network: 5304	
+	Sequence length = 8
+	Generator: Input dimension = 5, Hidden dimension = 144, Hidden Depth = 4
+	Discriminator: Hidden dimension = 144, Hidden Depth = 4
+	Train set size = 500
+	Learning Rate = 0.0002, Adam Betas = (0.5, 0.999), Gumbel Temperature = 0.1
+	Epochs = 1000
+	Optimisation algorithm = Adam
+		Discriminator Accuracy: 0.5106757778691223 | Generator Accuracy: 0.5009344587254466 -- epoch 1/1000
+		Discriminator Accuracy: 0.5293885376903641 | Generator Accuracy: 0.4500267986706302 -- epoch 101/1000
+		Discriminator Accuracy: 0.6065413969648934 | Generator Accuracy: 0.2906195359082353 -- epoch 201/1000
+		Discriminator Accuracy: 0.638247951534367 | Generator Accuracy: 0.2246180837676697 -- epoch 301/1000
+		Discriminator Accuracy: 0.6609050784231695 | Generator Accuracy: 0.1774238397795253 -- epoch 401/1000
+		Discriminator Accuracy: 0.6940246185776183 | Generator Accuracy: 0.12392863394345713 -- epoch 501/1000
+		Discriminator Accuracy: 0.6982024783024467 | Generator Accuracy: 0.11969171607238843 -- epoch 601/1000
+		Discriminator Accuracy: 0.7375956563601143 | Generator Accuracy: 0.0831600225802893 -- epoch 701/1000
+		Discriminator Accuracy: 0.7345946974273816 | Generator Accuracy: 0.07895556159761109 -- epoch 801/1000
+		Discriminator Accuracy: 0.755691104565122 | Generator Accuracy: 0.06527374991535984 -- epoch 901/1000
+		Discriminator Accuracy: 0.7565217427408956 | Generator Accuracy: 0.06504676218666999 -- epoch 951/1000
+
+	ID for trained network: 5305		
+	Sequence length = 7
+	Generator: Input dimension = 5, Hidden dimension = 144, Hidden Depth = 4
+	Discriminator: Hidden dimension = 144, Hidden Depth = 4
+	Train set size = 500
+	Learning Rate = 0.0002, Adam Betas = (0.5, 0.999), Gumbel Temperature = 0.1
+	Epochs = 1000
+	Optimisation algorithm = Adam
+		Discriminator Accuracy: 0.5081900481856753 | Generator Accuracy: 0.5026973253792046 -- epoch 1/1000
+		Discriminator Accuracy: 0.5176347132797976 | Generator Accuracy: 0.47716737779226415 -- epoch 101/1000
+		Discriminator Accuracy: 0.5928967560230111 | Generator Accuracy: 0.3086738705551009 -- epoch 201/1000
+		Discriminator Accuracy: 0.6246916186641215 | Generator Accuracy: 0.23952955669640597 -- epoch 301/1000
+		Discriminator Accuracy: 0.6481505660526906 | Generator Accuracy: 0.19449985598639424 -- epoch 401/1000
+		Discriminator Accuracy: 0.6703563014464717 | Generator Accuracy: 0.1614824366874649 -- epoch 501/1000
+		Discriminator Accuracy: 0.6823201729792822 | Generator Accuracy: 0.14161375653224967 -- epoch 601/1000
+		Discriminator Accuracy: 0.6984026388643203 | Generator Accuracy: 0.11876856423166161 -- epoch 701/1000
+		Discriminator Accuracy: 0.7260158762094016 | Generator Accuracy: 0.0945759611314518 -- epoch 801/1000
+		Discriminator Accuracy: 0.7364893821585139 | Generator Accuracy: 0.08990458324683677 -- epoch 901/1000
+		Discriminator Accuracy: 0.7254532737246199 | Generator Accuracy: 0.09531900222548326 -- epoch 951/1000
+
+	ID for trained network: 5306
+	Sequence length = 9
+	Generator: Input dimension = 5, Hidden dimension = 144, Hidden Depth = 4
+	Discriminator: Hidden dimension = 144, Hidden Depth = 4
+	Train set size = 50
+	Learning Rate = 0.0002, Adam Betas = (0.5, 0.999), Gumbel Temperature = 0.1
+	Epochs = 1000
+	Optimisation algorithm = Adam
+		Discriminator Accuracy: 0.5122471506426398 | Generator Accuracy: 0.4803520459511395 -- epoch 1/1000
+		Discriminator Accuracy: 0.5059846716807646 | Generator Accuracy: 0.5055079011204207 -- epoch 101/1000
+		Discriminator Accuracy: 0.5062106736408373 | Generator Accuracy: 0.5072469213863039 -- epoch 201/1000
+		Discriminator Accuracy: 0.5121537608221985 | Generator Accuracy: 0.4846706928031864 -- epoch 301/1000
+		Discriminator Accuracy: 0.5130742356591154 | Generator Accuracy: 0.4734812367169067 -- epoch 401/1000
+		Discriminator Accuracy: 0.5241195704472529 | Generator Accuracy: 0.4533124046846728 -- epoch 501/1000
+		Discriminator Accuracy: 0.5458885304284828 | Generator Accuracy: 0.41160200164888905 -- epoch 601/1000
+		Discriminator Accuracy: 0.5712650039759782 | Generator Accuracy: 0.34718270012719 -- epoch 701/1000
+		Discriminator Accuracy: 0.5955222973975679 | Generator Accuracy: 0.2996906290643213 -- epoch 801/1000
+		Discriminator Accuracy: 0.6360304325998937 | Generator Accuracy: 0.22855958259018133 -- epoch 901/1000
+		Discriminator Accuracy: 0.6459586251657671 | Generator Accuracy: 0.2090986445541518 -- epoch 951/1000
+	
+	

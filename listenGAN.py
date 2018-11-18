@@ -8,13 +8,13 @@ import time
 	
 cuda=torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 melodyModel=nnu.NoteGenerator(5,12*6,4,6,0.1,cuda)
-melodyModel.load_state_dict(torch.load("bassNotes.pt"))
+melodyModel.load_state_dict(torch.load("bassNotesGAN.pt"))
 melodyModel.eval()
 genOut=melodyModel(torch.randn(1,5).to(cuda))
 print(genOut)
 print("====")
 
-rootNote=36
+rootNote=48
 mid = mido.MidiFile()
 track = mido.MidiTrack()
 mid.tracks.append(track)
