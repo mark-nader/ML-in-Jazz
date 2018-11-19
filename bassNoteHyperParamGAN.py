@@ -5,12 +5,15 @@ import random
 import numpy as np
 import math
 
+resumeTraining=True
+nameToSaveG="bassNotesGAN_Generator.pt"
+nameToSaveD="bassNotesGAN_Discriminator.pt"
 sequenceLength = 8
 dimInG, dimHiddenG, numHiddenG = 5, 6*12*2, 4
 dimHiddenD, numHiddenD = 6*12*2, 4
-trainSize = 500
+trainSize = 5
 learningRate, adamBetas, gumbelTemp = 0.0002, (0.5, 0.999), 0.1
-numEpochs=1000
+numEpochs=10
 testEvery=1
 
 optimisationAlg="Adam" #change this below also
@@ -23,10 +26,24 @@ modelD=modelD.to(cuda)
 modelG=nnu.NoteGenerator(dimInG,dimHiddenG,numHiddenG,sequenceLength,gumbelTemp,cuda)
 modelG=modelG.to(cuda)
 
-criterion=torch.nn.BCELoss()
-
 optimizerD=torch.optim.Adam(modelD.parameters(),lr=learningRate,betas=adamBetas)
 optimizerG=torch.optim.Adam(modelG.parameters(),lr=learningRate,betas=adamBetas)
+
+prevEpochs=0
+if resumeTraining:
+	checkpoint = torch.load(nameToSaveG)
+	modelG.load_state_dict(checkpoint['model_state_dict'])
+	optimizerG.load_state_dict(checkpoint['optimizer_state_dict'])
+	prevEpochs = checkpoint['epoch']
+	modelG.train()
+	
+	checkpoint = torch.load(nameToSaveD)
+	modelD.load_state_dict(checkpoint['model_state_dict'])
+	optimizerD.load_state_dict(checkpoint['optimizer_state_dict'])
+	modelD.train()
+	
+
+criterion=torch.nn.BCELoss()
 
 songList=mu.getSongList("projectMidiTraining")
 random.shuffle(songList)
@@ -89,7 +106,15 @@ for epoch in range(numEpochs+1):
 	if epoch % testEvery == 0:
 		print("Discriminator Accuracy: {} | Generator Accuracy: {} -- epoch {}/{}".format(math.exp(-epochErrD/numBasslines),math.exp(-epochErrG/numBasslines),epoch+1,numEpochs))
 
-torch.save(modelG.state_dict(), "bassNotesGAN.pt")
+torch.save({
+            'epoch': prevEpochs+numEpochs,
+            'model_state_dict': modelG.state_dict(),
+            'optimizer_state_dict': optimizerG.state_dict(),
+            }, nameToSaveG)
+torch.save({
+            'model_state_dict': modelD.state_dict(),
+            'optimizer_state_dict': optimizerD.state_dict(),
+            }, nameToSaveD)
 
 print("################################################")
 print("Sequence length = {}".format(sequenceLength))
