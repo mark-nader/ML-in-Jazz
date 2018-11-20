@@ -122,7 +122,7 @@ print("Generator: Input dimension = {}, Hidden dimension = {}, Hidden Depth = {}
 print("Discriminator: Hidden dimension = {}, Hidden Depth = {}".format(dimHiddenD,numHiddenD))
 print("Train set size = {}".format(trainSize))
 print("Learning Rate = {}, Adam Betas = {}, Gumbel Temperature = {}".format(learningRate,adamBetas,gumbelTemp))
-print("Epochs = {}".format(numEpochs))
+print("Total Epochs = {}".format(prevEpochs+numEpochs))
 print("Optimisation algorithm = {}".format(optimisationAlg))
 
 

@@ -3,12 +3,12 @@ import NeuralNetUtils as nnu
 import MidiUtils as mu
 import random
 
-resumeTraining=True
+resumeTraining=False
 nameToSave="bassNotes.pt"
-dimIn, dimHidden, dimOut, hiddenLayers = 12, 64, 12, 6
+dimIn, dimHidden, dimOut, hiddenLayers = 12, 64, 12, 4
 trainSize, testSize = 1, 1
 learningRate, weightDecay = 0.001, 0.001
-repeatWeight, fifthWeight = 0.5, 0.5
+repeatWeight, fifthWeight = 0.2, 0.3
 sequenceLength = 8
 numEpochs=10
 testEvery=2
@@ -113,10 +113,10 @@ torch.save({
             }, nameToSave)
 
 print("################################################")
-print("Input dimension = {}, Hidden dimension ={}, Output dimension = {}, Hidden layers = {}".format(dimIn,dimHidden,dimOut,hiddenLayers))
+print("Input dimension = {}, Hidden dimension = {}, Output dimension = {}, Hidden layers = {}".format(dimIn,dimHidden,dimOut,hiddenLayers))
 print("Train set size = {}, Test set size = {}".format(trainSize,testSize))
 print("Learning Rate = {}, Weight decay = {}".format(learningRate,weightDecay))
 print("Repeat note weight = {}, Fith note weight = {}".format(repeatWeight,fifthWeight))
 print("Sequence length = {}".format(sequenceLength))
-print("Epochs = {}".format(numEpochs))
+print("Total Epochs = {}".format(prevEpochs+numEpochs))
 print("Optimisation algorithm = {}".format(optimisationAlg))
