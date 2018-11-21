@@ -41,12 +41,12 @@ def percentPicker(numOfNotes):
 class InstrumentSection:
 	def __init__(self,sectionName,melodyNet):
 		self.sectionName=sectionName
-		self.numOfBars=1
 		self.creationLog=[]
-		self.bars=[]
+		self.noteEvents=[]
+		self.numOfBars=0
 		self.beatsInBars=[]
 		self.subDivisionsPerBars=[]
-		self.sectionEndTimeDelta=0
+		self.noteCount=0
 		self.msgs=[]
 		self.melodyNet=melodyNet
 		self.chosenRhythm=[]
@@ -58,7 +58,7 @@ class MelodyInstrumentSection(InstrumentSection):
 	
 	def __init__(self,sectionName,minNote,maxNote,melodyNet):
 		InstrumentSection.__init__(self,sectionName,melodyNet)
-		self.formattedBars=[]
+		self.formattedEvents=[]
 		self.minNote=minNote
 		self.maxNote=maxNote
 		
@@ -67,29 +67,34 @@ class MelodyInstrumentSection(InstrumentSection):
 	division1Of3Factor,division2Of3Factor,division3Of3Factor,
 	noteSafetyFactor,octaveRangeFactor,directionChangeFactor,
 	durationRange,velocityRange,noteOverlapFlag):
-		self.numOfBars=len(chords)
-		self.beatsInBar=beatsInBar
-		self.subDivisionsPerBar=subDivisionsPerBar
+		numOfBars=len(chords)
+		self.numOfBars+=numOfBars
+		self.beatsInBars.append(beatsInBar)
+		self.subDivisionsPerBars.append(subDivisionsPerBar)
 		noteCount=0
-		chordOverNote=[]
 		notesPerBar=[]
 		self.chosenRhythm=[]
 		self.chosenMelody=[]
 		self.chosenDurations=[]
 		self.chosenVelocities=[]
 		
-		for i in range(self.numOfBars):
+		currentTime=0
+		def addNoteToRhythmChance(factor,divisionChunkSize):
+			currentTime+=1
+			if factor.getValue() == 1:
+				chosenRhythm.append(currentTime)
+				noteCount+=1/divisionChunkSize
+		
+		for i in range(numOfBars):
 			prevNoteCount=noteCount
 			for j in range(beatsInBar):
-				self.chosenRhythm.append([])
-				subDivisionRemainingCount=self.subDivisionsPerBar
+				subDivisionRemainingCount=subDivisionsPerBar
 				if subDivisionRemainingCount == 1:
-					self.chosenRhythm[-1].append(division1Of4Factor.getValue())
-					noteCount+=self.chosenRhythm[-1][-1]
+					addNoteToRhythmChance(division1Of4Factor,divisionChunkSize)
 				else:
 					smallestChunkSize=2
-					if self.subDivisionsPerBar == 3 or self.subDivisionsPerBar == 4:
-						smallestChunkSize=self.subDivisionsPerBar
+					if subDivisionsPerBar == 3 or subDivisionsPerBar == 4:
+						smallestChunkSize=subDivisionsPerBar
 					while subDivisionRemainingCount > 0:
 						divisionChunkSize=random.randint(smallestChunkSize,min(4,subDivisionRemainingCount))
 						if subDivisionRemainingCount == divisionChunkSize+1:
@@ -99,36 +104,25 @@ class MelodyInstrumentSection(InstrumentSection):
 								divisionChunkSize=subDivisionRemainingCount
 						subDivisionRemainingCount-=divisionChunkSize
 						if divisionChunkSize == 4:
-							self.chosenRhythm[-1].append(division1Of4Factor.getValue())
-							noteCount+=self.chosenRhythm[-1][-1]
-							self.chosenRhythm[-1].append(division2Or4Of4Factor.getValue())
-							noteCount+=self.chosenRhythm[-1][-1]
-							self.chosenRhythm[-1].append(division3Of4Factor.getValue())
-							noteCount+=self.chosenRhythm[-1][-1]
-							self.chosenRhythm[-1].append(division2Or4Of4Factor.getValue())
-							noteCount+=self.chosenRhythm[-1][-1]
+							addNoteToRhythmChance(division1Of4Factor,divisionChunkSize)
+							addNoteToRhythmChance(division2Or4Of4Factor,divisionChunkSize)
+							addNoteToRhythmChance(division3Of4Factor,divisionChunkSize)
+							addNoteToRhythmChance(division2Or4Of4Factor,divisionChunkSize)
 						elif divisionChunkSize == 3:
-							self.chosenRhythm[-1].append(division1Of3Factor.getValue())
-							noteCount+=self.chosenRhythm[-1][-1]
-							self.chosenRhythm[-1].append(division2Of3Factor.getValue())
-							noteCount+=self.chosenRhythm[-1][-1]
-							self.chosenRhythm[-1].append(division3Of3Factor.getValue())
-							noteCount+=self.chosenRhythm[-1][-1]
+							addNoteToRhythmChance(division1Of3Factor,divisionChunkSize)
+							addNoteToRhythmChance(division2Of3Factor,divisionChunkSize)
+							addNoteToRhythmChance(division3Of3Factor,divisionChunkSize)
 						else:
-							self.chosenRhythm[-1].append(division1Of4Factor.getValue())
-							noteCount+=self.chosenRhythm[-1][-1]
-							self.chosenRhythm[-1].append(division3Of4Factor.getValue())
-							noteCount+=self.chosenRhythm[-1][-1]
-			chordOverNote.extend([i]*(noteCount-prevNoteCount))
+							addNoteToRhythmChance(division1Of4Factor,divisionChunkSize)
+							addNoteToRhythmChance(division3Of4Factor,divisionChunkSize)
 			notesPerBar.append(noteCount-prevNoteCount)
-			
-		totalNotes=sum(notesInBar)
-		if totalNotes > 0:
+		self.noteCount=noteCount
+		if noteCount > 0:
 			scaleNotes=[]
-			for i in range(self.numOfBars):
+			for i in range(numOfBars):
 				scaleNotes.append([(interval+chords[i].rootNote) % 12 for interval in scales[i]])
 			blendNoteDepth=0
-			for i in range(self.numOfBars):
+			for i in range(numOfBars):
 				notesDecided=0
 				attemptsPerBlendDepth=25
 				potentialNotes=[]
@@ -156,12 +150,12 @@ class MelodyInstrumentSection(InstrumentSection):
 						if note in scaleNotes[i]:
 							suitableNotes+=1
 					suitableNoteChoice=(suitableNotes/notesPerBar[i] >= percentPicker(notesPerBar[i]))
-				chosenMelody.extend(potentialNotes[:notesPerBar[i]])
+				self.chosenMelody.extend(potentialNotes[:notesPerBar[i]])
 				potentialNotes=potentialNotes[notesPerBar[i]:]
 				blendNoteDepth=len(potentialNotes)
 	
 			direction=1-2*random.randint(0,1)
-			for i in range(totalNotes):
+			for i in range(noteCount):
 				if directionChangeFactor.getValue() == 1:
 					direction=direction-2*direction
 			chosenMelody[i]+=octaveRangeFactor.getValue()*direction*12
@@ -170,93 +164,73 @@ class MelodyInstrumentSection(InstrumentSection):
 				while chosenMelody[i] > self.maxNote:
 					chosenMelody[i]-=12		
 			
-			
-			# self.velocityNet.forwardPropagation(velocityBuffer,[0]*16)
-			# velocityProbwithIndex=getIndexesOfSortedList(self.velocityNet.outputs[-1])
-			# velocityIndex=velocityProbwithIndex[velocityChoiceFactor.getValue()]
-			# velocityBuffer=velocityBuffer[16:]
-			# velocityInput=[0]*16
-			# velocityInput[velocityIndex]=1
-			# velocityBuffer.extend(velocityInput)
-			# self.chosenVelocities.append(velocityIndex*8+random.randint(0,7))
-			self.chosenVelocities.append(14*8+random.randint(0,7))
-			
-			# self.durationNet.forwardPropagation(durationBuffer,[0]*8)
-			# durationProbwithIndex=getIndexesOfSortedList(self.durationNet.outputs[-1])
-			# durationIndex=durationProbwithIndex[durationChoiceFactor.getValue()]
-			# durationBuffer=durationBuffer[8:]
-			# durationInput=[0]*8
-			# minDuration=minDurationFactor.getValue()
-			# if durationIndex < minDuration:
-				# durationIndex=minDuration
-			# durationInput[durationIndex]=1
-			# durationBuffer.extend(durationInput)
-			# self.chosenDurations.append(pow(2,durationIndex))
-			self.chosenDurations.append(pow(2,4))
-			
-		bar=[]
-		startTime=0
-		noteNum=0
-		for i,rhythmDivision in enumerate(self.chosenRhythm):
-			subDivisionTimeDelta=1/self.subDivisionsPerBars[-1][i]
-			for rhythmOnOff in rhythmDivision:
-				if rhythmOnOff:
-					bar.append([startTime,self.chosenMelody[noteNum],self.chosenVelocities[noteNum],self.chosenDurations[noteNum]/16])
-					noteNum+=1
-				startTime+=subDivisionTimeDelta
-				
-		self.bars.append(bar)
+			durationRange,velocityRange,noteOverlapFlag
+			for i in range(noteCount):
+				self.chosenVelocities.append(random.randint(durationRange*))
+				self.chosenVelocities.append(random.randint(durationRange*))
+			if not noteOverlapFlag:
+				maxDuration=0
+				durationIndex=0
+				firstFound=False
+				for i in range(numOfBars*beatsInBar):
+					for j in range(subDivisionsPerBar):
+						if not firstFound:
+							firstFound=(chosenRhythm[i][j] == 1)
+						else:
+							if chosenRhythm[i][j] == 1:
+								self.chosenDurations[durationIndex]=min(self.chosenDurations[durationIndex],maxDuration)
+								durationIndex+=1
+								maxDuration=0
+							else:
+								maxDuration+=1
+		for i in range(noteCount):
+			noteEvent=[chosenRhythm[i],chosenMelody[i],chosenVelocities[i],chosenDurations[i]]
+			self.noteEvents.extend(noteEvent)
 			
 	def formatBars(self,chromaticFrequencyFactor,chromaticSizeRange,slideFrequencyFactor,slideSizeRange,nextNote):
 	#making nextNote negative will mean it is ignored, useful for the end of a piece
-		flattenBars=[]
-		barBeats=0
-		for i,bar in enumerate(self.bars):
-			for j, nE in enumerate(bar):
-				flattenBars.append([barBeats+bar[j][0],bar[j][1],bar[j][2],bar[j][3]])
-			barBeats+=self.beatsInBars[i]
-		if nextNote >= 0:
-			flattenBars.append([barBeats,nextNote,0,0])
-		
-		for i,nE in enumerate(flattenBars[:-1]):
-			if flattenBars[i][3] > 1/16 and flattenBars[i][0]+flattenBars[i][3] >= flattenBars[i+1][0]:
-				flattenBars[i][3]=max(flattenBars[i+1][0]-flattenBars[i][0],1/16)
-		
+	#next note does not have to be the actual note to follow the melody being made here but gives the last note an
+	#opportunity to do chromatic steps or slide
+		eventsToFormat=self.noteEvents
+		noteCount=self.noteCount
+		if nextNote > 0:
+			eventsToFormat.append([self.numOfBars,nextNote,0,0])
+			noteCount-=1
 		sliding=False
-		for i,nE in enumerate(flattenBars[:-1]):
+		for i in range(noteCount):
 			if sliding:
 				sliding=False
 			else:
-				noteDifference=abs(flattenBars[i+1][1]-flattenBars[i][1])
+				noteDifference=abs(eventsToFormat[i+1][1]-eventsToFormat[i][1])
 				travelDirection=1
-				if flattenBars[i][1] > flattenBars[i+1][1]:
+				if eventsToFormat[i][1] > eventsToFormat[i+1][1]:
 					travelDirection=-1
 				if not noteDifference == 0:
-					timeInterval=(flattenBars[i+1][0]-flattenBars[i][0])/noteDifference
+					timeInterval=(eventsToFormat[i+1][0]-eventsToFormat[i][0])/noteDifference
 				if noteDifference in chromaticSizeRange and chromaticFrequencyFactor.getValue() == 1:
 					for j in range(0,noteDifference):
-						self.formattedBars.append([0,flattenBars[i][0]+j*timeInterval,flattenBars[i][1]+travelDirection*j,flattenBars[i][2],flattenBars[i][3]/noteDifference])
+						self.formattedEvents.append([0,eventsToFormat[i][0]+j*timeInterval,eventsToFormat[i][1]+travelDirection*j,eventsToFormat[i][2],eventsToFormat[i][3]/noteDifference])
 				elif noteDifference in slideSizeRange and slideFrequencyFactor.getValue() == 1:
-					self.formattedBars.append([1,flattenBars[i][0],flattenBars[i][1],flattenBars[i+1][2],travelDirection,noteDifference,timeInterval,flattenBars[i+1][3]])
+					self.formattedEvents.append([1,eventsToFormat[i][0],eventsToFormat[i][1],eventsToFormat[i+1][2],travelDirection,noteDifference,timeInterval,eventsToFormat[i+1][3]])
 					sliding=True
 				else:
-					self.formattedBars.append([0]+flattenBars[i])
+					self.formattedEvents.append([0]+eventsToFormat[i])
 			
-		#[NoteOrSlideFlag(=0),BeatsSinceSectionStart,Note,Velocity,Duration]
-		#[NoteOrSlideFlag(=1),BeatsSinceSectionStart,StartNote,Velocity,TravelDirection,SlideSize,TimePerSemi,FinishDuration]
+		#[SlideFlag(=0),BeatsSinceSectionStart,Note,Velocity,Duration]
+		#[SlideFlag(=1),BeatsSinceSectionStart,StartNote,Velocity,TravelDirection,SlideSize,TimePerSemi,FinishDuration]
 						
 		
-	def convertToMidi(self,startTime,channelNum,ticksPerInstrumentBeat):
+	def convertToMidi(self,startTime,channelNum,ticksPerBeat):
 		toConvert=[]
 		time=startTime
 		finalBarStart=0
 		roundedTime=0
-		for i,note in enumerate(self.formattedBars):
+		for i,note in enumerate(self.formattedEvents):
 			if note[0] == 0:
-				toConvert.append([1,int(ticksPerInstrumentBeat*note[1]),note[2],note[3]])
-				toConvert.append([0,int(ticksPerInstrumentBeat*(note[1]+note[4])),note[2],0])
+				toConvert.append([1,int(ticksPerBeat*note[1]),note[2],note[3]])
+				toConvert.append([0,int(ticksPerBeat*(note[1]+note[4])),note[2],0])
 			else:
-				toConvert.append([2,int(ticksPerInstrumentBeat*note[1])]+note[2:6]+[int(ticksPerInstrumentBeat*note[6]),int(ticksPerInstrumentBeat*note[7])])
+				toConvert.append([2,int(ticksPerBeat*note[1])]+note[2:6]+[int(ticksPerBeat*note[6]),int(ticksPerBeat*note[7])])
 		
 		prevTime=-startTime
 		self.msgs=[]
@@ -277,7 +251,7 @@ class MelodyInstrumentSection(InstrumentSection):
 			else:
 				self.msgs.append(mido.Message(types[event[0]],time=deltaTime,channel=channelNum,note=event[2],velocity=event[3]))
 				prevTime=event[1]
-		self.sectionEndTimeDelta=sum(self.beatsInBars)*ticksPerInstrumentBeat-prevTime
+		self.sectionEndTimeDelta=sum(self.beatsInBars)*ticksPerBeat-prevTime
 		
 	def saveMidi(self):
 		mid = mido.MidiFile()
