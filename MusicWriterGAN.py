@@ -28,6 +28,15 @@ class WeightedNumberPicker:
 			currentPercent+=prob*100
 			if choice <= currentPercent:
 				return random.randint(self.lowerBounds[i],self.upperBounds[i])
+	
+def percentPicker(numOfNotes):
+	if numOfNotes == 1 or numOfNotes == 2:
+		return 1
+	elif numOfNotes == 3 or numOfNotes == 4:
+		return (numOfNotes-1)/numOfNotes
+	else:
+		return 0.8
+	elif 
 
 class InstrumentSection:
 	def __init__(self,sectionName,melodyNet):
@@ -63,6 +72,7 @@ class MelodyInstrumentSection(InstrumentSection):
 		self.subDivisionsPerBar=subDivisionsPerBar
 		noteCount=0
 		chordOverNote=[]
+		notesPerBar=[]
 		self.chosenRhythm=[]
 		self.chosenMelody=[]
 		self.chosenDurations=[]
@@ -110,47 +120,46 @@ class MelodyInstrumentSection(InstrumentSection):
 							self.chosenRhythm[-1].append(division3Of4Factor.getValue())
 							noteCount+=self.chosenRhythm[-1][-1]
 			chordOverNote.extend([i]*(noteCount-prevNoteCount))
+			notesPerBar.append(noteCount-prevNoteCount)
 			
 		totalNotes=sum(notesInBar)
 		if totalNotes > 0:
 			scaleNotes=[]
 			for i in range(self.numOfBars):
 				scaleNotes.append([(interval+chords[i].rootNote) % 12 for interval in scales[i]])
-			suitableNotes=0
-			suitableNoteAttemptsLeft=200
-			searchForSuitable=True
-			while searchForSuitable:
+			blendNoteDepth=0
+			for i in range(self.numOfBars):
 				notesDecided=0
-				blendNoteDepth=0
 				attemptsPerBlendDepth=25
-				while notesDecided < totalNotes:
-					attempts=0
-					blendSearching=True
-					while attempts < attemptsPerBlendDepth and blendSearching:
-						attempts+=1
-						genOut=self.melodyNet(torch.randn(1,self.melodyNet.noiseDim))
-						generatedNotes=[]
-						currentNote=chords[chordOverNote[notesDecided]].rootNote
-						for oneHotNote in genOut:
-							currentNote=(currentNote+oneHotNote[0].tolist().index(1)) % 12
-							generatedNotes.append(currentNote)
-						if blendNoteDepth > 0:
-							blendSearching=not (generatedNotes[:blendNoteDepth] == chosenMelody[-blendNoteDepth:])
-							if attempts == attemptsPerBlendDepth:
+				potentialNotes=[]
+				suitableNoteChoice=False
+				while not suitableNoteChoice:
+					while notesDecided < notesPerBar[i]:
+						attempts=0
+						blendSearching=True
+						while blendSearching:
+							if blendNoteDepth > 0 and attempts == attemptsPerBlendDepth:
 								attempts=0
 								blendNoteDepth-=1
-					prevNotesDecided=notesDecided
-					notesDecided=min(totalNotes,notesDecided+self.melodyNet.numNotesOut-blendNoteDepth)
-					chosenMelody.extend(generatedNotes[blendNoteDepth:(notesDecided-prevNotesDecided)])
-					blendNoteDepth=2
-				for i in range(totalNotes):
-					if chosenMelody[i] in scaleNotes[chordOverNote[i]]:
-						suitableNotes+=1
-				if suitableNoteAttemptsLeft > 0:
-					suitableNoteAttemptsLeft-=1
-				if suitableNotes/totalNotes >= noteSafetyFactor.getValue() or (suitableNoteAttemptsLeft == 0 and suitableNotes/totalNotes >= 0.45):
-					searchForSuitable=False
-			
+							attempts+=1
+							genOut=self.melodyNet(torch.randn(1,self.melodyNet.noiseDim))
+							generatedNotes=[]
+							currentNote=chords[i].rootNote
+							for oneHotNote in genOut:
+								currentNote=(currentNote+oneHotNote[0].tolist().index(1)) % 12
+								generatedNotes.append(currentNote)
+							suitableNotes=0
+							blendSearching=not (generatedNotes[:blendNoteDepth] == potentialNotes[-blendNoteDepth:])
+						potentialNotes.extend(generatedNotes[blendNoteDepth:])
+						notesDecided=len(potentialNotes)		
+					for note in potentialNotes[:notesPerBar[i]]:
+						if note in scaleNotes[i]:
+							suitableNotes+=1
+					suitableNoteChoice=(suitableNotes/notesPerBar[i] >= percentPicker(notesPerBar[i]))
+				chosenMelody.extend(potentialNotes[:notesPerBar[i]])
+				potentialNotes=potentialNotes[notesPerBar[i]:]
+				blendNoteDepth=len(potentialNotes)
+	
 			direction=1-2*random.randint(0,1)
 			for i in range(totalNotes):
 				if directionChangeFactor.getValue() == 1:
