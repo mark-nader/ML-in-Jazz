@@ -32,10 +32,14 @@ class WeightedNumberPicker:
 def percentPicker(numOfNotes):
 	if numOfNotes == 1 or numOfNotes == 2:
 		return 1
-	elif numOfNotes == 3 or numOfNotes == 4:
-		return (numOfNotes-1)/numOfNotes
+	elif numOfNotes == 3:
+		return 2/3
+	elif numOfNotes == 4 or numOfNotes == 5:
+		return (numOfNotes-2+random.randint(0,1))/numOfNotes
+	elif numOfNotes == 6:
+		return 4/6
 	else:
-		return 0.8
+		return 0.70
 
 class InstrumentSection:
 	def __init__(self,sectionName,melodyNet):
@@ -147,12 +151,12 @@ class MelodyInstrumentSection(InstrumentSection):
 					currentNote=chords[0].rootNote
 					if chosenMelody:
 						currentNote=chosenMelody[-1]
-					direction=1-2*random.randint(0,1)
+					direction=random.randint(0,1)
 					# print(potentialIntervals[:notesPerBar[i]])
 					for interval in potentialIntervals[:notesPerBar[i]]:
 						if (currentNote+interval) % 12 in scaleNotes[i]:
 							suitableNotes+=1
-						currentNote+=interval+direction*octaveRangeFactor.getValue()*12
+						currentNote+=interval+6*direction*(2*octaveRangeFactor.getValue()+1)-6
 						while currentNote < self.minNote:
 							currentNote+=12
 						while currentNote > self.maxNote:
@@ -303,7 +307,7 @@ div3O4=WeightedNumberPicker([0,1],[0,1],[1,0])
 div24O4=WeightedNumberPicker([0,1],[0,1],[1,0])
 div1O3=WeightedNumberPicker([0,1],[0,1],[0.00,1.00])
 div2O3=WeightedNumberPicker([0,1],[0,1],[1.00,0.00])
-div3O3=WeightedNumberPicker([0,1],[0,1],[1.00,0.00])
+div3O3=WeightedNumberPicker([0,1],[0,1],[0.00,1.00])
 velocitySeed=[]
 durationSeed=[]
 oRF=WeightedNumberPicker([0,1],[0,1],[0.85,0.15])#positive only now because of directionChangeFactor
