@@ -41,7 +41,6 @@ class InstrumentSection:
 	def __init__(self,sectionName,melodyNet):
 		self.sectionName=sectionName
 		self.noteEvents=[]
-		self.numOfBars=0
 		self.beatsInBars=[]
 		self.noteCount=0
 		self.noteTimeIntervals=[]
@@ -63,8 +62,7 @@ class MelodyInstrumentSection(InstrumentSection):
 	octaveRangeFactor,directionChangeFactor,
 	durationRange,velocityRange):
 		numOfBars=len(chords)
-		self.numOfBars+=numOfBars
-		self.beatsInBars.append(beatsInBar)
+		self.beatsInBars.extend([beatsInBar]*numOfBars)
 		noteCount=0
 		notesPerBar=[]
 		chosenRhythm=[]
@@ -74,10 +72,10 @@ class MelodyInstrumentSection(InstrumentSection):
 		
 		currentTime=0
 		def addNoteToRhythmChance(noteCount,currentTime,factor,subDivs):
-			currentTime+=1/subDivs
 			if factor.getValue() == 1:
 				chosenRhythm.append(currentTime)
 				noteCount+=1
+			currentTime+=1/subDivs
 			return noteCount, currentTime
 		
 		for i in range(numOfBars):
@@ -118,13 +116,12 @@ class MelodyInstrumentSection(InstrumentSection):
 				print("notes in bar {}: {}".format(i,notesPerBar[i]))
 				scaleNotes.append([(interval+chords[i].rootNote) % 12 for interval in scales[i]])
 			blendNoteDepth=0
-			potentialNotes=[]
+			potentialIntervals=[]
 			for i in range(numOfBars):
-				barNotesDecided=0
 				attemptsPerBlendDepth=25
 				suitableNoteChoice=False
 				while not suitableNoteChoice:
-					while barNotesDecided < notesPerBar[i]:
+					while len(potentialIntervals) < notesPerBar[i]:
 						print("finding possible notes for bar {}".format(i))
 						attempts=0
 						blendSearching=True
@@ -135,45 +132,60 @@ class MelodyInstrumentSection(InstrumentSection):
 							attempts+=1
 							genOut=self.melodyNet(torch.randn(1,self.melodyNet.noiseDim))
 							generatedNotes=[]
-							currentNote=chords[i].rootNote
 							for oneHotNote in genOut:
-								currentNote=(currentNote+oneHotNote[0].tolist().index(1)) % 12
-								generatedNotes.append(currentNote)
-							print("generatedNotes: {}".format(generatedNotes))
-							print("generatedNotes[:blendNoteDepth] {}".format(generatedNotes[:blendNoteDepth]))
-							print("potentialNotes {}".format(potentialNotes))
-							print("potentialNotes[-blendNoteDepth:] {}".format(potentialNotes[-blendNoteDepth:]))
-							input()
-							blendSearching=not (generatedNotes[:blendNoteDepth] == potentialNotes[-blendNoteDepth:])
-						potentialNotes.extend(generatedNotes[blendNoteDepth:])
-						print("potentialNotes {}".format(potentialNotes))
-						barNotesDecided=len(potentialNotes)	
-						print("barNotesDecided {}".format(barNotesDecided))
+								generatedNotes.append(oneHotNote[0].tolist().index(1))
+							#print("generatedNotes: {}".format(generatedNotes))
+							#print("generatedNotes[:blendNoteDepth] {}".format(generatedNotes[:blendNoteDepth]))
+							#print("potentialIntervals {}".format(potentialIntervals))
+							#print("potentialIntervals[-blendNoteDepth:] {}".format(potentialIntervals[-blendNoteDepth:]))
+							#input()
+							blendSearching=not (blendNoteDepth == 0 or generatedNotes[:blendNoteDepth] == potentialIntervals[-blendNoteDepth:])
+						potentialIntervals.extend(generatedNotes[blendNoteDepth:])
+						#print("potentialIntervals {}".format(potentialIntervals))
 					suitableNotes=0
-					for note in potentialNotes[:notesPerBar[i]]:
-						if note in scaleNotes[i]:
+					potentialNotes=[]
+					currentNote=chords[0].rootNote
+					if chosenMelody:
+						currentNote=chosenMelody[-1]
+					direction=1-2*random.randint(0,1)
+					# print(potentialIntervals[:notesPerBar[i]])
+					for interval in potentialIntervals[:notesPerBar[i]]:
+						if (currentNote+interval) % 12 in scaleNotes[i]:
 							suitableNotes+=1
+						currentNote+=interval+direction*octaveRangeFactor.getValue()*12
+						while currentNote < self.minNote:
+							currentNote+=12
+						while currentNote > self.maxNote:
+							currentNote-=12
+						# print(currentNote)
+						# input()
+						potentialNotes.append(currentNote)
+						if directionChangeFactor.getValue() == 1:
+							direction=direction-2*direction
 					suitableNoteChoice=(suitableNotes/notesPerBar[i] >= percentPicker(notesPerBar[i]))
-					print("suitableNoteChoice {}".format(suitableNoteChoice))
+					#print("suitableNoteChoice {}".format(suitableNoteChoice))
 					if not suitableNoteChoice:
-						barNotesDecided=0
-						potentialNotes=[]
-				chosenMelody.extend(potentialNotes[:notesPerBar[i]])
-				print("chosenMelody {}".format(chosenMelody))
-				potentialNotes=potentialNotes[notesPerBar[i]:]
-				blendNoteDepth=len(potentialNotes)
+						potentialIntervals=[]
+						blendNoteDepth=0
+						#print("potentialIntervals {}".format(potentialIntervals))
+						#input()
+				chosenMelody.extend(potentialNotes[:])
+				#print("chosenMelody {}".format(chosenMelody))
+				potentialIntervals=potentialIntervals[notesPerBar[i]:]
+				blendNoteDepth=len(potentialIntervals)
 	
 			print("NOTES DECIDED FOR PROGRESSION")
+			print("melody {}".format(chosenMelody))
 	
-			direction=1-2*random.randint(0,1)
-			for i in range(noteCount):
-				if directionChangeFactor.getValue() == 1:
-					direction=direction-2*direction
-			chosenMelody[i]+=octaveRangeFactor.getValue()*direction*12
-			while chosenMelody[i] < self.minNote:
-				chosenMelody[i]+=12
-			while chosenMelody[i] > self.maxNote:
-				chosenMelody[i]-=12		
+			# direction=1-2*random.randint(0,1)
+			# for i in range(noteCount):
+				# if directionChangeFactor.getValue() == 1:
+					# direction=direction-2*direction
+			# chosenMelody[i]+=octaveRangeFactor.getValue()*direction*12
+			# while chosenMelody[i] < self.minNote:
+				# chosenMelody[i]+=12
+			# while chosenMelody[i] > self.maxNote:
+				# chosenMelody[i]-=12		
 			
 			for i in range(noteCount):
 				chosenVelocities.append(random.randint(*velocityRange))
@@ -181,7 +193,8 @@ class MelodyInstrumentSection(InstrumentSection):
 				
 		for i in range(noteCount):
 			noteEvent=[chosenRhythm[i],chosenMelody[i],chosenVelocities[i],chosenDurations[i]]
-			self.noteEvents.extend(noteEvent)
+			self.noteEvents.append(noteEvent)
+		print(self.noteEvents)
 			
 	def formatBars(self,noteOverlapFlag,chromaticFrequencyFactor,chromaticSizeRange,slideFrequencyFactor,slideSizeRange,nextNote):
 	#making nextNote negative will mean it is ignored, useful for the end of a piece
@@ -189,15 +202,20 @@ class MelodyInstrumentSection(InstrumentSection):
 	#opportunity to do chromatic steps or slide
 		eventsToFormat=self.noteEvents
 		noteCount=self.noteCount
+		endBeat=sum(self.beatsInBars)
 		if not noteOverlapFlag:
 			for i in range(noteCount-1):
 				if eventsToFormat[i][0]+eventsToFormat[i][3] > eventsToFormat[i+1][0]:
-					eventsToFormat[i][3]=eventsToFormat[i+1][0]
-			if eventsToFormat[noteCount-1][0]+eventsToFormat[noteCount-1][3] > sum(self.beatsInBars):
-				eventsToFormat[noteCount-1][3]=sum(self.beatsInBars)
+					eventsToFormat[i][3]=eventsToFormat[i+1][0]-eventsToFormat[i][0]
+			if eventsToFormat[noteCount-1][0]+eventsToFormat[noteCount-1][3] > endBeat:
+				eventsToFormat[noteCount-1][3]=endBeat-eventsToFormat[noteCount-1][0]
+		
+		print("eventsToFormat \/")
+		print(eventsToFormat)
 			
 		if nextNote > 0:
-			eventsToFormat.append([self.numOfBars,nextNote,0,0])
+			eventsToFormat.append([endBeat,nextNote,0,0])
+		else:
 			noteCount-=1
 		sliding=False
 		for i in range(noteCount):
@@ -218,6 +236,9 @@ class MelodyInstrumentSection(InstrumentSection):
 					sliding=True
 				else:
 					self.formattedEvents.append([0]+eventsToFormat[i])
+					
+		print("formatted \/")
+		print(self.formattedEvents)
 			
 		#[SlideFlag(=0),BeatsSinceSectionStart,Note,Velocity,Duration]
 		#[SlideFlag(=1),BeatsSinceSectionStart,StartNote,Velocity,TravelDirection,SlideSize,TimePerSemi,FinishDuration]
@@ -280,14 +301,14 @@ subDivsPerBeat=3
 div1O4=WeightedNumberPicker([0,1],[0,1],[0,1])
 div3O4=WeightedNumberPicker([0,1],[0,1],[1,0])
 div24O4=WeightedNumberPicker([0,1],[0,1],[1,0])
-div1O3=WeightedNumberPicker([0,1],[0,1],[0.10,0.90])
-div2O3=WeightedNumberPicker([0,1],[0,1],[0.90,0.10])
-div3O3=WeightedNumberPicker([0,1],[0,1],[0.80,0.20])
+div1O3=WeightedNumberPicker([0,1],[0,1],[0.00,1.00])
+div2O3=WeightedNumberPicker([0,1],[0,1],[1.00,0.00])
+div3O3=WeightedNumberPicker([0,1],[0,1],[1.00,0.00])
 velocitySeed=[]
 durationSeed=[]
 oRF=WeightedNumberPicker([0,1],[0,1],[0.85,0.15])#positive only now because of directionChangeFactor
 dCF=WeightedNumberPicker([0,1],[0,1],[0.65,0.35])
-durationRange=[1,6]
+durationRange=[2,6]
 velocityRange=[64,127]
 
 noteOverlapFlag=False
