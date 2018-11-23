@@ -9,7 +9,6 @@ dimIn, dimHidden, dimOut, hiddenLayers = 12, 64, 12, 4
 trainSize, testSize = 1, 1
 learningRate, weightDecay = 0.001, 0.001
 repeatWeight, fifthWeight = 0.2, 0.3
-sequenceLength = 8
 numEpochs=10
 testEvery=2
 
@@ -60,37 +59,32 @@ while epoch <= numEpochs:
 	
 		basslineToTrain=mu.getBassNoteIntervalsFromBassline(bassline)
 		basslineToTrainLen=len(basslineToTrain)
-		while basslineToTrainLen >= sequenceLength:
-			
-			basslineSection=basslineToTrain[:sequenceLength]
-			basslineToTrain=basslineToTrain[1:]
-			basslineToTrainLen-=1
-	
-			model.zero_grad()
-			model.hidden = model.initHidden()
-						
-			netInputSeq=torch.tensor(nnu.oneHot(basslineSection[:-1],12))
-			netTargetSeq=torch.tensor([interval % 12 for interval in basslineSection[1:]])
-			netInputSeq=netInputSeq.to(cuda)	######### GPU
-			netTargetSeq=netTargetSeq.to(cuda)	######### GPU
-			if testingIteration:
-				with torch.no_grad():
-					predictedInterval=model(netInputSeq)
-					basslineTopKAvg=nnu.topKAverage(netTargetSeq.tolist(),predictedInterval)
-					printTopKAvg+=basslineTopKAvg
-					basslineTop3Acc=nnu.top3Accuracy(netTargetSeq.tolist(),predictedInterval)
-					printTop3Acc+=basslineTop3Acc
-					basslineSectionsTrained+=1
-			else:
+
+		model.zero_grad()
+		model.hidden = model.initHidden()
+					
+		netInputSeq=torch.tensor(nnu.oneHot(basslineToTrain[:-1],12))
+		netTargetSeq=torch.tensor([interval % 12 for interval in basslineToTrain[1:]])
+		netInputSeq=netInputSeq.to(cuda)	######### GPU
+		netTargetSeq=netTargetSeq.to(cuda)	######### GPU
+		if testingIteration:
+			with torch.no_grad():
 				predictedInterval=model(netInputSeq)
-				loss=lossFunction(predictedInterval,netTargetSeq)
 				basslineTopKAvg=nnu.topKAverage(netTargetSeq.tolist(),predictedInterval)
 				printTopKAvg+=basslineTopKAvg
 				basslineTop3Acc=nnu.top3Accuracy(netTargetSeq.tolist(),predictedInterval)
 				printTop3Acc+=basslineTop3Acc
 				basslineSectionsTrained+=1
-				loss.backward()
-				optimizer.step()
+		else:
+			predictedInterval=model(netInputSeq)
+			loss=lossFunction(predictedInterval,netTargetSeq)
+			basslineTopKAvg=nnu.topKAverage(netTargetSeq.tolist(),predictedInterval)
+			printTopKAvg+=basslineTopKAvg
+			basslineTop3Acc=nnu.top3Accuracy(netTargetSeq.tolist(),predictedInterval)
+			printTop3Acc+=basslineTop3Acc
+			basslineSectionsTrained+=1
+			loss.backward()
+			optimizer.step()
 					
 					
 	if testingIteration:
@@ -117,6 +111,5 @@ print("Input dimension = {}, Hidden dimension = {}, Output dimension = {}, Hidde
 print("Train set size = {}, Test set size = {}".format(trainSize,testSize))
 print("Learning Rate = {}, Weight decay = {}".format(learningRate,weightDecay))
 print("Repeat note weight = {}, Fith note weight = {}".format(repeatWeight,fifthWeight))
-print("Sequence length = {}".format(sequenceLength))
 print("Total Epochs = {}".format(prevEpochs+numEpochs))
 print("Optimisation algorithm = {}".format(optimisationAlg))

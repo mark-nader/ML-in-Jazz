@@ -694,6 +694,10 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 		testing average: 6.944472972510338 | top 3 accuracy: 0.1219289537046644 -- epoch 0/100 [|TEST DATA|]
 		
 
+NEW STRUCTURE: Removed sequence length as a variable, the LSTM now trains on each bassline as one long sequence as 
+it did previously. This is to help note generation with long term memory/dependancies
+
+
 
 		
 		
