@@ -682,22 +682,118 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 		testing set loss: 4.160980810234592 -- epoch 80/100 [|TEST DATA|]
 		training set loss: 3.307634872730148 -- epoch 100/100
 		testing set loss: 4.160980810234592 -- epoch 100/100 [|TEST DATA|]
-		
-	ID for trained network: STILL ADDING	
-	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
+
+	ID for trained network: 5696
+	Input dimension = 12, Hidden dimension = 64, Output dimension = 12, Hidden layers = 4
 	Train set size = 200, Test set size = 50
 	Learning Rate = 0.001, Weight decay = 0.001
-	Repeat note weight = 0.6, Fith note weight = 0.7
+	Repeat note weight = 0.2, Fith note weight = 0.3
 	Sequence length = 8
-	Epochs = 10 SO FAR
-	Optimisation algorithm = SGD		
-		testing average: 6.944472972510338 | top 3 accuracy: 0.1219289537046644 -- epoch 0/100 [|TEST DATA|]
+	Total Epochs = 100
+	Optimisation algorithm = SGD	
+		testing average: 4.9260934208895195 | top 3 accuracy: 0.3755420641804215 -- epoch 0/100 [|TEST DATA|]
+		training average: 4.187910645942683 | top 3 accuracy: 0.33360149964866137 -- epoch 20/100
+		testing average: 4.4407274329216415 | top 3 accuracy: 0.2765663073555743 -- epoch 20/100 [|TEST DATA|]
+		training average: 4.193688979145849 | top 3 accuracy: 0.3326938998673605 -- epoch 40/100
+		testing average: 4.4407274329216415 | top 3 accuracy: 0.2765663073555743 -- epoch 40/100 [|TEST DATA|]
+		training average: 4.194957431852228 | top 3 accuracy: 0.3324611419200037 -- epoch 60/100
+		testing average: 4.4407274329216415 | top 3 accuracy: 0.2765663073555743 -- epoch 60/100 [|TEST DATA|]
+		training average: 4.195302663438561 | top 3 accuracy: 0.33240646723438333 -- epoch 80/100
+		testing average: 4.4407274329216415 | top 3 accuracy: 0.2765663073555743 -- epoch 80/100 [|TEST DATA|]
+		training average: 4.195558853394036 | top 3 accuracy: 0.33238772162788477 -- epoch 100/100
+		testing average: 4.4407274329216415 | top 3 accuracy: 0.2765663073555743 -- epoch 100/100 [|TEST DATA|]
+
 		
 
 NEW STRUCTURE: Removed sequence length as a variable, the LSTM now trains on each bassline as one long sequence as 
 it did previously. This is to help note generation with long term memory/dependancies
 
+	ID for trained network: 6173
+	Input dimension = 12, Hidden dimension = 64, Output dimension = 12, Hidden layers = 4
+	Train set size = 800, Test set size = 200
+	Learning Rate = 0.001, Weight decay = 0.001
+	Repeat note weight = 0.2, Fith note weight = 0.3
+	Total Epochs = 200
+	Optimisation algorithm = SGD
+		testing average: 5.569744999498561 | top 3 accuracy: 0.22503625831826793 -- epoch 0/200 [|TEST DATA|]
+		training average: 4.405865489266152 | top 3 accuracy: 0.2965784403218902 -- epoch 20/200
+		testing average: 4.449196352268118 | top 3 accuracy: 0.2681336127874613 -- epoch 20/200 [|TEST DATA|]
+		training average: 4.405494415772521 | top 3 accuracy: 0.2965784403218902 -- epoch 40/200
+		testing average: 4.449226285945018 | top 3 accuracy: 0.2681336127874613 -- epoch 40/200 [|TEST DATA|]
+		training average: 4.405494415772521 | top 3 accuracy: 0.2965784403218902 -- epoch 60/200
+		testing average: 4.449226285945018 | top 3 accuracy: 0.2681336127874613 -- epoch 60/200 [|TEST DATA|]
+		training average: 4.405494415772521 | top 3 accuracy: 0.2965784403218902 -- epoch 80/200
+		testing average: 4.449226285945018 | top 3 accuracy: 0.2681336127874613 -- epoch 80/200 [|TEST DATA|]
+		training average: 4.405494415772521 | top 3 accuracy: 0.2965784403218902 -- epoch 100/200
+		testing average: 4.449226285945018 | top 3 accuracy: 0.2681336127874613 -- epoch 100/200 [|TEST DATA|]
+		training average: 4.405494415772521 | top 3 accuracy: 0.2965784403218902 -- epoch 120/200
+		testing average: 4.449226285945018 | top 3 accuracy: 0.2681336127874613 -- epoch 120/200 [|TEST DATA|]
+		training average: 4.405490852620232 | top 3 accuracy: 0.2965784403218902 -- epoch 140/200
+		testing average: 4.449226285945018 | top 3 accuracy: 0.2681336127874613 -- epoch 140/200 [|TEST DATA|]
+		training average: 4.405484210967632 | top 3 accuracy: 0.2965784403218902 -- epoch 160/200
+		testing average: 4.449160676807633 | top 3 accuracy: 0.2681336127874613 -- epoch 160/200 [|TEST DATA|]
+		training average: 4.405484210967632 | top 3 accuracy: 0.2965784403218902 -- epoch 180/200
+		testing average: 4.449160676807633 | top 3 accuracy: 0.2681336127874613 -- epoch 180/200 [|TEST DATA|]
+		training average: 4.405484210967632 | top 3 accuracy: 0.2965784403218902 -- epoch 200/200
+		testing average: 4.449160676807633 | top 3 accuracy: 0.2681336127874613 -- epoch 200/200 [|TEST DATA|]
 
+	ID for trained network: 6174
+	Input dimension = 12, Hidden dimension = 64, Output dimension = 12, Hidden layers = 4
+	Train set size = 800, Test set size = 200
+	Learning Rate = 0.001, Weight decay = 0.001
+	Repeat note weight = 0.3, Fith note weight = 0.3
+	Total Epochs = 200
+	Optimisation algorithm = SGD
+		testing average: 5.09732082407368 | top 3 accuracy: 0.23471999105258276 -- epoch 0/200 [|TEST DATA|]
+		training average: 3.661465261411102 | top 3 accuracy: 0.47762698266431924 -- epoch 20/200
+		testing average: 3.5708677015641115 | top 3 accuracy: 0.4908302131613331 -- epoch 20/200 [|TEST DATA|]
+		training average: 3.660505498928914 | top 3 accuracy: 0.47762698266431924 -- epoch 40/200
+		testing average: 3.5694698800221105 | top 3 accuracy: 0.4908302131613331 -- epoch 40/200 [|TEST DATA|]
+		training average: 3.660505498928914 | top 3 accuracy: 0.47762698266431924 -- epoch 60/200
+		testing average: 3.5694698800221105 | top 3 accuracy: 0.4908302131613331 -- epoch 60/200 [|TEST DATA|]
+		training average: 3.660505498928914 | top 3 accuracy: 0.47762698266431924 -- epoch 80/200
+		testing average: 3.5694698800221105 | top 3 accuracy: 0.4908302131613331 -- epoch 80/200 [|TEST DATA|]
+		training average: 3.660505498928914 | top 3 accuracy: 0.47762698266431924 -- epoch 100/200
+		testing average: 3.5694698800221105 | top 3 accuracy: 0.4908302131613331 -- epoch 100/200 [|TEST DATA|]
+		training average: 3.660505498928914 | top 3 accuracy: 0.47762698266431924 -- epoch 120/200
+		testing average: 3.5694698800221105 | top 3 accuracy: 0.4908302131613331 -- epoch 120/200 [|TEST DATA|]
+		training average: 3.660505498928914 | top 3 accuracy: 0.47762698266431924 -- epoch 140/200
+		testing average: 3.5694698800221105 | top 3 accuracy: 0.4908302131613331 -- epoch 140/200 [|TEST DATA|]
+		training average: 3.660505498928914 | top 3 accuracy: 0.47762698266431924 -- epoch 160/200
+		testing average: 3.5694698800221105 | top 3 accuracy: 0.4908302131613331 -- epoch 160/200 [|TEST DATA|]
+		training average: 3.660505498928914 | top 3 accuracy: 0.47762698266431924 -- epoch 180/200
+		testing average: 3.5694698800221105 | top 3 accuracy: 0.4908302131613331 -- epoch 180/200 [|TEST DATA|]
+		training average: 3.660505498928914 | top 3 accuracy: 0.47762698266431924 -- epoch 200/200
+		testing average: 3.5694698800221105 | top 3 accuracy: 0.4908302131613331 -- epoch 200/200 [|TEST DATA|]
+
+	ID for trained network: 6175
+	Input dimension = 12, Hidden dimension = 64, Output dimension = 12, Hidden layers = 4
+	Train set size = 800, Test set size = 200
+	Learning Rate = 0.001, Weight decay = 0.001
+	Repeat note weight = 0.35, Fith note weight = 0.35
+	Total Epochs = 200
+	Optimisation algorithm = SGD
+		testing average: 4.940534883676135 | top 3 accuracy: 0.17478673472865663 -- epoch 0/200 [|TEST DATA|]
+		training average: 3.6489381957971125 | top 3 accuracy: 0.48106839155121056 -- epoch 20/200
+		testing average: 3.7144373407169744 | top 3 accuracy: 0.4639318635426285 -- epoch 20/200 [|TEST DATA|]
+		training average: 3.6489381957971125 | top 3 accuracy: 0.48106839155121056 -- epoch 40/200
+		testing average: 3.7144373407169744 | top 3 accuracy: 0.4639318635426285 -- epoch 40/200 [|TEST DATA|]
+		training average: 3.6489381957971125 | top 3 accuracy: 0.48106839155121056 -- epoch 60/200
+		testing average: 3.7144373407169744 | top 3 accuracy: 0.4639318635426285 -- epoch 60/200 [|TEST DATA|]
+		training average: 3.6489381957971125 | top 3 accuracy: 0.48106839155121056 -- epoch 80/200
+		testing average: 3.7144373407169744 | top 3 accuracy: 0.4639318635426285 -- epoch 80/200 [|TEST DATA|]
+		training average: 3.6489381957971125 | top 3 accuracy: 0.48106839155121056 -- epoch 100/200
+		testing average: 3.7144373407169744 | top 3 accuracy: 0.4639318635426285 -- epoch 100/200 [|TEST DATA|]
+		training average: 3.6489381957971125 | top 3 accuracy: 0.48106839155121056 -- epoch 120/200
+		testing average: 3.7144373407169744 | top 3 accuracy: 0.4639318635426285 -- epoch 120/200 [|TEST DATA|]
+		training average: 3.6489381957971125 | top 3 accuracy: 0.48106839155121056 -- epoch 140/200
+		testing average: 3.7144373407169744 | top 3 accuracy: 0.4639318635426285 -- epoch 140/200 [|TEST DATA|]
+		training average: 3.6489381957971125 | top 3 accuracy: 0.48106839155121056 -- epoch 160/200
+		testing average: 3.7144373407169744 | top 3 accuracy: 0.4639318635426285 -- epoch 160/200 [|TEST DATA|]
+		training average: 3.6489381957971125 | top 3 accuracy: 0.48106839155121056 -- epoch 180/200
+		testing average: 3.7144373407169744 | top 3 accuracy: 0.4639318635426285 -- epoch 180/200 [|TEST DATA|]
+		training average: 3.6489381957971125 | top 3 accuracy: 0.48106839155121056 -- epoch 200/200
+		testing average: 3.7144373407169744 | top 3 accuracy: 0.4639318635426285 -- epoch 200/200 [|TEST DATA|]
 
 		
 		
