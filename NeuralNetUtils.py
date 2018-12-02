@@ -1,4 +1,12 @@
 import torch
+import math
+import random
+import numpy as np
+import csv
+import ast
+import sys
+
+csv.field_size_limit(sys.maxsize)
 
 # credit to the pytorch tutorials on LSTMs and GANs
 
@@ -80,6 +88,7 @@ class NoteDiscriminator(torch.nn.Module):
 class NoteGenerator(torch.nn.Module):
 	def __init__(self,noiseDim,hiddenDim,numHiddenLayers,numNotesOut,temp,device):
 		super(NoteGenerator,self).__init__()
+		self.noiseDim=noiseDim
 		self.numNotesOut=numNotesOut
 		layers=[torch.nn.Linear(noiseDim,hiddenDim),torch.nn.ELU()]
 		for i in range(numHiddenLayers):
@@ -97,5 +106,160 @@ class NoteGenerator(torch.nn.Module):
 		xs=tuple([torch.nn.functional.log_softmax(x.view(batchSize,-1),dim=1) for x in xs])
 		xs=tuple([torch.nn.functional.gumbel_softmax(x.view(batchSize,-1), tau=self.temp, hard=True) for x in xs])
 		return xs
+
+class VanillaNeuralNet:
+	def __init__(self,layerSizes,learningRate=0.001,useMomentum=True,momentumGamma=0.5,useL2Reg=True,l2Lambda=0.001):
+		self.layerCount=1
+		self.layerSizes=layerSizes
+		self.learningRate=learningRate
+		self.useMomentum=useMomentum
+		self.momentumGamma=momentumGamma
+		self.useL2Reg=useL2Reg
+		self.l2Lambda=l2Lambda
+		self.outputs=[]
+		self.weightedSums=[]
+		self.weights=[]
+		self.weightDerivatives=[]
+		self.weightDeltas=[]
+		self.biases=[]
+		self.biasDerivatives=[]
+		self.biasDeltas=[]
+		self.errorDerivatives=np.array([])
+		prev=layerSizes[0]
+		for s in layerSizes[1:]:
+			self.weights.append(np.random.randn(prev,s)*np.sqrt(2/prev))
+			self.weightDerivatives.append(np.zeros([prev,s]))
+			self.weightDeltas.append(np.zeros([prev,s])+learningRate)
+			self.biases.append(np.array([0]*s))
+			self.biasDerivatives.append(np.array([0]*s))
+			self.biasDeltas.append(np.array([learningRate]*s))			
+			prev=s
+			self.layerCount+=1
+		self.correctOutput=[]
+		self.error=0
+	
+	@staticmethod
+	def leakyReLU(x):
+		 return np.where(x > 0, x, 0.01*x)
+	
+	@staticmethod
+	def leakyReLUDerivative(x):
+		return np.where(x > 0, 1, 0.01)
+	
+	@staticmethod
+	def softmax(x):
+		e_x = np.exp(x - np.max(x))
+		return e_x / e_x.sum()
+	
+	@staticmethod
+	def crossEntropy(trueValues,predictedValues):
+		for i,target in enumerate(trueValues):
+			if target:
+				if predictedValues[i] == 0:
+					return 750
+				else:
+					return -math.log(predictedValues[i])
+		
+	def forwardPropagation(self,nninp,correctOutput):
+		self.outputs=[np.array(nninp)]
+		self.weightedSums=[np.array(nninp)]
+		for i in range(0,self.layerCount-2):
+			weightedSum=np.matmul(self.outputs[-1],self.weights[i])+self.biases[i]
+			self.weightedSums.append(weightedSum)
+			self.outputs.append(self.leakyReLU(weightedSum))
+		weightedSum=np.matmul(self.outputs[-1],self.weights[self.layerCount-2])+self.biases[self.layerCount-2]
+		self.weightedSums.append(weightedSum)
+		self.outputs.append(self.softmax(weightedSum))
+		self.correctOutput=correctOutput
+		self.error=self.crossEntropy(correctOutput,self.outputs[-1])
+	
+	def backPropagation(self):
+		currentLayerDerivatives=self.outputs[-1]-np.array(self.correctOutput)
+		self.errorDerivatives=currentLayerDerivatives
+		for i in range(self.layerCount-2,-1,-1):
+			self.biasDerivatives[i]=currentLayerDerivatives
+			self.weightDerivatives[i]=np.matmul(self.outputs[i][np.newaxis].T,currentLayerDerivatives[np.newaxis])
+			currentLayerDerivatives=self.leakyReLUDerivative(self.weightedSums[i])*np.matmul(self.weights[i],currentLayerDerivatives)
+	
+	def gradientDescent(self):
+		for i in range(0,self.layerCount-1):
+			regWeights=0
+			regBiases=0
+			if self.useL2Reg:
+				regWeights=2*self.l2Lambda*self.weights[i]
+				regBiases=2*self.l2Lambda*self.biases[i]
+			if self.useMomentum:
+				self.weightDeltas[i]=self.momentumGamma*self.weightDeltas[i]+self.learningRate*(self.weightDerivatives[i]+regWeights)
+				self.biasDeltas[i]=self.momentumGamma*self.biasDeltas[i]+self.learningRate*(self.biasDerivatives[i]+regBiases)
+				self.weights[i]=self.weights[i]-self.weightDeltas[i]
+				self.biases[i]=self.biases[i]-self.biasDeltas[i]
+			else:
+				self.weights[i]=self.weights[i]-self.weightDeltas[i]*(self.weightDerivatives[i]+regWeights)
+				self.biases[i]=self.biases[i]-self.biasDeltas[i]*(self.biasDerivatives[i]+regBiases)
+	
+	def saveTocsv(self,fileName):
+		spamWriter=csv.writer(open(fileName,'w'))
+		spamWriter.writerow([str(self.layerCount)])
+		spamWriter.writerow([str(self.layerSizes)])
+		spamWriter.writerow([str(self.learningRate)])
+		spamWriter.writerow([str(self.useMomentum)])
+		spamWriter.writerow([str(self.momentumGamma)])
+		spamWriter.writerow([str(self.useL2Reg)])
+		spamWriter.writerow([str(self.l2Lambda)])
+		for layerW in self.weights:
+			spamWriter.writerow([str(layerW.tolist())])
+		for layerWDeriv in self.weightDerivatives:
+			spamWriter.writerow([str(layerWDeriv.tolist())])
+		for layerWDelt in self.weightDeltas:
+			spamWriter.writerow([str(layerWDelt.tolist())])
+		for layerB in self.biases:
+			spamWriter.writerow([str(layerB.tolist())])
+		for layerBDeriv in self.biasDerivatives:
+			spamWriter.writerow([str(layerBDeriv.tolist())])
+		for layerBDelt in self.biasDeltas:
+			spamWriter.writerow([str(layerBDelt.tolist())])
+		spamWriter.writerow([str(self.errorDerivatives.tolist())])
+		spamWriter.writerow([str(self.correctOutput)])
+		spamWriter.writerow([str(self.error)])
+	
+	def readFromcsv(self,fileName):
+		spamReader=csv.reader(open(fileName))
+		self.layerCount=int(next(spamReader)[0])
+		next(spamReader)
+		self.layerSizes=ast.literal_eval(next(spamReader)[0])
+		next(spamReader)
+		self.learningRate=float(next(spamReader)[0])
+		next(spamReader)
+		self.useMomentum=bool(next(spamReader)[0])
+		next(spamReader)
+		self.momentumGamma=float(next(spamReader)[0])
+		next(spamReader)
+		self.useL2Reg=bool(next(spamReader)[0])
+		next(spamReader)
+		self.l2Lambda=float(next(spamReader)[0])
+		next(spamReader)
+		for i in range(0,self.layerCount-1):
+			self.weights[i]=np.array(ast.literal_eval(next(spamReader)[0]))
+			next(spamReader)
+		for i in range(0,self.layerCount-1):
+			self.weightDerivatives[i]=np.array(ast.literal_eval(next(spamReader)[0]))
+			next(spamReader)
+		for i in range(0,self.layerCount-1):
+			self.weightDeltas[i]=np.array(ast.literal_eval(next(spamReader)[0]))
+			next(spamReader)
+		for i in range(0,self.layerCount-1):
+			self.biases[i]=np.array(ast.literal_eval(next(spamReader)[0]))
+			next(spamReader)
+		for i in range(0,self.layerCount-1):
+			self.biasDerivatives[i]=np.array(ast.literal_eval(next(spamReader)[0]))
+			next(spamReader)
+		for i in range(0,self.layerCount-1):
+			self.biasDeltas[i]=np.array(ast.literal_eval(next(spamReader)[0]))
+			next(spamReader)
+		self.errorDerivatives=ast.literal_eval(next(spamReader)[0])
+		next(spamReader)
+		self.correctOutput=ast.literal_eval(next(spamReader)[0])
+		next(spamReader)
+		self.error=float(next(spamReader)[0])
 	
 	

@@ -1,0 +1,29 @@
+TESTING ON NETWORK THAT DECIDES WHETHER ONE SPECIFIC DRUM TYPE SHOULD PLAY
+
+training on 100 songs, 100 epochs
+	
+	useMomentum=False
+	network structure [44,44,44,22,11,2]
+	error 0.27
+
+
+training on 1000 songs, 100 epochs
+	
+	useMomentum=False
+	network structure [44,44,44,22,11,2]
+	error 0.34
+	
+TESTING ON NETWORK THAT DECIDES WHETHER ONE OF ANY DRUM TYPE SHOULD PLAY
+
+training on 100 songs, 100 epochs
+	
+	useMomentum=False
+	network structure [44,44,44,22,11,11]
+	error 0.99
+
+training on 1000 songs, 100 epochs
+	
+	useMomentum=False
+	network structure [44,44,44,22,11,11]
+	error 1.08
+	
