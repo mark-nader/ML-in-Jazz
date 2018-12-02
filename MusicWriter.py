@@ -39,6 +39,7 @@ class InstrumentSection:
 		self.beatsInBars=[]
 		self.subDivisionsPerBeats=[]
 		self.sectionEndTimeDelta=0
+		self.formattedBars=[]
 		self.msgs=[]
 		self.melodyNet=melodyNet
 		self.chosenRhythm=[]
@@ -49,11 +50,96 @@ class InstrumentSection:
 	def setNumOfRepetitions(self,numOfRepetitions):
 		self.numOfRepetitions=numOfRepetitions
 	
+	def formatBars(self,noteOverlapFlag,chromaticFrequencyFactor,chromaticSizeRange,slideFrequencyFactor,slideSizeRange,nextNote):
+	#making nextNote negative will mean it is ignored, useful for the end of a piece
+		print(self.bars)###################
+		print()###################
+		flattenBars=[]
+		barBeats=0
+		for i,bar in enumerate(self.bars):
+			for j, nE in enumerate(bar):
+				flattenBars.append([barBeats+bar[j][0],bar[j][1],bar[j][2],bar[j][3]])
+			barBeats+=self.beatsInBars[i]
+		if nextNote >= 0:
+			flattenBars.append([barBeats,nextNote,0,0])
+		
+		if not noteOverlapFlag:
+			for i,nE in enumerate(flattenBars[:-1]):
+				if flattenBars[i][0]+flattenBars[i][3] >= flattenBars[i+1][0]:
+					flattenBars[i][3]=flattenBars[i+1][0]-flattenBars[i][0]
+		
+		sliding=False
+		for i,nE in enumerate(flattenBars[:-1]):
+			if sliding:
+				sliding=False
+			else:
+				noteDifference=abs(flattenBars[i+1][1]-flattenBars[i][1])
+				travelDirection=1
+				if flattenBars[i][1] > flattenBars[i+1][1]:
+					travelDirection=-1
+				if not noteDifference == 0:
+					timeInterval=(flattenBars[i+1][0]-flattenBars[i][0])/noteDifference
+				if noteDifference in chromaticSizeRange and chromaticFrequencyFactor.getValue() == 1:
+					for j in range(0,noteDifference):
+						self.formattedBars.append([0,flattenBars[i][0]+j*timeInterval,flattenBars[i][1]+travelDirection*j,flattenBars[i][2],flattenBars[i][3]/noteDifference])
+				elif noteDifference in slideSizeRange and slideFrequencyFactor.getValue() == 1:
+					self.formattedBars.append([1,flattenBars[i][0],flattenBars[i][1],flattenBars[i+1][2],travelDirection,noteDifference,timeInterval,flattenBars[i+1][3]])
+					sliding=True
+				else:
+					self.formattedBars.append([0]+flattenBars[i])
+			
+		#[NoteOrSlideFlag(=0),BeatsSinceSectionStart,Note,Velocity,Duration]
+		#[NoteOrSlideFlag(=1),BeatsSinceSectionStart,StartNote,Velocity,TravelDirection,SlideSize,TimePerSemi,FinishDuration]
+						
+		
+	def convertToMidi(self,startTime,channelNum,ticksPerInstrumentBeat):
+		toConvert=[]
+		time=startTime
+		finalBarStart=0
+		roundedTime=0
+		for i,note in enumerate(self.formattedBars):
+			if note[0] == 0:
+				toConvert.append([1,int(ticksPerInstrumentBeat*note[1]),note[2],note[3]])
+				toConvert.append([0,int(ticksPerInstrumentBeat*(note[1]+note[4])),note[2],0])
+			else:
+				toConvert.append([2,int(ticksPerInstrumentBeat*note[1])]+note[2:6]+[int(ticksPerInstrumentBeat*note[6]),int(ticksPerInstrumentBeat*note[7])])
+		
+		prevTime=-startTime
+		self.msgs=[]
+		for i,event in enumerate(toConvert):
+			types=["note_off","note_on"]
+			deltaTime=max(0,event[1]-prevTime)
+			if event[0] == 2:
+				self.msgs.append(mido.Message("note_on",time=deltaTime,channel=channelNum,note=event[2],velocity=event[3]))
+				self.msgs.append(mido.Message("control_change",time=0,channel=channelNum,control=101,value=0))
+				self.msgs.append(mido.Message("control_change",time=0,channel=channelNum,control=100,value=0))
+				self.msgs.append(mido.Message("control_change",time=0,channel=channelNum,control=6,value=event[5]))
+				for j in range(1,event[5]+1):
+					self.msgs.append(mido.Message("pitchwheel",time=int(event[6]/2),channel=channelNum,pitch=round(event[4]*(j-0.5)*(8191.5/event[5])-0.5)))
+					self.msgs.append(mido.Message("pitchwheel",time=int(event[6]/2),channel=channelNum,pitch=round(event[4]*j*(8191.5/event[5])-0.5)))
+				self.msgs.append(mido.Message("note_off",time=event[7],channel=channelNum,note=event[2],velocity=0))
+				self.msgs.append(mido.Message("pitchwheel",time=0,channel=channelNum,pitch=0))
+				prevTime=event[1]+event[5]*event[6]+event[7]
+			else:
+				self.msgs.append(mido.Message(types[event[0]],time=deltaTime,channel=channelNum,note=event[2],velocity=event[3]))
+				prevTime=event[1]
+		self.sectionEndTimeDelta=sum(self.beatsInBars)*ticksPerInstrumentBeat-prevTime
+		
+	def saveMidi(self,saveName):
+		mid = mido.MidiFile()
+		track = mido.MidiTrack()
+		mid.tracks.append(track)
+		track.append(mido.Message('program_change', program=32, channel=0, time=0))
+		
+		for msg in self.msgs:
+			track.append(msg)
+
+		mid.save(saveName)
+
 class MelodyInstrumentSection(InstrumentSection):
 	
 	def __init__(self,sectionName,minNote,maxNote,melodyNet):
 		InstrumentSection.__init__(self,sectionName,melodyNet)
-		self.formattedBars=[]
 		self.minNote=minNote
 		self.maxNote=maxNote
 		
@@ -172,161 +258,158 @@ class MelodyInstrumentSection(InstrumentSection):
 				startTime+=subDivisionTimeDelta
 				
 		self.bars.append(bar)
-			
-	def formatBars(self,noteOverlapFlag,chromaticFrequencyFactor,chromaticSizeRange,slideFrequencyFactor,slideSizeRange,nextNote):
-	#making nextNote negative will mean it is ignored, useful for the end of a piece
-		flattenBars=[]
-		barBeats=0
-		for i,bar in enumerate(self.bars):
-			for j, nE in enumerate(bar):
-				flattenBars.append([barBeats+bar[j][0],bar[j][1],bar[j][2],bar[j][3]])
-			barBeats+=self.beatsInBars[i]
-		if nextNote >= 0:
-			flattenBars.append([barBeats,nextNote,0,0])
-		
-		if not noteOverlapFlag:
-			for i,nE in enumerate(flattenBars[:-1]):
-				if flattenBars[i][0]+flattenBars[i][3] >= flattenBars[i+1][0]:
-					flattenBars[i][3]=flattenBars[i+1][0]-flattenBars[i][0]
-		
-		sliding=False
-		for i,nE in enumerate(flattenBars[:-1]):
-			if sliding:
-				sliding=False
-			else:
-				noteDifference=abs(flattenBars[i+1][1]-flattenBars[i][1])
-				travelDirection=1
-				if flattenBars[i][1] > flattenBars[i+1][1]:
-					travelDirection=-1
-				if not noteDifference == 0:
-					timeInterval=(flattenBars[i+1][0]-flattenBars[i][0])/noteDifference
-				if noteDifference in chromaticSizeRange and chromaticFrequencyFactor.getValue() == 1:
-					for j in range(0,noteDifference):
-						self.formattedBars.append([0,flattenBars[i][0]+j*timeInterval,flattenBars[i][1]+travelDirection*j,flattenBars[i][2],flattenBars[i][3]/noteDifference])
-				elif noteDifference in slideSizeRange and slideFrequencyFactor.getValue() == 1:
-					self.formattedBars.append([1,flattenBars[i][0],flattenBars[i][1],flattenBars[i+1][2],travelDirection,noteDifference,timeInterval,flattenBars[i+1][3]])
-					sliding=True
+
+class PercussionInstrumentSection(InstrumentSection):
+	
+	def __init__(self,sectionName,melodyNet):
+		InstrumentSection.__init__(self,sectionName,melodyNet)
+		self.sectionSkeleton=[]
+	
+	def getModifiedSkeleton(self,skeleton,removeChance,addChance,addPercussionGroups,melodyChoiceFactor,velocity):
+		newSkeleton=skeleton
+		numDivs=skeleton[0]*skeleton[1]
+		for i in range(numDivs):
+			newSkeleton[2][i]=[elem for elem in skeleton[2][i] if random.randint(0,100) > removeChance]
+		netInp=[]
+		emptyCount=0
+		while len(netInp) < self.melodyNet.layerSizes[0] and emptyCount < numDivs:
+			emptyCount=0
+			for subDiv in newSkeleton[2]:
+				if subDiv:
+					drumHits=[0]*self.melodyNet.layerSizes[-1]
+					for beat in subDiv:
+						drumHits[mtu.lookUpDrumType(beat[0])[0]]=1
+					netInp.extend(drumHits)
 				else:
-					self.formattedBars.append([0]+flattenBars[i])
-			
-		#[NoteOrSlideFlag(=0),BeatsSinceSectionStart,Note,Velocity,Duration]
-		#[NoteOrSlideFlag(=1),BeatsSinceSectionStart,StartNote,Velocity,TravelDirection,SlideSize,TimePerSemi,FinishDuration]
-						
+					emptyCount+=1
+		if emptyCount < numDivs:
+			netInp=netInp[-self.melodyNet.layerSizes[0]:]
+			for i in range(numDivs):
+				if random.randint(0,100) <= addChance:
+					self.melodyNet.forwardPropagation(netInp,[0]*self.melodyNet.layerSizes[-1])
+					possibleGroups=[group for group in getIndexesOfSortedList(self.melodyNet.outputs[-1])[:melodyChoiceFactor.getValue()] if group in addPercussionGroups]
+					addGroup=random.choice(addPercussionGroups)
+					if possibleGroups:
+						addGroup=random.choice(possibleGroups)
+					hitNote=random.choice(mtu.lookUpDrumCategory(addGroup))[1]
+					newSkeleton[2][i].append([hitNote,velocity])
+				drumHits=[0]*self.melodyNet.layerSizes[-1]
+				for beat in newSkeleton[2][i]:
+					drumHits[mtu.lookUpDrumType(beat[0])[0]]=1
+				netInp=netInp[self.melodyNet.layerSizes[-1]:]
+				netInp.extend(drumHits)
+		return newSkeleton
+	
+	def setSectionSkeleton(self,skeleton,removeChance,addChance,addPercussionGroups,melodyChoiceFactor,velocity):
+		self.sectionSkeleton=self.getModifiedSkeleton(skeleton,removeChance,addChance,addPercussionGroups,melodyChoiceFactor,velocity)
+	
+	def addBar(self,removeChance,addChance,addPercussionGroups,melodyChoiceFactor,velocity):
+		self.numOfBars+=1
+		newBeats=self.getModifiedSkeleton(self.sectionSkeleton,removeChance,addChance,addPercussionGroups,melodyChoiceFactor,velocity)
+		beatsInBar=newBeats[0]
+		subDivsPerBeat=newBeats[1]
+		self.beatsInBars.append(beatsInBar)
+		self.subDivisionsPerBeats.append(subDivsPerBeat)
+		subDivTimeDelta=1/subDivsPerBeat
+		bar=[]
+		for i in range(beatsInBar):
+			for j in range(subDivsPerBeat):
+				hitStartTime=i+j*subDivTimeDelta
+				for beat in newBeats[2][i*subDivsPerBeat+j]:
+					bar.append([hitStartTime,*beat,1])
+		self.bars.append(bar)
+
+drumsNet=nnu.VanillaNeuralNet([44,44,44,22,11,11])
+drumsNet.readFromcsv('drumBeatEveryInstrument_Good.csv')
+
+testDrumsSection=PercussionInstrumentSection("First Test",drumsNet)
+
+drumsMCT=WeightedNumberPicker([2,4],[3,5],[0.60,0.40])
+zeroFactor=WeightedNumberPicker([0],[0],[1])
+
+testDrumsSection.setSectionSkeleton(random.choice(mtu.DrumSkeletons),15,25,[0,1,2,3,4,6],drumsMCT,64)
+
+testDrumsSection.addBar(15,25,[1,2,3,6,7],drumsMCT,64)
+testDrumsSection.addBar(15,25,[1,2,3,6,7],drumsMCT,64)
+testDrumsSection.addBar(15,25,[1,2,3,6,7],drumsMCT,64)
+testDrumsSection.addBar(15,25,[1,2,3,6,7],drumsMCT,64)
+
+testDrumsSection.formatBars(True,zeroFactor,[],zeroFactor,[],-1)
+
+testDrumsSection.convertToMidi(480,9,480)
+
+testDrumsSection.saveMidi('drumMelodyTest.mid')
+
 		
-	def convertToMidi(self,startTime,channelNum,ticksPerInstrumentBeat):
-		toConvert=[]
-		time=startTime
-		finalBarStart=0
-		roundedTime=0
-		for i,note in enumerate(self.formattedBars):
-			if note[0] == 0:
-				toConvert.append([1,int(ticksPerInstrumentBeat*note[1]),note[2],note[3]])
-				toConvert.append([0,int(ticksPerInstrumentBeat*(note[1]+note[4])),note[2],0])
-			else:
-				toConvert.append([2,int(ticksPerInstrumentBeat*note[1])]+note[2:6]+[int(ticksPerInstrumentBeat*note[6]),int(ticksPerInstrumentBeat*note[7])])
-		
-		prevTime=-startTime
-		self.msgs=[]
-		for i,event in enumerate(toConvert):
-			types=["note_off","note_on"]
-			deltaTime=max(0,event[1]-prevTime)
-			if event[0] == 2:
-				self.msgs.append(mido.Message("note_on",time=deltaTime,channel=channelNum,note=event[2],velocity=event[3]))
-				self.msgs.append(mido.Message("control_change",time=0,channel=channelNum,control=101,value=0))
-				self.msgs.append(mido.Message("control_change",time=0,channel=channelNum,control=100,value=0))
-				self.msgs.append(mido.Message("control_change",time=0,channel=channelNum,control=6,value=event[5]))
-				for j in range(1,event[5]+1):
-					self.msgs.append(mido.Message("pitchwheel",time=int(event[6]/2),channel=channelNum,pitch=round(event[4]*(j-0.5)*(8191.5/event[5])-0.5)))
-					self.msgs.append(mido.Message("pitchwheel",time=int(event[6]/2),channel=channelNum,pitch=round(event[4]*j*(8191.5/event[5])-0.5)))
-				self.msgs.append(mido.Message("note_off",time=event[7],channel=channelNum,note=event[2],velocity=0))
-				self.msgs.append(mido.Message("pitchwheel",time=0,channel=channelNum,pitch=0))
-				prevTime=event[1]+event[5]*event[6]+event[7]
-			else:
-				self.msgs.append(mido.Message(types[event[0]],time=deltaTime,channel=channelNum,note=event[2],velocity=event[3]))
-				prevTime=event[1]
-		self.sectionEndTimeDelta=sum(self.beatsInBars)*ticksPerInstrumentBeat-prevTime
-		
-	def saveMidi(self):
-		mid = mido.MidiFile()
-		track = mido.MidiTrack()
-		mid.tracks.append(track)
-		track.append(mido.Message('program_change', program=32, channel=0, time=0))
-		
-		for msg in self.msgs:
-			track.append(msg)
+# melodyModel=nnu.LSTM_LogSoftMax_RNN(12,64,12,4,cuda)
+# if True:
+	# checkpoint = torch.load("trained networks/6174.pt",map_location='cpu')
+	# melodyModel.load_state_dict(checkpoint['model_state_dict'])
+# else:
+	# melodyModel.load_state_dict(torch.load("trained networks/5696.pt",map_location='cpu'))
 
-		mid.save('RNNmelodytest.mid')
+# melodyModel.eval()
+# testBassSection=MelodyInstrumentSection("First Test",28,52,melodyModel)
 
-		
-melodyModel=nnu.LSTM_LogSoftMax_RNN(12,64,12,4,cuda)
-if True:
-	checkpoint = torch.load("trained networks/6174.pt",map_location='cpu')
-	melodyModel.load_state_dict(checkpoint['model_state_dict'])
-else:
-	melodyModel.load_state_dict(torch.load("trained networks/5696.pt",map_location='cpu'))
+# scaleChoiceFactor=WeightedNumberPicker([0,0],[3,5],[0.65,0.35])
+# beatsInBar=4
+# subDivsPerBeat=3
+# div1O4=WeightedNumberPicker([0,1],[0,1],[0,1])
+# div3O4=WeightedNumberPicker([0,1],[0,1],[1,0])
+# div24O4=WeightedNumberPicker([0,1],[0,1],[1,0])
+# div1O3=WeightedNumberPicker([0,1],[0,1],[0.00,1.00])
+# div2O3=WeightedNumberPicker([0,1],[0,1],[1.00,0.00])
+# div3O3=WeightedNumberPicker([0,1],[0,1],[0.75,0.25])
+# noteSeed=[67,71,67,60,62,60,65]
+# mCTF=WeightedNumberPicker([0,1,2],[0,1,2],[0.35,0.45,0.20])
+# mCF=WeightedNumberPicker([2,3],[3,4],[0.60,0.40])
+# oRF=WeightedNumberPicker([-1,-2],[0,1],[0.85,0.15])
+# dCF=WeightedNumberPicker([0,1],[0,1],[0.65,0.35])
+# velocityRange=[64,127]
+# durationRange=[2,3]
 
-melodyModel.eval()
-testBassSection=MelodyInstrumentSection("First Test",28,52,melodyModel)
+# noteOverlapFlag=False
+# cFF=WeightedNumberPicker([0,1],[0,1],[0.7,0.3])
+# cSR=list(range(3,5))
+# sFF=WeightedNumberPicker([0,1],[0,1],[0.95,0.05])
+# sSR=list(range(2,5))
+# nextNote=60
 
-scaleChoiceFactor=WeightedNumberPicker([0,0],[3,5],[0.65,0.35])
-beatsInBar=4
-subDivsPerBeat=3
-div1O4=WeightedNumberPicker([0,1],[0,1],[0,1])
-div3O4=WeightedNumberPicker([0,1],[0,1],[1,0])
-div24O4=WeightedNumberPicker([0,1],[0,1],[1,0])
-div1O3=WeightedNumberPicker([0,1],[0,1],[0.00,1.00])
-div2O3=WeightedNumberPicker([0,1],[0,1],[1.00,0.00])
-div3O3=WeightedNumberPicker([0,1],[0,1],[0.75,0.25])
-noteSeed=[67,71,67,60,62,60,65]
-mCTF=WeightedNumberPicker([0,1,2],[0,1,2],[0.35,0.45,0.20])
-mCF=WeightedNumberPicker([2,3],[3,4],[0.60,0.40])
-oRF=WeightedNumberPicker([-1,-2],[0,1],[0.85,0.15])
-dCF=WeightedNumberPicker([0,1],[0,1],[0.65,0.35])
-velocityRange=[64,127]
-durationRange=[2,3]
+# Dm7=mtu.Chord(62,11)
+# G7=mtu.Chord(67,9)
+# CMaj7=mtu.Chord(60,10)
 
-noteOverlapFlag=False
-cFF=WeightedNumberPicker([0,1],[0,1],[0.7,0.3])
-cSR=list(range(3,5))
-sFF=WeightedNumberPicker([0,1],[0,1],[0.95,0.05])
-sSR=list(range(2,5))
-nextNote=60
+# noteList=noteSeed
 
-Dm7=mtu.Chord(62,11)
-G7=mtu.Chord(67,9)
-CMaj7=mtu.Chord(60,10)
+# chosenScale=Dm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
+# testBassSection.addBar(Dm7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+# noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+# noteList+=testBassSection.chosenMelody[:]
 
-noteList=noteSeed
+# chosenScale=G7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
+# testBassSection.addBar(G7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+# noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+# noteList+=testBassSection.chosenMelody[:]
 
-chosenScale=Dm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
-testBassSection.addBar(Dm7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
-noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
-noteList+=testBassSection.chosenMelody[:]
+# chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
+# testBassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+# noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+# noteList+=testBassSection.chosenMelody[:]
 
-chosenScale=G7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
-testBassSection.addBar(G7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
-noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
-noteList+=testBassSection.chosenMelody[:]
+# chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
+# testBassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+# noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+# noteList+=testBassSection.chosenMelody[:]
 
-chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
-testBassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
-noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
-noteList+=testBassSection.chosenMelody[:]
+# testBassSection.setNumOfRepetitions(3)
 
-chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
-testBassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
-noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
-noteList+=testBassSection.chosenMelody[:]
+# testBassSection.formatBars(noteOverlapFlag,cFF,cSR,sFF,sSR,nextNote)
 
-testBassSection.setNumOfRepetitions(3)
+# testBassSection.convertToMidi(480,0,480)
 
-testBassSection.formatBars(noteOverlapFlag,cFF,cSR,sFF,sSR,nextNote)
-
-testBassSection.convertToMidi(480,0,480)
-
-testBassSection.saveMidi()
+# testBassSection.saveMidi('RNNmelodytest.mid')
 
 
-for logInfo in testBassSection.creationLog:
-	print(logInfo)
+# for logInfo in testBassSection.creationLog:
+	# print(logInfo)
 
