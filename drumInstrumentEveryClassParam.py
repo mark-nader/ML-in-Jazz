@@ -60,15 +60,14 @@ while epoch <= epochCount:
 					if drumHitBuffer[-11:][i] == 1:
 						correctOutput=[0]*11
 						correctOutput[i]=1
-						neuralNet.forwardPropagation(drumHitBuffer[:44],correctOutput)
-						
+						neuralNet.forwardPropagation(drumHitBuffer[:44],correctOutput)						
 						if i in nnu.getIndexesOfSortedList(neuralNet.outputs[-1])[:3]:
 							inTop3+=1
 						topKSum+=nnu.getIndexesOfSortedList(neuralNet.outputs[-1]).index(i)
 						forwardPasses+=1
-						
-						neuralNet.backPropagation()
-						neuralNet.gradientDescent()
+						if not testingIteration:
+							neuralNet.backPropagation()
+							neuralNet.gradientDescent()
 				drumHitBuffer=drumHitBuffer[11:]
 	
 	if testingIteration:
