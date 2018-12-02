@@ -52,8 +52,6 @@ class InstrumentSection:
 	
 	def formatBars(self,noteOverlapFlag,chromaticFrequencyFactor,chromaticSizeRange,slideFrequencyFactor,slideSizeRange,nextNote):
 	#making nextNote negative will mean it is ignored, useful for the end of a piece
-		print(self.bars)###################
-		print()###################
 		flattenBars=[]
 		barBeats=0
 		for i,bar in enumerate(self.bars):
@@ -103,6 +101,7 @@ class InstrumentSection:
 				toConvert.append([0,int(ticksPerInstrumentBeat*(note[1]+note[4])),note[2],0])
 			else:
 				toConvert.append([2,int(ticksPerInstrumentBeat*note[1])]+note[2:6]+[int(ticksPerInstrumentBeat*note[6]),int(ticksPerInstrumentBeat*note[7])])
+		toConvert.sort(key=lambda x: x[1])
 		
 		prevTime=-startTime
 		self.msgs=[]
@@ -269,7 +268,7 @@ class PercussionInstrumentSection(InstrumentSection):
 		newSkeleton=skeleton
 		numDivs=skeleton[0]*skeleton[1]
 		for i in range(numDivs):
-			newSkeleton[2][i]=[elem for elem in skeleton[2][i] if random.randint(0,100) > removeChance]
+			newSkeleton[2][i]=[elem for elem in skeleton[2][i] if random.randint(1,100) > removeChance]
 		netInp=[]
 		emptyCount=0
 		while len(netInp) < self.melodyNet.layerSizes[0] and emptyCount < numDivs:
@@ -285,7 +284,7 @@ class PercussionInstrumentSection(InstrumentSection):
 		if emptyCount < numDivs:
 			netInp=netInp[-self.melodyNet.layerSizes[0]:]
 			for i in range(numDivs):
-				if random.randint(0,100) <= addChance:
+				if random.randint(1,100) <= addChance:
 					self.melodyNet.forwardPropagation(netInp,[0]*self.melodyNet.layerSizes[-1])
 					possibleGroups=[group for group in getIndexesOfSortedList(self.melodyNet.outputs[-1])[:melodyChoiceFactor.getValue()] if group in addPercussionGroups]
 					addGroup=random.choice(addPercussionGroups)
@@ -327,12 +326,12 @@ testDrumsSection=PercussionInstrumentSection("First Test",drumsNet)
 drumsMCT=WeightedNumberPicker([2,4],[3,5],[0.60,0.40])
 zeroFactor=WeightedNumberPicker([0],[0],[1])
 
-testDrumsSection.setSectionSkeleton(random.choice(mtu.DrumSkeletons),15,25,[0,1,2,3,4,6],drumsMCT,64)
+testDrumsSection.setSectionSkeleton(random.choice(mtu.DrumSkeletons),0,0,[0,1,2,3,4,6],drumsMCT,64)
 
-testDrumsSection.addBar(15,25,[1,2,3,6,7],drumsMCT,64)
-testDrumsSection.addBar(15,25,[1,2,3,6,7],drumsMCT,64)
-testDrumsSection.addBar(15,25,[1,2,3,6,7],drumsMCT,64)
-testDrumsSection.addBar(15,25,[1,2,3,6,7],drumsMCT,64)
+testDrumsSection.addBar(0,0,[1,2,3,6,7],drumsMCT,64)
+testDrumsSection.addBar(0,0,[1,2,3,6,7],drumsMCT,64)
+testDrumsSection.addBar(0,0,[1,2,3,6,7],drumsMCT,64)
+testDrumsSection.addBar(0,0,[1,2,3,6,7],drumsMCT,64)
 
 testDrumsSection.formatBars(True,zeroFactor,[],zeroFactor,[],-1)
 
