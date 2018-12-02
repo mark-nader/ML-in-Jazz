@@ -9,25 +9,40 @@ songList=mu.getSongList("projectMidiTraining")
 numSongs=len(songList)
 random.shuffle(songList)
 
-neuralNet=nnu.NeuralNet([44,44,44,22,11,11],learningRate=0.001,useMomentum=False,momentumGamma=0.2,useL2Reg=True,l2Lambda=0.001)
-trainSongCount=1000
+neuralNet=nnu.VanillaNeuralNet([44,44,44,22,11,11],learningRate=0.001,useMomentum=False,momentumGamma=0.2,useL2Reg=True,l2Lambda=0.001)
+trainSongCount=800
+testSongCount=200
 epochCount=100
-allSongDrumbeats=[]
-sumError=0
-errorCount=0
+testEvery=5
 
+
+allSongTrainDrumbeats=[]
+allSongTestDrumbeats=[]
 for i,songName in enumerate(songList[:trainSongCount]):
-	print("loading song {}".format(i))
+	print("loading training song {}".format(i))
 	songDir="projectMidiTraining/{}".format(songName)
-	allSongDrumbeats.append([mu.getDrumsFromSong(songDir),mu.getTicksPerBeat(songDir)])
-for epochNum in range(0,epochCount):
-	for songIndex in range(0,trainSongCount):
-		print("({}) training on song: {} -- epoch {}/{}".format(songIndex,songList[songIndex],epochNum+1,epochCount))
-		ticksPerBeat=allSongDrumbeats[songIndex][1]
+	allSongTrainDrumbeats.append([mu.getDrumsFromSong(songDir),mu.getTicksPerBeat(songDir)])
+for i,songName in enumerate(songList[-testSongCount:]):
+	print("loading testing song {}".format(i))
+	songDir="projectMidiTraining/{}".format(songName)
+	allSongTestDrumbeats.append([mu.getDrumsFromSong(songDir),mu.getTicksPerBeat(songDir)])
+	
+epoch=0
+testingIteration=True
+printedTestLoss=False
+while epoch <= epochCount:
+	drumBeatList=allSongTrainDrumbeats
+	if testingIteration:
+		drumBeatList=allSongTestDrumbeats
+	forwardPasses=0
+	inTop3=0
+	topKSum=0
+	for drumBeat in drumBeatList:
+		ticksPerBeat=drumBeat[1]
 		currentTime=0
 		drumHitBuffer=[]
 		pendingHits=[0]*11
-		for drumHit in allSongDrumbeats[songIndex][0]:		
+		for drumHit in drumBeat[0]:		
 			if drumHit[0] == currentTime:
 				drumType=mtu.lookUpDrumType(drumHit[1])
 				if not drumType == "NOT FOUND":
@@ -45,15 +60,30 @@ for epochNum in range(0,epochCount):
 					if drumHitBuffer[-11:][i] == 1:
 						correctOutput=[0]*11
 						correctOutput[i]=1
-						#[1,0] for no hit, [0,1] for hit
 						neuralNet.forwardPropagation(drumHitBuffer[:44],correctOutput)
+						
+						if i in nnu.getIndexesOfSortedList(neuralNet.outputs[-1])[:3]:
+							inTop3+=1
+						topKSum+=nnu.getIndexesOfSortedList(neuralNet.outputs[-1]).index(i)
+						forwardPasses+=1
+						
 						neuralNet.backPropagation()
 						neuralNet.gradientDescent()
 				drumHitBuffer=drumHitBuffer[11:]
-				if epochNum+1 == epochCount:
-					sumError+=neuralNet.error
-					errorCount+=1
+	
+	if testingIteration:
+		print("testing average: {} | top 3 accuracy: {} -- epoch {}/{} [|TEST DATA|]".format(topKSum/forwardPasses,inTop3/forwardPasses,epoch,epochCount))
+		printedTestLoss=True
+	elif epoch % testEvery == 0:
+		print("training average: {} | top 3 accuracy: {} -- epoch {}/{}".format(topKSum/forwardPasses,inTop3/forwardPasses,epoch,epochCount))
+		
+
+	testingIteration=(epoch % testEvery == 0 and not printedTestLoss)
+	
+	if not testingIteration:
+		epoch+=1
+		printedTestLoss=False
+				
 neuralNet.saveTocsv("drumBeatEveryInstrument.csv")
-print("average error: {}".format(sumError/errorCount))
 				
 				
