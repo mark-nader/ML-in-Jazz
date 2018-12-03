@@ -26,4 +26,31 @@ training on 1000 songs, 100 epochs
 	useMomentum=False
 	network structure [44,44,44,22,11,11]
 	error 1.08
+
+Netword ID: d1
+networkSize = [44,44,44,22,11,11]
+trainSize = 800, testSize = 200
+100 epochs
+learningRate = 0.001
+	testing average: 5.1773882457902625 | top 3 accuracy: 0.25695846263948213 -- epoch 0/100 [|TEST DATA|]
+	training average: 1.075835453265748 | top 3 accuracy: 0.8656741385078621 -- epoch 10/100
+	testing average: 1.6463499561936976 | top 3 accuracy: 0.7379644992442209 -- epoch 10/100 [|TEST DATA|]
+	training average: 1.0792710062682667 | top 3 accuracy: 0.8651304784208765 -- epoch 20/100
+	testing average: 1.5857592611016083 | top 3 accuracy: 0.7453778734848314 -- epoch 20/100 [|TEST DATA|]
+	training average: 1.0770214055309721 | top 3 accuracy: 0.8653821875177538 -- epoch 30/100
+	testing average: 1.6489045215164362 | top 3 accuracy: 0.7397392161078823 -- epoch 30/100 [|TEST DATA|]
+	training average: 1.0805224502420827 | top 3 accuracy: 0.8648038089346471 -- epoch 40/100
+	testing average: 1.6547806636093183 | top 3 accuracy: 0.7403971129560749 -- epoch 40/100 [|TEST DATA|]
+	training average: 1.085376727245182 | top 3 accuracy: 0.8636738796972547 -- epoch 50/100
+	testing average: 1.6398159172526228 | top 3 accuracy: 0.7352719360460078 -- epoch 50/100 [|TEST DATA|]
+	training average: 1.0814858885094403 | top 3 accuracy: 0.864380085470625 -- epoch 60/100
+	testing average: 1.6562922217337026 | top 3 accuracy: 0.7327976020462197 -- epoch 60/100 [|TEST DATA|]
+	training average: 1.082035071993536 | top 3 accuracy: 0.8641859775150394 -- epoch 70/100
+	testing average: 1.6873642084859066 | top 3 accuracy: 0.73530081932227 -- epoch 70/100 [|TEST DATA|]
+	training average: 1.0814527481267793 | top 3 accuracy: 0.8647067549568543 -- epoch 80/100
+	testing average: 1.6631407674607428 | top 3 accuracy: 0.7261576577588503 -- epoch 80/100 [|TEST DATA|]
+	training average: 1.084054268165664 | top 3 accuracy: 0.8634695140041788 -- epoch 90/100
+	testing average: 1.640839668933469 | top 3 accuracy: 0.7335100561940185 -- epoch 90/100 [|TEST DATA|]
+	training average: 1.0784922072757344 | top 3 accuracy: 0.864971878018142 -- epoch 100/100
+	testing average: 1.5993889582444103 | top 3 accuracy: 0.7427655416095688 -- epoch 100/100 [|TEST DATA|]
 	

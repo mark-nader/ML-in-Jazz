@@ -9,10 +9,10 @@ songList=mu.getSongList("projectMidiTraining")
 numSongs=len(songList)
 random.shuffle(songList)
 
-neuralNet=nnu.VanillaNeuralNet([44,44,44,22,11,11],learningRate=0.001,useMomentum=False,momentumGamma=0.2,useL2Reg=True,l2Lambda=0.001)
+neuralNet=nnu.VanillaNeuralNet([44,88,44,44,11,11],learningRate=0.001,useMomentum=False,momentumGamma=0.2,useL2Reg=True,l2Lambda=0.001)
 trainSongCount=800
 testSongCount=200
-epochCount=100
+epochCount=50
 testEvery=5
 
 

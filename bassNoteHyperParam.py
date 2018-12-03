@@ -6,7 +6,7 @@ import random
 resumeTraining=False
 nameToSave="bassNotes.pt"
 dimIn, dimHidden, dimOut, hiddenLayers = 12, 64, 12, 4
-trainSize, testSize = 1, 1
+trainSize, testSize = 5, 5
 learningRate, weightDecay = 0.001, 0.001
 repeatWeight, fifthWeight = 0.2, 0.3
 numEpochs=10
@@ -58,35 +58,34 @@ while epoch <= numEpochs:
 	for i,bassline in enumerate(basslineList):
 	
 		basslineToTrain=mu.getBassNoteIntervalsFromBassline(bassline)
-		basslineToTrainLen=len(basslineToTrain)
+		if len(basslineToTrain) > 1:
 
-		model.zero_grad()
-		model.hidden = model.initHidden()
-					
-		netInputSeq=torch.tensor(nnu.oneHot(basslineToTrain[:-1],12))
-		netTargetSeq=torch.tensor([interval % 12 for interval in basslineToTrain[1:]])
-		netInputSeq=netInputSeq.to(cuda)	######### GPU
-		netTargetSeq=netTargetSeq.to(cuda)	######### GPU
-		if testingIteration:
-			with torch.no_grad():
+			model.zero_grad()
+			model.hidden = model.initHidden()
+						
+			netInputSeq=torch.tensor(nnu.oneHot(basslineToTrain[:-1],12))
+			netTargetSeq=torch.tensor([interval % 12 for interval in basslineToTrain[1:]])
+			netInputSeq=netInputSeq.to(cuda)	######### GPU
+			netTargetSeq=netTargetSeq.to(cuda)	######### GPU
+			if testingIteration:
+				with torch.no_grad():
+					predictedInterval=model(netInputSeq)
+					basslineTopKAvg=nnu.topKAverage(netTargetSeq.tolist(),predictedInterval)
+					printTopKAvg+=basslineTopKAvg
+					basslineTop3Acc=nnu.top3Accuracy(netTargetSeq.tolist(),predictedInterval)
+					printTop3Acc+=basslineTop3Acc
+					basslineSectionsTrained+=1
+			else:
 				predictedInterval=model(netInputSeq)
+				loss=lossFunction(predictedInterval,netTargetSeq)
 				basslineTopKAvg=nnu.topKAverage(netTargetSeq.tolist(),predictedInterval)
 				printTopKAvg+=basslineTopKAvg
 				basslineTop3Acc=nnu.top3Accuracy(netTargetSeq.tolist(),predictedInterval)
 				printTop3Acc+=basslineTop3Acc
 				basslineSectionsTrained+=1
-		else:
-			predictedInterval=model(netInputSeq)
-			loss=lossFunction(predictedInterval,netTargetSeq)
-			basslineTopKAvg=nnu.topKAverage(netTargetSeq.tolist(),predictedInterval)
-			printTopKAvg+=basslineTopKAvg
-			basslineTop3Acc=nnu.top3Accuracy(netTargetSeq.tolist(),predictedInterval)
-			printTop3Acc+=basslineTop3Acc
-			basslineSectionsTrained+=1
-			loss.backward()
-			optimizer.step()
-					
-					
+				loss.backward()
+				optimizer.step()
+											
 	if testingIteration:
 		print("testing average: {} | top 3 accuracy: {} -- epoch {}/{} [|TEST DATA|]".format(printTopKAvg/basslineSectionsTrained,printTop3Acc/basslineSectionsTrained,epoch,numEpochs))
 		printedTestLoss=True

@@ -90,7 +90,7 @@ class InstrumentSection:
 		#[NoteOrSlideFlag(=1),BeatsSinceSectionStart,StartNote,Velocity,TravelDirection,SlideSize,TimePerSemi,FinishDuration]
 						
 		
-	def convertToMidi(self,startTime,channelNum,ticksPerInstrumentBeat):
+	def convertToMidi(self,startTime,channelNum,instrumentSound,ticksPerInstrumentBeat):
 		toConvert=[]
 		time=startTime
 		finalBarStart=0
@@ -104,7 +104,7 @@ class InstrumentSection:
 		toConvert.sort(key=lambda x: x[1])
 		
 		prevTime=-startTime
-		self.msgs=[]
+		self.msgs=[mido.Message('program_change', program=instrumentSound, channel=0, time=0)]
 		for i,event in enumerate(toConvert):
 			types=["note_off","note_on"]
 			deltaTime=max(0,event[1]-prevTime)
@@ -302,9 +302,11 @@ class PercussionInstrumentSection(InstrumentSection):
 	def setSectionSkeleton(self,skeleton,removeChance,addChance,addPercussionGroups,melodyChoiceFactor,velocity):
 		self.sectionSkeleton=self.getModifiedSkeleton(skeleton,removeChance,addChance,addPercussionGroups,melodyChoiceFactor,velocity)
 	
-	def addBar(self,removeChance,addChance,addPercussionGroups,melodyChoiceFactor,velocity):
+	def addBar(self,removeChance,addChance,addPercussionGroups,melodyChoiceFactor,velocity,fillSkeleton=[]):
 		self.numOfBars+=1
 		newBeats=self.getModifiedSkeleton(self.sectionSkeleton,removeChance,addChance,addPercussionGroups,melodyChoiceFactor,velocity)
+		if fillSkeleton:
+			newBeats=self.getModifiedSkeleton(fillSkeleton,removeChance,addChance,addPercussionGroups,melodyChoiceFactor,velocity)
 		beatsInBar=newBeats[0]
 		subDivsPerBeat=newBeats[1]
 		self.beatsInBars.append(beatsInBar)
@@ -318,6 +320,17 @@ class PercussionInstrumentSection(InstrumentSection):
 					bar.append([hitStartTime,*beat,1])
 		self.bars.append(bar)
 
+
+
+def combineMidi(midiTracks,saveName):
+	mid = mido.MidiFile()
+	for midiTrack in midiTracks:
+		track = mido.MidiTrack()
+		mid.tracks.append(track)
+		for msg in midiTrack:
+			track.append(msg)
+	mid.save(saveName)
+	
 drumsNet=nnu.VanillaNeuralNet([44,44,44,22,11,11])
 drumsNet.readFromcsv('drumBeatEveryInstrument_Good.csv')
 
@@ -326,85 +339,87 @@ testDrumsSection=PercussionInstrumentSection("First Test",drumsNet)
 drumsMCT=WeightedNumberPicker([2,4],[3,5],[0.60,0.40])
 zeroFactor=WeightedNumberPicker([0],[0],[1])
 
-testDrumsSection.setSectionSkeleton(random.choice(mtu.DrumSkeletons),0,0,[0,1,2,3,4,6],drumsMCT,64)
+testDrumsSection.setSectionSkeleton(random.choice([skel for skel in mtu.DrumSkeletons if skel[0] == 4 and skel[1] == 3]),0,0,[0,1,2,3,4,6],drumsMCT,64)
 
 testDrumsSection.addBar(0,0,[1,2,3,6,7],drumsMCT,64)
 testDrumsSection.addBar(0,0,[1,2,3,6,7],drumsMCT,64)
 testDrumsSection.addBar(0,0,[1,2,3,6,7],drumsMCT,64)
-testDrumsSection.addBar(0,0,[1,2,3,6,7],drumsMCT,64)
+testDrumsSection.addBar(0,0,[1,2,3,6,7],drumsMCT,64,random.choice([skel for skel in mtu.DrumFills if skel[0] == 4 and skel[1] == 3]))
 
 testDrumsSection.formatBars(True,zeroFactor,[],zeroFactor,[],-1)
 
-testDrumsSection.convertToMidi(480,9,480)
+testDrumsSection.convertToMidi(480,9,0,480)
 
-testDrumsSection.saveMidi('drumMelodyTest.mid')
+# testDrumsSection.saveMidi('drumMelodyTest.mid')
 
 		
-# melodyModel=nnu.LSTM_LogSoftMax_RNN(12,64,12,4,cuda)
-# if True:
-	# checkpoint = torch.load("trained networks/6174.pt",map_location='cpu')
-	# melodyModel.load_state_dict(checkpoint['model_state_dict'])
-# else:
-	# melodyModel.load_state_dict(torch.load("trained networks/5696.pt",map_location='cpu'))
+melodyModel=nnu.LSTM_LogSoftMax_RNN(12,64,12,4,cuda)
+if True:
+	checkpoint = torch.load("trained networks/6174.pt",map_location='cpu')
+	melodyModel.load_state_dict(checkpoint['model_state_dict'])
+else:
+	melodyModel.load_state_dict(torch.load("trained networks/5696.pt",map_location='cpu'))
 
-# melodyModel.eval()
-# testBassSection=MelodyInstrumentSection("First Test",28,52,melodyModel)
+melodyModel.eval()
+testBassSection=MelodyInstrumentSection("First Test",28,52,melodyModel)
 
-# scaleChoiceFactor=WeightedNumberPicker([0,0],[3,5],[0.65,0.35])
-# beatsInBar=4
-# subDivsPerBeat=3
-# div1O4=WeightedNumberPicker([0,1],[0,1],[0,1])
-# div3O4=WeightedNumberPicker([0,1],[0,1],[1,0])
-# div24O4=WeightedNumberPicker([0,1],[0,1],[1,0])
-# div1O3=WeightedNumberPicker([0,1],[0,1],[0.00,1.00])
-# div2O3=WeightedNumberPicker([0,1],[0,1],[1.00,0.00])
-# div3O3=WeightedNumberPicker([0,1],[0,1],[0.75,0.25])
-# noteSeed=[67,71,67,60,62,60,65]
-# mCTF=WeightedNumberPicker([0,1,2],[0,1,2],[0.35,0.45,0.20])
-# mCF=WeightedNumberPicker([2,3],[3,4],[0.60,0.40])
-# oRF=WeightedNumberPicker([-1,-2],[0,1],[0.85,0.15])
-# dCF=WeightedNumberPicker([0,1],[0,1],[0.65,0.35])
-# velocityRange=[64,127]
-# durationRange=[2,3]
+scaleChoiceFactor=WeightedNumberPicker([0,0],[3,5],[0.65,0.35])
+beatsInBar=4
+subDivsPerBeat=3
+div1O4=WeightedNumberPicker([0,1],[0,1],[0,1])
+div3O4=WeightedNumberPicker([0,1],[0,1],[1,0])
+div24O4=WeightedNumberPicker([0,1],[0,1],[1,0])
+div1O3=WeightedNumberPicker([0,1],[0,1],[0.00,1.00])
+div2O3=WeightedNumberPicker([0,1],[0,1],[1.00,0.00])
+div3O3=WeightedNumberPicker([0,1],[0,1],[0.75,0.25])
+noteSeed=[67,71,67,60,62,60,65]
+mCTF=WeightedNumberPicker([0,1,2],[0,1,2],[0.35,0.45,0.20])
+mCF=WeightedNumberPicker([2,3],[3,4],[0.60,0.40])
+oRF=WeightedNumberPicker([-1,-2],[0,1],[0.85,0.15])
+dCF=WeightedNumberPicker([0,1],[0,1],[0.65,0.35])
+velocityRange=[64,127]
+durationRange=[2,3]
 
-# noteOverlapFlag=False
-# cFF=WeightedNumberPicker([0,1],[0,1],[0.7,0.3])
-# cSR=list(range(3,5))
-# sFF=WeightedNumberPicker([0,1],[0,1],[0.95,0.05])
-# sSR=list(range(2,5))
-# nextNote=60
+noteOverlapFlag=False
+cFF=WeightedNumberPicker([0,1],[0,1],[0.7,0.3])
+cSR=list(range(3,5))
+sFF=WeightedNumberPicker([0,1],[0,1],[0.95,0.05])
+sSR=list(range(2,5))
+nextNote=60
 
-# Dm7=mtu.Chord(62,11)
-# G7=mtu.Chord(67,9)
-# CMaj7=mtu.Chord(60,10)
+Dm7=mtu.Chord(62,11)
+G7=mtu.Chord(67,9)
+CMaj7=mtu.Chord(60,10)
 
-# noteList=noteSeed
+noteList=noteSeed
 
-# chosenScale=Dm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
-# testBassSection.addBar(Dm7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
-# noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
-# noteList+=testBassSection.chosenMelody[:]
+chosenScale=Dm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
+testBassSection.addBar(Dm7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+noteList+=testBassSection.chosenMelody[:]
 
-# chosenScale=G7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
-# testBassSection.addBar(G7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
-# noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
-# noteList+=testBassSection.chosenMelody[:]
+chosenScale=G7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
+testBassSection.addBar(G7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+noteList+=testBassSection.chosenMelody[:]
 
-# chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
-# testBassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
-# noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
-# noteList+=testBassSection.chosenMelody[:]
+chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
+testBassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+noteList+=testBassSection.chosenMelody[:]
 
-# chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
-# testBassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
-# noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
-# noteList+=testBassSection.chosenMelody[:]
+chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
+testBassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+noteList+=testBassSection.chosenMelody[:]
 
-# testBassSection.setNumOfRepetitions(3)
+testBassSection.setNumOfRepetitions(3)
 
-# testBassSection.formatBars(noteOverlapFlag,cFF,cSR,sFF,sSR,nextNote)
+testBassSection.formatBars(noteOverlapFlag,cFF,cSR,sFF,sSR,nextNote)
 
-# testBassSection.convertToMidi(480,0,480)
+testBassSection.convertToMidi(480,0,32,480)
+
+combineMidi([testBassSection.msgs,testDrumsSection.msgs],'drumsAndBass.mid')
 
 # testBassSection.saveMidi('RNNmelodytest.mid')
 
