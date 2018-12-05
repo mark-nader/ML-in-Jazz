@@ -9,12 +9,12 @@ resumeTraining=True
 nameToSaveG="bassNotesGAN_Generator.pt"
 nameToSaveD="bassNotesGAN_Discriminator.pt"
 sequenceLength = 8
-dimInG, dimHiddenG, numHiddenG = 5, 6*12*2, 4
+dimInG, dimHiddenG, numHiddenG = 5, sequenceLength*12*4, 6
 dimHiddenD, numHiddenD = 6*12*2, 4
-trainSize = 5
+trainSize = 1000
 learningRate, adamBetas, gumbelTemp = 0.0002, (0.5, 0.999), 0.1
-numEpochs=10
-testEvery=1
+numEpochs=300
+testEvery=10
 
 optimisationAlg="Adam" #change this below also
 
@@ -125,13 +125,3 @@ print("Learning Rate = {}, Adam Betas = {}, Gumbel Temperature = {}".format(lear
 print("Total Epochs = {}".format(prevEpochs+numEpochs))
 print("Optimisation algorithm = {}".format(optimisationAlg))
 
-
-noise=torch.randn(1,dimInG)
-fakeInputD=modelG(noise)
-output=modelD(fakeInputD)
-errG=criterion(output,torch.tensor([[1]]).float())
-print("=====")
-print("=====")
-print(fakeInputD)
-print(output)
-print(errG)
