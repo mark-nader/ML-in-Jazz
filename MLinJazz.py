@@ -3,7 +3,7 @@ import torch
 import NeuralNetUtils as nnu
 import MusicTheoryUtils as mtu
 import random
-import MusicWriter as mw
+import MusicWriterVanilla as mw
 
 numLoops=20
 beatsInBar=4
@@ -19,7 +19,7 @@ div24O4=mw.WeightedNumberPicker([0,1],[0,1],[1,0])
 div1O3=mw.WeightedNumberPicker([0,1],[0,1],[0.00,1.00])
 div2O3=mw.WeightedNumberPicker([0,1],[0,1],[1.00,0.00])
 div3O3=mw.WeightedNumberPicker([0,1],[0,1],[0.75,0.25])
-noteSeed=[67,71,67,60,62,60,65]
+noteSeed=[71,67,60,62,60,65]
 mCTF=mw.WeightedNumberPicker([0,1,2],[0,1,2],[0.35,0.45,0.20])
 mCF=mw.WeightedNumberPicker([2,3],[3,4],[0.60,0.40])
 oRF=mw.WeightedNumberPicker([-1,-2],[0,1],[0.85,0.15])
@@ -34,9 +34,12 @@ sFF=mw.WeightedNumberPicker([0,1],[0,1],[0.95,0.05])
 sSR=list(range(2,5))
 nextNote=60
 
-Dm7=mtu.Chord(62,11)
-G7=mtu.Chord(67,9)
+A7=mtu.Chord(57,9)
+Am7=mtu.Chord(57,11)
 CMaj7=mtu.Chord(60,10)
+Dm7=mtu.Chord(62,11)
+Em7=mtu.Chord(64,11)
+G7=mtu.Chord(67,9)
 
 noteList=noteSeed
 
@@ -51,23 +54,43 @@ pianoSection=mw.AccompanyInstrumentSection("Test Piano")
 
 for i in range(numLoops):
 
-	chosenScale=Dm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
-	bassSection.addBar(Dm7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(CMaj7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
 	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
 	noteList+=bassSection.chosenMelody[:]
 
-	chosenScale=G7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
-	bassSection.addBar(G7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	chosenScale=Am7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Am7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
 	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
 	noteList+=bassSection.chosenMelody[:]
 
-	chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
-	bassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	chosenScale=Dm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Dm7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
 	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
 	noteList+=bassSection.chosenMelody[:]
 
-	chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]#do this differently for chord progressions
-	bassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	chosenScale=G7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(G7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	
+	chosenScale=Em7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Em7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	
+	chosenScale=A7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(A7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	
+	chosenScale=Dm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Dm7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	
+	chosenScale=G7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(G7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
 	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
 	noteList+=bassSection.chosenMelody[:]
 
@@ -76,10 +99,14 @@ for i in range(numLoops):
 	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
 	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64,random.choice([skel for skel in mtu.DrumFills if skel[0] == beatsInBar and skel[1] == subDivsPerBeat]))
 
-	pianoSection.addBar(Dm7,beatsInBar,subDivsPerBeat,64)
-	pianoSection.addBar(G7,beatsInBar,subDivsPerBeat,64)
-	pianoSection.addBar(CMaj7,beatsInBar,subDivsPerBeat,64)
-	pianoSection.addBar(CMaj7,beatsInBar,subDivsPerBeat,64)
+	pianoSection.addBar(CMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Am7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Dm7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(G7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Em7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(A7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Dm7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(G7,beatsInBar//2,subDivsPerBeat,64)
 
 bassSection.formatBars(noteOverlapFlag,cFF,cSR,sFF,sSR,nextNote)
 drumsSection.formatBars(True,zeroFactor,[],zeroFactor,[],-1)
