@@ -188,7 +188,7 @@ class MelodyInstrumentSection(InstrumentSection):
 						self.chosenRhythm[-1].append(division3Of4Factor.getValue())
 						notesAdded+=self.chosenRhythm[-1][-1]
 			
-		netInp=nnu.oneHot(noteSeed,12)
+		netInp=[elem for oh in nnu.oneHot(noteSeed,12) for elem in oh]
 		direction=random.randint(0,1)
 		lastNote=noteSeed[-1]
 		for i in range(0,notesAdded):
@@ -221,7 +221,7 @@ class MelodyInstrumentSection(InstrumentSection):
 				self.creationLog.append("Couldn't find suitable note, adding least risk note")
 			interval=[0]*12
 			interval[(chosenNote-lastNote) % 12]=1
-			netInp=netInp[:12]
+			netInp=netInp[12:]
 			netInp.extend(interval)
 			chosenNote+=6*direction*(2*octaveRangeFactor.getValue()+1)-6
 			while chosenNote < self.minNote:
@@ -277,7 +277,7 @@ class PercussionInstrumentSection(InstrumentSection):
 			for i in range(numDivs):
 				if random.randint(1,100) <= addChance:
 					self.melodyNet.forwardPropagation(netInp,[0]*self.melodyNet.layerSizes[-1])
-					possibleGroups=[group for group in getIndexesOfSortedList(self.melodyNet.outputs[-1])[:melodyChoiceFactor.getValue()] if group in addPercussionGroups]
+					possibleGroups=[group for group in nnu.getIndexesOfSortedList(self.melodyNet.outputs[-1])[:melodyChoiceFactor.getValue()] if group in addPercussionGroups]
 					addGroup=random.choice(addPercussionGroups)
 					if possibleGroups:
 						addGroup=random.choice(possibleGroups)
@@ -333,7 +333,7 @@ def combineMidi(midiTracks,saveName):
 			track.append(msg)
 	mid.save(saveName)
 
-melodyModel=nnu.VanillaNeuralNet([44,44,44,22,11,11])
+melodyModel=nnu.VanillaNeuralNet([72,72,72,36,24,12])
 melodyModel.readFromcsv("trained networks/v0.csv")
 
 drumsNet=nnu.VanillaNeuralNet([44,44,44,22,11,11])

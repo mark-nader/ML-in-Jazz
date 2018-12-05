@@ -154,6 +154,32 @@ input size now 96
 	
 VANILLA NETWORK
 
+	Network Structure = [72, 72, 72, 36, 24, 12]
+	Train set size = 800, Test set size = 200
+	Learning Rate = 0.0005, Weight decay = 0.001
+	Total Epochs = 100
+	Optimisation algorithm = SGD
+		testing average: 5.497288819179924 | top 3 accuracy: 0.23027111808200762 -- epoch 0/100 [|TEST DATA|]
+		training average: 2.1146849647034034 | top 3 accuracy: 0.6922110420398272 -- epoch 10/100
+		testing average: 2.7533273582791846 | top 3 accuracy: 0.5938606318619762 -- epoch 10/100 [|TEST DATA|]
+		training average: 2.0804657043514907 | top 3 accuracy: 0.6975318723000737 -- epoch 20/100
+		testing average: 2.7708940174770333 | top 3 accuracy: 0.5957763835984764 -- epoch 20/100 [|TEST DATA|]
+		training average: 2.071686334422084 | top 3 accuracy: 0.6983010220208619 -- epoch 30/100
+		testing average: 2.7665135559041003 | top 3 accuracy: 0.5957875868250057 -- epoch 30/100 [|TEST DATA|]
+		training average: 2.0681566747444946 | top 3 accuracy: 0.6985828679801918 -- epoch 40/100
+		testing average: 2.7762491597580103 | top 3 accuracy: 0.5965718126820524 -- epoch 40/100 [|TEST DATA|]
+		training average: 2.068917922242124 | top 3 accuracy: 0.6986487198398483 -- epoch 50/100
+		testing average: 2.776148330719247 | top 3 accuracy: 0.5992605870490701 -- epoch 50/100 [|TEST DATA|]
+		training average: 2.065865030028448 | top 3 accuracy: 0.699212411758508 -- epoch 60/100
+		testing average: 2.781839569796101 | top 3 accuracy: 0.5991485547837777 -- epoch 60/100 [|TEST DATA|]
+		training average: 2.064337266884417 | top 3 accuracy: 0.6994705510483616 -- epoch 70/100
+		testing average: 2.778926730898499 | top 3 accuracy: 0.598319516020614 -- epoch 70/100 [|TEST DATA|]
+		training average: 2.0629912548730376 | top 3 accuracy: 0.6999657570329786 -- epoch 80/100
+		testing average: 2.758671297333632 | top 3 accuracy: 0.5983419224736725 -- epoch 80/100 [|TEST DATA|]
+		training average: 2.0628569170793383 | top 3 accuracy: 0.6994231377094089 -- epoch 90/100
+		testing average: 2.760127716782433 | top 3 accuracy: 0.5972440062738068 -- epoch 90/100 [|TEST DATA|]
+		training average: 2.057723106100516 | top 3 accuracy: 0.7000553155621114 -- epoch 100/100
+		testing average: 2.764071252520726 | top 3 accuracy: 0.597154380461573 -- epoch 100/100 [|TEST DATA|]
 
 	
 	

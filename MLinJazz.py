@@ -20,15 +20,15 @@ div1O3=mw.WeightedNumberPicker([0,1],[0,1],[0.00,1.00])
 div2O3=mw.WeightedNumberPicker([0,1],[0,1],[1.00,0.00])
 div3O3=mw.WeightedNumberPicker([0,1],[0,1],[0.75,0.25])
 noteSeed=[71,67,60,62,60,65]
-mCTF=mw.WeightedNumberPicker([0,1,2],[0,1,2],[0.35,0.45,0.20])
-mCF=mw.WeightedNumberPicker([2,3],[3,4],[0.60,0.40])
-oRF=mw.WeightedNumberPicker([-1,-2],[0,1],[0.85,0.15])
+mCTF=mw.WeightedNumberPicker([0,1,2],[0,1,2],[0.35,0.55,0.10])
+mCF=mw.WeightedNumberPicker([2,3,4,5],[2,3,4,5],[0.20,0.30,0.30,0.20])
+oRF=mw.WeightedNumberPicker([0,1,2],[0,1,2],[0.60,0.25,0.15])
 dCF=mw.WeightedNumberPicker([0,1],[0,1],[0.65,0.35])
 velocityRange=[96,127]
 durationRange=[2,3]
 
 noteOverlapFlag=False
-cFF=mw.WeightedNumberPicker([0,1],[0,1],[0.7,0.3])
+cFF=mw.WeightedNumberPicker([0,1],[0,1],[0.75,0.25])
 cSR=list(range(3,5))
 sFF=mw.WeightedNumberPicker([0,1],[0,1],[0.95,0.05])
 sSR=list(range(2,5))
@@ -58,41 +58,49 @@ for i in range(numLoops):
 	bassSection.addBar(CMaj7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
 	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
 	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-6:]
 
 	chosenScale=Am7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
 	bassSection.addBar(Am7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
 	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
 	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-6:]
 
 	chosenScale=Dm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
 	bassSection.addBar(Dm7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
 	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
 	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-6:]
 
 	chosenScale=G7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
 	bassSection.addBar(G7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
 	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
 	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-6:]
 	
 	chosenScale=Em7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
 	bassSection.addBar(Em7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
 	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
 	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-6:]
 	
 	chosenScale=A7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
 	bassSection.addBar(A7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
 	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
 	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-6:]
 	
 	chosenScale=Dm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
 	bassSection.addBar(Dm7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
 	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
 	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-6:]
 	
 	chosenScale=G7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
 	bassSection.addBar(G7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
 	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
 	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-6:]
 
 	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
 	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
