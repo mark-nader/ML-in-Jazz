@@ -36,7 +36,7 @@
 		change momentum gamma to 0.6
 		network structure [6,12,12,12,12,12]	-- error 2.18
 
-NEW NETWORK STRUCTURE: [72,12,12,12,12,12]
+NEW NETWORK STRUCTURE:
 inputs are note intervals mod 12 represented as 6 sets of 12 numbers
 each 12 numbers has eleven 0s and one 1, the index of the 1 denotes
 the interval
@@ -151,6 +151,11 @@ input size now 96
 		network structure [96,96,96,48,24,12]	-- error 1.71
 		
 	these proved no better in BassNoteNetsCategorise so i will use the 6 note input network
+	
+VANILLA NETWORK
+
+
+	
 	
 NEW NETWORK MODEL
 USING RNN/LSTM
