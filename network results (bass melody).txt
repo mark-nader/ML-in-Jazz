@@ -795,6 +795,24 @@ it did previously. This is to help note generation with long term memory/dependa
 		training average: 3.6489381957971125 | top 3 accuracy: 0.48106839155121056 -- epoch 200/200
 		testing average: 3.7144373407169744 | top 3 accuracy: 0.4639318635426285 -- epoch 200/200 [|TEST DATA|]
 
+	ID for trained network: 6176
+	Input dimension = 12, Hidden dimension = 64, Output dimension = 12, Hidden layers = 4
+	Train set size = 800, Test set size = 200
+	Learning Rate = 0.001, Weight decay = 0.001
+	Repeat note weight = 0.3, Fith note weight = 0.25
+	Total Epochs = 20
+	Optimisation algorithm = SGD
+		testing average: 4.98638397162089 | top 3 accuracy: 0.20629194119613323 -- epoch 0/20 [|TEST DATA|]
+		training average: 3.7552076596152526 | top 3 accuracy: 0.4732042999311346 -- epoch 10/20
+		testing average: 3.7384010885734287 | top 3 accuracy: 0.4938115830412144 -- epoch 10/20 [|TEST DATA|]
+		training average: 3.836661147704965 | top 3 accuracy: 0.4732042999311346 -- epoch 20/20
+		testing average: 3.8455135309366946 | top 3 accuracy: 0.4938115830412144 -- epoch 20/20 [|TEST DATA|]
+		training average: 3.850928105124377 | top 3 accuracy: 0.4751029133160349 -- epoch 10/30
+		testing average: 3.754734177612808 | top 3 accuracy: 0.49346533849653995 -- epoch 10/30 [|TEST DATA|]
+		training average: 3.850928105124377 | top 3 accuracy: 0.4751029133160349 -- epoch 20/30
+		testing average: 3.754734177612808 | top 3 accuracy: 0.49346533849653995 -- epoch 20/30 [|TEST DATA|]
+		training average: 3.850199122538198 | top 3 accuracy: 0.4751029133160349 -- epoch 30/30
+		testing average: 3.754734177612808 | top 3 accuracy: 0.49346533849653995 -- epoch 30/30 [|TEST DATA|]
 		
 		
 GAN model results:
