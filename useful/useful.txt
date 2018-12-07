@@ -1,0 +1,13 @@
+#####################
+credit ARC in writeup
+#####################
+
+http://mido.readthedocs.io/en/latest/
+
+https://en.wikipedia.org/wiki/General_MIDI
+
+http://nickfever.com/music/midi-cc-list
+
+http://computermusicresource.com/midikeys.html
+
+http://www.music.mcgill.ca/~ich/classes/mumt306/StandardMIDIfileformat.html
