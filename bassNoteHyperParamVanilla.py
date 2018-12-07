@@ -3,11 +3,11 @@ import MidiUtils as mu
 import random
 
 resumeTraining=False
-nameToSave="v1.csv"
-netStructure = [72,72,72,72,24,12]
-trainSize, testSize = 800, 200
+nameToSave="v6_smallBatch.csv"
+netStructure = [108, 108, 12]
+trainSize, testSize = 200, 200
 learningRate, weightDecay = 0.0005, 0.001
-numEpochs=100
+numEpochs=50
 testEvery=10
 optimisationAlg="SGD"
 

@@ -1,0 +1,29 @@
+TopKAvg < 3.5 and Top3Acc > 0.55:
+	network v1_small batch
+	matches found: 522
+	network v2_small batch
+	matches found: 708
+	network v3_small batch
+	matches found: 737
+	network v4_small batch
+	matches found: 719
+	network v5_small batch
+	matches found: 709
+	network v6_small batch
+	matches found: 728
+TopKAvg < 3.0 and Top3Acc > 0.60:
+	network v1_small batch
+	matches found: 360
+	network v2_small batch
+	matches found: 551
+	network v3_small batch
+	matches found: 579
+	network v4_small batch
+	matches found: 556
+	network v5_small batch
+	matches found: 562
+	network v6_small batch
+	matches found: 588
+
+taking v3_smallBatch and v6_smallBatch for TopKAvg < 3.0 and Top3Acc > 0.60 to train on
+saving as v3Class and v6Class

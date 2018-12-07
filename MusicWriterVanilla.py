@@ -333,8 +333,8 @@ def combineMidi(midiTracks,saveName):
 			track.append(msg)
 	mid.save(saveName)
 
-melodyModel=nnu.VanillaNeuralNet([72,72,72,36,24,12])
-melodyModel.readFromcsv("trained networks/v0.csv")
+melodyModel=nnu.VanillaNeuralNet([108, 108, 54, 12])
+melodyModel.readFromcsv("trained networks/v6.csv")
 
 drumsNet=nnu.VanillaNeuralNet([44,44,44,22,11,11])
-drumsNet.readFromcsv('drumBeatEveryInstrument_Good.csv')
+drumsNet.readFromcsv('trained networks/d4.csv')

@@ -154,6 +154,7 @@ input size now 96
 	
 VANILLA NETWORK
 
+	ID for trained network: v1
 	Network Structure = [72, 72, 72, 36, 24, 12]
 	Train set size = 800, Test set size = 200
 	Learning Rate = 0.0005, Weight decay = 0.001
@@ -180,6 +181,100 @@ VANILLA NETWORK
 		testing average: 2.760127716782433 | top 3 accuracy: 0.5972440062738068 -- epoch 90/100 [|TEST DATA|]
 		training average: 2.057723106100516 | top 3 accuracy: 0.7000553155621114 -- epoch 100/100
 		testing average: 2.764071252520726 | top 3 accuracy: 0.597154380461573 -- epoch 100/100 [|TEST DATA|]
+
+	ID for trained network: v2	
+	Network Structure = [72, 72, 36, 12]
+	Train set size = 800, Test set size = 200
+	Learning Rate = 0.0005, Weight decay = 0.001
+	Total Epochs = 50
+	Optimisation algorithm = SGD	
+		testing average: 5.289354672415409 | top 3 accuracy: 0.2798176961289718 -- epoch 0/50 [|TEST DATA|]
+		training average: 2.2024814927986895 | top 3 accuracy: 0.6776652809268622 -- epoch 10/50
+		testing average: 2.6348181647764553 | top 3 accuracy: 0.6114209391695566 -- epoch 10/50 [|TEST DATA|]
+		training average: 2.165705892775066 | top 3 accuracy: 0.6834170854271356 -- epoch 20/50
+		testing average: 2.6137290280251193 | top 3 accuracy: 0.615662198893992 -- epoch 20/50 [|TEST DATA|]
+		training average: 2.151816825568825 | top 3 accuracy: 0.6854019715337033 -- epoch 30/50
+		testing average: 2.610202455712813 | top 3 accuracy: 0.6158496578873371 -- epoch 30/50 [|TEST DATA|]
+		training average: 2.1447914072149197 | top 3 accuracy: 0.6865446291241594 -- epoch 40/50
+		testing average: 2.603512512887806 | top 3 accuracy: 0.6160136845065142 -- epoch 40/50 [|TEST DATA|]
+		training average: 2.1432481775253374 | top 3 accuracy: 0.6866011200612157 -- epoch 50/50
+		testing average: 2.604461524041616 | top 3 accuracy: 0.6143968506889118 -- epoch 50/50 [|TEST DATA|]
+
+	7 note input:
+	ID for trained network: v3
+	Network Structure = [84, 84, 42, 12]
+	Train set size = 800, Test set size = 200
+	Learning Rate = 0.0005, Weight decay = 0.001
+	Total Epochs = 50
+	Optimisation algorithm = SGD
+		testing average: 4.471793945687262 | top 3 accuracy: 0.3913519492539335 -- epoch 0/50 [|TEST DATA|]
+		training average: 2.221669220023723 | top 3 accuracy: 0.6741754277886307 -- epoch 10/50
+		testing average: 2.591446759520531 | top 3 accuracy: 0.6182645206438069 -- epoch 10/50 [|TEST DATA|]
+		training average: 2.17872688806569 | top 3 accuracy: 0.6804142652951491 -- epoch 20/50
+		testing average: 2.576119099753945 | top 3 accuracy: 0.6196415268967697 -- epoch 20/50 [|TEST DATA|]
+		training average: 2.160988486926542 | top 3 accuracy: 0.6836458156016871 -- epoch 30/50
+		testing average: 2.5706562224880924 | top 3 accuracy: 0.6205896295627441 -- epoch 30/50 [|TEST DATA|]
+		training average: 2.1549171712586563 | top 3 accuracy: 0.6844861267599925 -- epoch 40/50
+		testing average: 2.565678683491727 | top 3 accuracy: 0.6216618885302151 -- epoch 40/50 [|TEST DATA|]
+		training average: 2.15279072469407 | top 3 accuracy: 0.6850751551603481 -- epoch 50/50
+		testing average: 2.5595950247183907 | top 3 accuracy: 0.6207363597372402 -- epoch 50/50 [|TEST DATA|]
+
+	8 note input:	
+	ID for trained network: v4	
+	Network Structure = [96, 96, 48, 12]
+	Train set size = 800, Test set size = 200
+	Learning Rate = 0.0005, Weight decay = 0.001
+	Total Epochs = 50
+	Optimisation algorithm = SGD	
+		testing average: 5.732093691393001 | top 3 accuracy: 0.22083117194046525 -- epoch 0/50 [|TEST DATA|]
+		training average: 2.1476999038258673 | top 3 accuracy: 0.6866504275775901 -- epoch 10/50
+		testing average: 2.565101153186226 | top 3 accuracy: 0.6261621643190615 -- epoch 10/50 [|TEST DATA|]
+		training average: 2.1019336206683965 | top 3 accuracy: 0.6939525376545019 -- epoch 20/50
+		testing average: 2.560013566896772 | top 3 accuracy: 0.6278580264155461 -- epoch 20/50 [|TEST DATA|]
+		training average: 2.084518156635056 | top 3 accuracy: 0.6968295416247674 -- epoch 30/50
+		testing average: 2.535692909301305 | top 3 accuracy: 0.6286959818043972 -- epoch 30/50 [|TEST DATA|]
+		training average: 2.077495526943827 | top 3 accuracy: 0.6978625230502818 -- epoch 40/50
+		testing average: 2.545359323251267 | top 3 accuracy: 0.6272395355332987 -- epoch 40/50 [|TEST DATA|]
+		training average: 2.073180020988429 | top 3 accuracy: 0.6981940635078077 -- epoch 50/50
+		testing average: 2.5448505646223216 | top 3 accuracy: 0.6283368580663182 -- epoch 50/50 [|TEST DATA|]
+
+	9 note input:	
+	ID for trained network: v5	
+	Network Structure = [108, 108, 54, 12]
+	Train set size = 800, Test set size = 200
+	Learning Rate = 0.0005, Weight decay = 0.001
+	Total Epochs = 50
+	Optimisation algorithm = SGD	
+		testing average: 5.165661521687281 | top 3 accuracy: 0.25302395311594944 -- epoch 0/50 [|TEST DATA|]
+		training average: 2.190898232332873 | top 3 accuracy: 0.6796601017731212 -- epoch 10/50
+		testing average: 2.472781582563858 | top 3 accuracy: 0.6311969743432485 -- epoch 10/50 [|TEST DATA|]
+		training average: 2.1407861510016417 | top 3 accuracy: 0.6868158539179379 -- epoch 20/50
+		testing average: 2.4584710438742943 | top 3 accuracy: 0.6328097493384215 -- epoch 20/50 [|TEST DATA|]
+		training average: 2.128446296407398 | top 3 accuracy: 0.6892456462811359 -- epoch 30/50
+		testing average: 2.454189239837814 | top 3 accuracy: 0.633888718525333 -- epoch 30/50 [|TEST DATA|]
+		training average: 2.1201970013471576 | top 3 accuracy: 0.6902491968868115 -- epoch 40/50
+		testing average: 2.455347712017445 | top 3 accuracy: 0.6347405363044738 -- epoch 40/50 [|TEST DATA|]
+		training average: 2.1157301103360258 | top 3 accuracy: 0.6907373369912025 -- epoch 50/50
+		testing average: 2.4512476291071814 | top 3 accuracy: 0.6341272275034925 -- epoch 50/50 [|TEST DATA|]
+	
+	9 note input:	
+	ID for trained network: v6
+	Network Structure = [108, 108, 12]
+	Train set size = 800, Test set size = 200
+	Learning Rate = 0.0005, Weight decay = 0.001
+	Total Epochs = 50
+	Optimisation algorithm = SGD
+		testing average: 5.228861523685384 | top 3 accuracy: 0.2466527172732366 -- epoch 0/50 [|TEST DATA|]
+		training average: 2.299947934423803 | top 3 accuracy: 0.6619331922012639 -- epoch 10/50
+		testing average: 2.5685978572816976 | top 3 accuracy: 0.6231262648784002 -- epoch 10/50 [|TEST DATA|]
+		training average: 2.259075135648005 | top 3 accuracy: 0.6674621863841911 -- epoch 20/50
+		testing average: 2.5443007580694954 | top 3 accuracy: 0.6258818417772899 -- epoch 20/50 [|TEST DATA|]
+		training average: 2.2475625645864223 | top 3 accuracy: 0.6694364496034294 -- epoch 30/50
+		testing average: 2.536971609554191 | top 3 accuracy: 0.6263620667970135 -- epoch 30/50 [|TEST DATA|]
+		training average: 2.2418009932103318 | top 3 accuracy: 0.6703429720722364 -- epoch 40/50
+		testing average: 2.5351421809076253 | top 3 accuracy: 0.6264192364422186 -- epoch 40/50 [|TEST DATA|]
+		training average: 2.2390682111906632 | top 3 accuracy: 0.6709297009004438 -- epoch 50/50
+		testing average: 2.533484261196675 | top 3 accuracy: 0.6273339507655016 -- epoch 50/50 [|TEST DATA|]
 
 	
 	
@@ -844,6 +939,18 @@ it did previously. This is to help note generation with long term memory/dependa
 		testing average: 3.754734177612808 | top 3 accuracy: 0.49346533849653995 -- epoch 20/30 [|TEST DATA|]
 		training average: 3.850199122538198 | top 3 accuracy: 0.4751029133160349 -- epoch 30/30
 		testing average: 3.754734177612808 | top 3 accuracy: 0.49346533849653995 -- epoch 30/30 [|TEST DATA|]
+
+	ID for trained network: 6177	
+	Input dimension = 12, Hidden dimension = 256, Output dimension = 12, Hidden layers = 2
+	Train set size = 800, Test set size = 200
+	Learning Rate = 0.001, Weight decay = 0.001
+	Repeat note weight = 0.3, Fith note weight = 0.25
+	Total Epochs = 10
+	Optimisation algorithm = SGD	
+		testing average: 5.853215902004903 | top 3 accuracy: 0.27257377049287856 -- epoch 0/10 [|TEST DATA|]
+		training average: 3.6891416366474106 | top 3 accuracy: 0.48545395670618297 -- epoch 10/10
+		testing average: 3.838865996892566 | top 3 accuracy: 0.4616662213871373 -- epoch 10/10 [|TEST DATA|]
+
 		
 		
 GAN model results:

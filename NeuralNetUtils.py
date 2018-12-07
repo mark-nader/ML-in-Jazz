@@ -9,7 +9,6 @@ import sys
 csv.field_size_limit(2**20)
 
 # credit to the pytorch tutorials on LSTMs and GANs
-
 	
 def oneHot(inputs,vectorSize):
 	oneHotInputs=[]

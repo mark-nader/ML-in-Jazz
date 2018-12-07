@@ -7,8 +7,8 @@ import time
 
 	
 cuda=torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-melodyModel=nnu.NoteGenerator(5,144,4,6,0.1,cuda)
-melodyModel.load_state_dict(torch.load("trained networks/5337.pt",map_location='cpu'))
+melodyModel=nnu.NoteGenerator(5,144,4,7,0.1,cuda)
+melodyModel.load_state_dict(torch.load("trained networks/5305.pt",map_location='cpu'))
 melodyModel.eval()
 genOut=melodyModel(torch.randn(1,5).to(cuda))
 print(genOut)

@@ -5,12 +5,12 @@ import random
 
 resumeTraining=True
 nameToSave="bassNotes.pt"
-dimIn, dimHidden, dimOut, hiddenLayers = 12, 64, 12, 4
+dimIn, dimHidden, dimOut, hiddenLayers = 12, 256, 12, 2
 trainSize, testSize = 800, 200
 learningRate, weightDecay = 0.001, 0.001
 repeatWeight, fifthWeight = 0.3, 0.25
-numEpochs=30
-testEvery=10
+numEpochs=10
+testEvery=1
 
 optimisationAlg="SGD" #change this below also
 

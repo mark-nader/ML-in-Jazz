@@ -1,0 +1,112 @@
+r = ride cymbal -- 59
+s = snare		-- 40
+h = hi hat		-- 44
+b = bass drum	-- 35
+ri = rimshot	-- 37
+rb = ride bell	-- 53
+cl = claves		-- 75
+c = crash		-- 57
+
+em = emphasise
+g = ghost
+ 
+
+4	3,3,3,3
+
+1						2						3						4
+1		2		3	   |1		2		3	   |1		2		3	   |1		2		3
+
+-----------
+
+r						r				r		r						r				r
+s g				s		s em			s		s				s		s  em			s g
+						h												h				
+b						b						b						b				
+#DONE
+
+-----------
+
+r						r				r		r						r				r
+						ri em											ri em
+						h												h				
+b						b						b						b		
+#DONE	
+
+-----------
+
+r						r				r		r						r				r
+		s g		s g						s g						s g		s g				s g
+						h												h				
+b						b						b						b		
+#DONE		
+
+-----------
+
+r						r				r		r						r				r
+								s				s		s
+						h												h				
+b				b		b						b										b
+#DONE
+
+-----------
+
+r				r		r				r		r				r		r				r
+		s g						s g				s em	s g						s g
+b										b								b
+#DONE
+
+-----------
+
+r				r				r		r				r				r
+		s g				s g						s em			s g				s g		s g
+b																						b
+#DONE
+
+-----------
+
+4	4,4,4,4
+
+1								2								3								4
+1		2		3		4	   |1		2		3		4	   |1		2		3		4	   |1		2		3		4
+
+-----------
+
+b						b		b						b		b						b		b						b
+				h								h								h								h
+rb				rb		rb				rb				rb		rb				rb				rb		rb				rb
+cl						cl						cl								cl				cl
+#DONE
+
+-----------
+
+b						b		b						b		b						b		b						b
+				h								h								h								h
+r		r		r		r		r		r		r		r		r		r		r		r		r		r		r		r
+				s				s								s						s						s
+#DONE
+				
+-----------
+
+c						c				c						c						c				c		c
+		s		s				s em			s		s				s		s				s em					s
+b						b				b				b						b						b		b
+#DONE
+
+-----------
+
+6	3,3,3,3,3,3	
+
+1						2						3						4						5						6
+1		2		3	   |1		2		3	   |1		2		3	   |1		2		3	   |1		2		3	   |1		2		3	   
+
+-----------
+
+r						r				r		r						r						r				r		r				r
+																		s em									s
+b										b												b						b		b
+
+-----------
+
+r						r				r		r						r						r				r		r				r
+																		s em					s em									s
+b						b																				b		b

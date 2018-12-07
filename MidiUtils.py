@@ -1,5 +1,7 @@
 import os
 import mido
+import random
+import csv
 
 def getSongList(folderName):
 	return [name for name in os.listdir("{}/".format(folderName))]
@@ -181,3 +183,32 @@ def getDrumsFromSong(songName):
 		currentTime=0
 	completeDrumTracks.sort(key=lambda x:(x[0]))
 	return completeDrumTracks
+
+def createNewSongNetworks(fileName):
+	songList=getSongList("projectMidiTraining")
+	random.shuffle(songList)
+	spamWriter=csv.writer(open(fileName,'w'))
+	for songName in songList:
+		spamWriter.writerow([songName,0])
+
+def saveSongNetworksTocsv(fileName,songNetworks):
+	spamWriter=csv.writer(open(fileName,'w'))
+	for songNetPair in songNetworks:
+		spamWriter.writerow(songNetPair)
+
+def readSongNetworksFromcsv(fileName,numSongs):
+	spamReader=csv.reader(open(fileName))
+	songNetworks=[]
+	for i in range(0,numSongs):
+		songNetworks.append(next(spamReader))
+		next(spamReader)
+	return songNetworks
+
+def printAgreeingSongs(songNetworkPairs,numSongs):
+	i=0
+	agree=0
+	while i < numSongs:
+		if int(songNetworkPairs[i][1]) == 1:
+			agree+=1
+		i+=1
+	print("{} songs which agree".format(agree))
