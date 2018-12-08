@@ -27,3 +27,32 @@ TopKAvg < 3.0 and Top3Acc > 0.60:
 
 taking v3_smallBatch and v6_smallBatch for TopKAvg < 3.0 and Top3Acc > 0.60 to train on
 saving as v3Class and v6Class
+
+	Network ID v3Class
+	Network Structure = [84, 84, 42, 12]
+	Train set size = 579
+	Learning Rate = 0.0005, Weight decay = 0.001
+	Total Epochs = 50
+	Optimisation algorithm = SGD
+		training average: 2.2180489214613446 | top 3 accuracy: 0.682669671356624 -- epoch 0/50
+		training average: 1.6791757451382145 | top 3 accuracy: 0.7596561924646792 -- epoch 10/50
+		training average: 1.6417621597399688 | top 3 accuracy: 0.7649620246588064 -- epoch 20/50
+		training average: 1.6295269236888847 | top 3 accuracy: 0.7666635277614519 -- epoch 30/50
+		training average: 1.623769738572491 | top 3 accuracy: 0.7678389936453405 -- epoch 40/50
+
+	Network ID v6Class
+	Network Structure = [108, 108, 12]
+	Train set size = 588
+	Learning Rate = 0.0005, Weight decay = 0.001
+	Total Epochs = 50
+	Optimisation algorithm = SGD
+		training average: 2.1456862222857405 | top 3 accuracy: 0.6896620045862918 -- epoch 0/50
+		training average: 1.773680141876222 | top 3 accuracy: 0.7437880431605137 -- epoch 10/50
+		training average: 1.7442687592976347 | top 3 accuracy: 0.7486991431559664 -- epoch 20/50
+		training average: 1.7338489122173357 | top 3 accuracy: 0.7507356905747157 -- epoch 30/50
+		training average: 1.7286065078571105 | top 3 accuracy: 0.751274872187973 -- epoch 40/50
+
+
+
+
+
