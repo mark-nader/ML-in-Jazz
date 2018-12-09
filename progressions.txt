@@ -1,0 +1,340 @@
+progressions
+
+2 5 1:
+	
+	chosenScale=Dm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Dm7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=G7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(G7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64,random.choice([skel for skel in mtu.DrumFills if skel[0] == beatsInBar and skel[1] == subDivsPerBeat]))
+	
+	pianoSection.addBar(Dm7,beatsInBar,subDivsPerBeat,64)
+	pianoSection.addBar(G7,beatsInBar,subDivsPerBeat,64)
+	pianoSection.addBar(CMaj7,beatsInBar,subDivsPerBeat,64)
+	pianoSection.addBar(CMaj7,beatsInBar,subDivsPerBeat,64)
+	
+rhythm changes:
+	
+	chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(CMaj7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+
+	chosenScale=Am7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Am7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+
+	chosenScale=Dm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Dm7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+
+	chosenScale=G7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(G7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=Em7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Em7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=A7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(A7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=Dm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Dm7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=G7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(G7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64,random.choice([skel for skel in mtu.DrumFills if skel[0] == beatsInBar and skel[1] == subDivsPerBeat]))
+
+	
+	pianoSection.addBar(CMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Am7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Dm7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(G7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Em7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(A7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Dm7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(G7,beatsInBar//2,subDivsPerBeat,64)
+	
+descending 2 5 1:
+	
+	chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+
+	chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+
+	chosenScale=Cm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Cm7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+
+	chosenScale=F7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(F7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=BbMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(BbMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=BbMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(BbMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=Bbm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Bbm7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=Eb7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Eb7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=AbMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(AbMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=AbMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(AbMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=Abm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Abm7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=Db7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Db7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64,random.choice([skel for skel in mtu.DrumFills if skel[0] == beatsInBar and skel[1] == subDivsPerBeat]))
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64,random.choice([skel for skel in mtu.DrumFills if skel[0] == beatsInBar and skel[1] == subDivsPerBeat]))
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64,random.choice([skel for skel in mtu.DrumFills if skel[0] == beatsInBar and skel[1] == subDivsPerBeat]))
+
+	
+	pianoSection.addBar(CMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(CMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(CMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(CMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Cm7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Cm7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(F7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(F7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(BbMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(BbMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(BbMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(BbMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Bbm7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Bbm7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Eb7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Eb7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(AbMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(AbMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(AbMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(AbMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Abm7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Abm7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Db7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Db7,beatsInBar//2,subDivsPerBeat,64)
+
+dim7 passing chords:
+
+	chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(CMaj7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+
+	chosenScale=Dbdim7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Dbdim7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+
+	chosenScale=Dm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Dm7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+
+	chosenScale=Ebdim7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Ebdim7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=Em7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Em7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=A7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(A7,chosenScale[2],beatsInBar//2,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64,random.choice([skel for skel in mtu.DrumFills if skel[0] == beatsInBar and skel[1] == subDivsPerBeat]))
+
+	pianoSection.addBar(CMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Dbdim7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Dm7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Dbdim7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Em7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(A7,beatsInBar//2,subDivsPerBeat,64)
+
+take the A train:
+	
+	chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+
+	chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+
+	chosenScale=D7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(D7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+
+	chosenScale=D7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(D7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=Dm7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(Dm7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=G7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(G7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	chosenScale=CMaj7.rankedScalesWithScore[scaleChoiceFactor.getValue()]
+	bassSection.addBar(CMaj7,chosenScale[2],beatsInBar,subDivsPerBeat,div1O4,div3O4,div24O4,div1O3,div2O3,div3O3,
+	noteList,mCTF,mCF,oRF,dCF,velocityRange,durationRange)
+	noteList+=bassSection.chosenMelody[:]
+	noteList=noteList[-8:]
+	
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64,random.choice([skel for skel in mtu.DrumFills if skel[0] == beatsInBar and skel[1] == subDivsPerBeat]))
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64)
+	drumsSection.addBar(10,15,[1,2,3,6,7],drumsMCT,64,random.choice([skel for skel in mtu.DrumFills if skel[0] == beatsInBar and skel[1] == subDivsPerBeat]))
+
+	pianoSection.addBar(CMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(CMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(CMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(CMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(D7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(D7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(D7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(D7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Dm7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(Dm7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(G7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(G7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(CMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(CMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(CMaj7,beatsInBar//2,subDivsPerBeat,64)
+	pianoSection.addBar(CMaj7,beatsInBar//2,subDivsPerBeat,64)

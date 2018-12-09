@@ -94,7 +94,31 @@ saving as v3Class200 and v6Class200
 taking v4_smallBatch100 and v6_smallBatch100 for TopKAvg < 2.50 and Top3Acc > 0.65, trained on 100, to train on
 saving as v4Class100 and v6Class100
 
-	
+	Network ID v4Class100
+	Network Structure = [96, 96, 48, 12]
+	Train set size = 423
+	Learning Rate = 0.0005, Weight decay = 0.001
+	Total Epochs = 51
+	Optimisation algorithm = SGD
+		training average: 1.9885826277694374 | top 3 accuracy: 0.7155131760542358 -- epoch 0/51
+		training average: 1.4717723966963603 | top 3 accuracy: 0.7901782044570583 -- epoch 10/51
+		training average: 1.4094592431394095 | top 3 accuracy: 0.7997179186550084 -- epoch 20/51
+		training average: 1.3880478846062325 | top 3 accuracy: 0.8032136506604252 -- epoch 30/51
+		training average: 1.3747139167340865 | top 3 accuracy: 0.8047754814202709 -- epoch 40/51
+		training average: 1.3672508750146015 | top 3 accuracy: 0.8063156801751327 -- epoch 50/51
+
+		Network ID v6Class100
+	Network Structure = [108, 108, 12]
+	Train set size = 451
+	Learning Rate = 0.0005, Weight decay = 0.001
+	Total Epochs = 51
+	Optimisation algorithm = SGD	
+		training average: 2.009917829637885 | top 3 accuracy: 0.7121874948019761 -- epoch 0/51
+		training average: 1.5925456178579152 | top 3 accuracy: 0.7712287296861225 -- epoch 10/51
+		training average: 1.557028560022622 | top 3 accuracy: 0.7767136845256907 -- epoch 20/51
+		training average: 1.5436426088258288 | top 3 accuracy: 0.7790340824032336 -- epoch 30/51
+		training average: 1.5372594354530182 | top 3 accuracy: 0.7800820040253498 -- epoch 40/51
+		training average: 1.5325188376386834 | top 3 accuracy: 0.7808887373376138 -- epoch 50/51
 
 
 
