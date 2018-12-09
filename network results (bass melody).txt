@@ -947,10 +947,13 @@ it did previously. This is to help note generation with long term memory/dependa
 	Repeat note weight = 0.3, Fith note weight = 0.25
 	Total Epochs = 10
 	Optimisation algorithm = SGD	
-		testing average: 5.853215902004903 | top 3 accuracy: 0.27257377049287856 -- epoch 0/10 [|TEST DATA|]
-		training average: 3.6891416366474106 | top 3 accuracy: 0.48545395670618297 -- epoch 10/10
-		testing average: 3.838865996892566 | top 3 accuracy: 0.4616662213871373 -- epoch 10/10 [|TEST DATA|]
-
+		testing average: 5.853215902004903 | top 3 accuracy: 0.27257377049287856 -- epoch 0/30 [|TEST DATA|]
+		training average: 3.6891416366474106 | top 3 accuracy: 0.48545395670618297 -- epoch 10/30
+		testing average: 3.838865996892566 | top 3 accuracy: 0.4616662213871373 -- epoch 10/30 [|TEST DATA|]
+		training average: 3.83857344087823 | top 3 accuracy: 0.4709122035359262 -- epoch 20/30
+		testing average: 3.847997036560692 | top 3 accuracy: 0.4976823699316442 -- epoch 20/30 [|TEST DATA|]
+		training average: 3.8678151098156657 | top 3 accuracy: 0.47085513620446406 -- epoch 30/30
+		testing average: 3.858579653142072 | top 3 accuracy: 0.4601299465466586 -- epoch 30/30 [|TEST DATA|]
 		
 		
 GAN model results:
