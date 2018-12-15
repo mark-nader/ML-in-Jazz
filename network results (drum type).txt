@@ -55,82 +55,35 @@ learningRate = 0.001
 	testing average: 1.5993889582444103 | top 3 accuracy: 0.7427655416095688 -- epoch 100/100 [|TEST DATA|]
 
 Netword ID: d2
-networkSize = [44,88,44,44,11,11]
-trainSize = 800, testSize = 200
-50 epochs
-learningRate = 0.001
-	testing average: 5.166987654082025 | top 3 accuracy: 0.25782547962617064 -- epoch 0/50 [|TEST DATA|]
-	training average: 1.0423969499975243 | top 3 accuracy: 0.8716809023383948 -- epoch 5/50
-	testing average: 2.2363467438326867 | top 3 accuracy: 0.608366319226017 -- epoch 5/50 [|TEST DATA|]
-	training average: 1.0414643193703892 | top 3 accuracy: 0.8720899935795402 -- epoch 10/50
-	testing average: 2.236643536216736 | top 3 accuracy: 0.6096502688874479 -- epoch 10/50 [|TEST DATA|]
-	training average: 1.0404854224719338 | top 3 accuracy: 0.8725315523795067 -- epoch 15/50
-	testing average: 2.288007974682319 | top 3 accuracy: 0.622751071839887 -- epoch 15/50 [|TEST DATA|]
-	training average: 1.0422889953644443 | top 3 accuracy: 0.8717125582082453 -- epoch 20/50
-	testing average: 2.283733519151174 | top 3 accuracy: 0.6107761443443308 -- epoch 20/50 [|TEST DATA|]
-	training average: 1.040123409191079 | top 3 accuracy: 0.8723310652037867 -- epoch 25/50
-	testing average: 2.273374819747017 | top 3 accuracy: 0.6013916982008575 -- epoch 25/50 [|TEST DATA|]
-	training average: 1.0442711398304707 | top 3 accuracy: 0.8718318764869127 -- epoch 30/50
-	testing average: 2.2782622160713077 | top 3 accuracy: 0.6095954268164823 -- epoch 30/50 [|TEST DATA|]
-	training average: 1.0409302280277826 | top 3 accuracy: 0.8726492472802332 -- epoch 35/50
-	testing average: 2.263090318438872 | top 3 accuracy: 0.6137247121597775 -- epoch 35/50 [|TEST DATA|]
-	training average: 1.0435373730011144 | top 3 accuracy: 0.8720096363714581 -- epoch 40/50
-	testing average: 2.2650485029727627 | top 3 accuracy: 0.6107825963526797 -- epoch 40/50 [|TEST DATA|]
-	training average: 1.0433441910261292 | top 3 accuracy: 0.8717872335935337 -- epoch 45/50
-	testing average: 2.298773150612457 | top 3 accuracy: 0.6114503792167907 -- epoch 45/50 [|TEST DATA|]
-	training average: 1.0433693533842154 | top 3 accuracy: 0.8715607723707568 -- epoch 50/50
-	testing average: 2.3087576335323776 | top 3 accuracy: 0.6177152793235714 -- epoch 50/50 [|TEST DATA|]
-
-Netword ID: d3
 networkSize = [44,44,44,11,11]
 trainSize = 800, testSize = 200
 50 epochs
 learningRate = 0.001
 	testing average: 2.958959777684037 | top 3 accuracy: 0.5197279656350527 -- epoch 0/50 [|TEST DATA|]
-	training average: 1.050026354024288 | top 3 accuracy: 0.868644883380397 -- epoch 5/50
-	testing average: 2.0944842842836398 | top 3 accuracy: 0.6475918454092591 -- epoch 5/50 [|TEST DATA|]
 	training average: 1.047862806390912 | top 3 accuracy: 0.8694294130402473 -- epoch 10/50
 	testing average: 2.0982453654656754 | top 3 accuracy: 0.6490183513712812 -- epoch 10/50 [|TEST DATA|]
-	training average: 1.0461483735628123 | top 3 accuracy: 0.8690542032029276 -- epoch 15/50
-	testing average: 2.129435290405057 | top 3 accuracy: 0.6417731179298597 -- epoch 15/50 [|TEST DATA|]
 	training average: 1.0471172595713025 | top 3 accuracy: 0.8687894447462907 -- epoch 20/50
 	testing average: 2.0471584194442745 | top 3 accuracy: 0.6473696582503888 -- epoch 20/50 [|TEST DATA|]
-	training average: 1.0479147835112332 | top 3 accuracy: 0.8696210786714323 -- epoch 25/50
-	testing average: 2.092713227220181 | top 3 accuracy: 0.6280361553249245 -- epoch 25/50 [|TEST DATA|]
 	training average: 1.047596423649265 | top 3 accuracy: 0.8689802982349707 -- epoch 30/50
 	testing average: 2.0862440387829295 | top 3 accuracy: 0.6427938908191622 -- epoch 30/50 [|TEST DATA|]
-	training average: 1.0453865838931025 | top 3 accuracy: 0.8689778618074556 -- epoch 35/50
-	testing average: 2.1786899973917158 | top 3 accuracy: 0.6335811739854258 -- epoch 35/50 [|TEST DATA|]
 	training average: 1.0456277902170938 | top 3 accuracy: 0.8698468542878282 -- epoch 40/50
 	testing average: 2.062254265832445 | top 3 accuracy: 0.6469510447626623 -- epoch 40/50 [|TEST DATA|]
-	training average: 1.0478100171280855 | top 3 accuracy: 0.8696657465092085 -- epoch 45/50
-	testing average: 2.166495464483866 | top 3 accuracy: 0.6202724851794725 -- epoch 45/50 [|TEST DATA|]
 	training average: 1.046329481341432 | top 3 accuracy: 0.8701855177124219 -- epoch 50/50
 	testing average: 2.0788539006726796 | top 3 accuracy: 0.6508956718585472 -- epoch 50/50 [|TEST DATA|]
 
-Netword ID: d4
+Network ID: d3
 networkSize = [44,44,11]
 trainSize = 800, testSize = 200
 50 epochs
 learningRate = 0.001
 	testing average: 6.106135590222621 | top 3 accuracy: 0.2144623456931648 -- epoch 0/50 [|TEST DATA|]
-	training average: 1.0900281051082004 | top 3 accuracy: 0.856432177936264 -- epoch 5/50
-	testing average: 1.3169328926984085 | top 3 accuracy: 0.7844535351781918 -- epoch 5/50 [|TEST DATA|]
 	training average: 1.0901206550001068 | top 3 accuracy: 0.8562969127096315 -- epoch 10/50
 	testing average: 1.3247902999177903 | top 3 accuracy: 0.781161874379743 -- epoch 10/50 [|TEST DATA|]
-	training average: 1.0902606663750423 | top 3 accuracy: 0.856363358785872 -- epoch 15/50
-	testing average: 1.3273253700252525 | top 3 accuracy: 0.7810308630046804 -- epoch 15/50 [|TEST DATA|]
 	training average: 1.0894775519050643 | top 3 accuracy: 0.8566520828076315 -- epoch 20/50
 	testing average: 1.3327361398153394 | top 3 accuracy: 0.7821641113989722 -- epoch 20/50 [|TEST DATA|]
-	training average: 1.0911284204897551 | top 3 accuracy: 0.8563459562420946 -- epoch 25/50
-	testing average: 1.3241778217393725 | top 3 accuracy: 0.7825997242210555 -- epoch 25/50 [|TEST DATA|]
 	training average: 1.0908926951240445 | top 3 accuracy: 0.8559654733531459 -- epoch 30/50
 	testing average: 1.323532590717189 | top 3 accuracy: 0.7808769246389817 -- epoch 30/50 [|TEST DATA|]
-	training average: 1.0908768746297015 | top 3 accuracy: 0.8562541973749054 -- epoch 35/50
-	testing average: 1.3209123632159363 | top 3 accuracy: 0.7853607889505007 -- epoch 35/50 [|TEST DATA|]
 	training average: 1.0895574454014965 | top 3 accuracy: 0.8565017881113731 -- epoch 40/50
 	testing average: 1.3227137696230475 | top 3 accuracy: 0.7818464088144453 -- epoch 40/50 [|TEST DATA|]
-	training average: 1.0911766729975012 | top 3 accuracy: 0.8558895349802995 -- epoch 45/50
-	testing average: 1.323539141285942 | top 3 accuracy: 0.7848334681658735 -- epoch 45/50 [|TEST DATA|]
 	training average: 1.091244701123176 | top 3 accuracy: 0.8560208450833463 -- epoch 50/50
 	testing average: 1.3144928058378669 | top 3 accuracy: 0.7854099182161491 -- epoch 50/50 [|TEST DATA|]
