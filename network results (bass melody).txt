@@ -30,8 +30,6 @@
 		change momentum gamma to 0.65
 		network structure [6,12,12,12,12,12]	-- error 2.13
 
-	training on 100 songs, 1000 epochs
-	
 		change learning rate to 0.005
 		change momentum gamma to 0.6
 		network structure [6,12,12,12,12,12]	-- error 2.18
@@ -461,7 +459,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
 	Train set size = 800, Test set size = 100
 	Learning Rate = 0.001, Weight decay = 0.001
-	Repeat note weight = 0.5, Fith note weight = 0.5
+	Repeat note weight = 0.5, Fifth note weight = 0.5
 	Sequence length = 8
 	Epochs = 10
 	Optimisation algorithm = SGD
@@ -480,7 +478,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
 	Train set size = 800, Test set size = 100
 	Learning Rate = 0.01, Weight decay = 0.001
-	Repeat note weight = 0.5, Fith note weight = 0.5
+	Repeat note weight = 0.5, Fifth note weight = 0.5
 	Sequence length = 8
 	Epochs = 10
 	Optimisation algorithm = SGD
@@ -499,7 +497,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
 	Train set size = 800, Test set size = 100
 	Learning Rate = 0.0001, Weight decay = 0.001
-	Repeat note weight = 0.5, Fith note weight = 0.5
+	Repeat note weight = 0.5, Fifth note weight = 0.5
 	Sequence length = 8
 	Epochs = 10
 	Optimisation algorithm = SGD
@@ -518,7 +516,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
 	Train set size = 800, Test set size = 100
 	Learning Rate = 0.001, Weight decay = 0.005
-	Repeat note weight = 0.5, Fith note weight = 0.5
+	Repeat note weight = 0.5, Fifth note weight = 0.5
 	Sequence length = 8
 	Epochs = 10
 	Optimisation algorithm = SGD
@@ -537,7 +535,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
 	Train set size = 800, Test set size = 100
 	Learning Rate = 0.01, Weight decay = 0.005
-	Repeat note weight = 0.5, Fith note weight = 0.5
+	Repeat note weight = 0.5, Fifth note weight = 0.5
 	Sequence length = 8
 	Epochs = 10
 	Optimisation algorithm = SGD
@@ -556,7 +554,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
 	Train set size = 800, Test set size = 100
 	Learning Rate = 0.0001, Weight decay = 0.005
-	Repeat note weight = 0.5, Fith note weight = 0.5
+	Repeat note weight = 0.5, Fifth note weight = 0.5
 	Sequence length = 8
 	Epochs = 10
 	Optimisation algorithm = SGD
@@ -575,7 +573,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
 	Train set size = 200, Test set size = 50
 	Learning Rate = 0.01, Weight decay = 0.005
-	Repeat note weight = 0.5, Fith note weight = 0.5
+	Repeat note weight = 0.5, Fifth note weight = 0.5
 	Sequence length = 8
 	Epochs = 100
 	Optimisation algorithm = SGD
@@ -594,7 +592,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 3
 	Train set size = 200, Test set size = 50
 	Learning Rate = 0.01, Weight decay = 0.005
-	Repeat note weight = 0.5, Fith note weight = 0.5
+	Repeat note weight = 0.5, Fifth note weight = 0.5
 	Sequence length = 8
 	Epochs = 100
 	Optimisation algorithm = SGD
@@ -613,7 +611,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 2
 	Train set size = 200, Test set size = 50
 	Learning Rate = 0.01, Weight decay = 0.005
-	Repeat note weight = 0.5, Fith note weight = 0.5
+	Repeat note weight = 0.5, Fifth note weight = 0.5
 	Sequence length = 8
 	Epochs = 100
 	Optimisation algorithm = SGD
@@ -633,7 +631,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
 	Train set size = 200, Test set size = 50
 	Learning Rate = 0.01, Weight decay = 0.005
-	Repeat note weight = 0.65, Fith note weight = 0.5
+	Repeat note weight = 0.65, Fifth note weight = 0.5
 	Sequence length = 8
 	Epochs = 100
 	Optimisation algorithm = SGD
@@ -652,7 +650,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
 	Train set size = 200, Test set size = 50
 	Learning Rate = 0.01, Weight decay = 0.005
-	Repeat note weight = 0.6, Fith note weight = 0.5
+	Repeat note weight = 0.6, Fifth note weight = 0.5
 	Sequence length = 8
 	Epochs = 100
 	Optimisation algorithm = SGD
@@ -671,7 +669,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 2
 	Train set size = 200, Test set size = 50
 	Learning Rate = 0.01, Weight decay = 0.005
-	Repeat note weight = 0.4, Fith note weight = 0.5
+	Repeat note weight = 0.4, Fifth note weight = 0.5
 	Sequence length = 8
 	Epochs = 100
 	Optimisation algorithm = SGD
@@ -693,7 +691,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
 	Train set size = 200, Test set size = 50
 	Learning Rate = 0.01, Weight decay = 0.005
-	Repeat note weight = 0.6, Fith note weight = 0.4
+	Repeat note weight = 0.6, Fifth note weight = 0.4
 	Sequence length = 8
 	Epochs = 100
 	Optimisation algorithm = SGD
@@ -713,7 +711,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
 	Train set size = 200, Test set size = 50
 	Learning Rate = 0.01, Weight decay = 0.005
-	Repeat note weight = 0.6, Fith note weight = 0.6
+	Repeat note weight = 0.6, Fifth note weight = 0.6
 	Sequence length = 8
 	Epochs = 100
 	Optimisation algorithm = SGD
@@ -733,7 +731,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension = 64, Output dimension = 12, Hidden layers = 4
 	Train set size = 200, Test set size = 50
 	Learning Rate = 0.01, Weight decay = 0.005
-	Repeat note weight = 0.6, Fith note weight = 0.7
+	Repeat note weight = 0.6, Fifth note weight = 0.7
 	Sequence length = 8
 	Epochs = 100
 	Optimisation algorithm = SGD
@@ -753,7 +751,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =64, Output dimension = 12, Hidden layers = 4
 	Train set size = 200, Test set size = 50
 	Learning Rate = 0.01, Weight decay = 0.005
-	Repeat note weight = 0.65, Fith note weight = 0.65
+	Repeat note weight = 0.65, Fifth note weight = 0.65
 	Sequence length = 8
 	Epochs = 100
 	Optimisation algorithm = SGD	
@@ -773,7 +771,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =128, Output dimension = 12, Hidden layers = 2
 	Train set size = 200, Test set size = 50
 	Learning Rate = 0.001, Weight decay = 0.005
-	Repeat note weight = 0.65, Fith note weight = 0.65
+	Repeat note weight = 0.65, Fifth note weight = 0.65
 	Sequence length = 8
 	Epochs = 100
 	Optimisation algorithm = SGD	
@@ -793,7 +791,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension =96, Output dimension = 12, Hidden layers = 3
 	Train set size = 200, Test set size = 50
 	Learning Rate = 0.01, Weight decay = 0.005
-	Repeat note weight = 0.65, Fith note weight = 0.65
+	Repeat note weight = 0.65, Fifth note weight = 0.65
 	Sequence length = 8
 	Epochs = 100
 	Optimisation algorithm = SGD		
@@ -813,7 +811,7 @@ Added weight reduction hyperparameters for the repeat note and fith interval not
 	Input dimension = 12, Hidden dimension = 64, Output dimension = 12, Hidden layers = 4
 	Train set size = 200, Test set size = 50
 	Learning Rate = 0.001, Weight decay = 0.001
-	Repeat note weight = 0.2, Fith note weight = 0.3
+	Repeat note weight = 0.2, Fifth note weight = 0.3
 	Sequence length = 8
 	Total Epochs = 100
 	Optimisation algorithm = SGD	
@@ -838,7 +836,7 @@ it did previously. This is to help note generation with long term memory/dependa
 	Input dimension = 12, Hidden dimension = 64, Output dimension = 12, Hidden layers = 4
 	Train set size = 800, Test set size = 200
 	Learning Rate = 0.001, Weight decay = 0.001
-	Repeat note weight = 0.2, Fith note weight = 0.3
+	Repeat note weight = 0.2, Fifth note weight = 0.3
 	Total Epochs = 200
 	Optimisation algorithm = SGD
 		testing average: 5.569744999498561 | top 3 accuracy: 0.22503625831826793 -- epoch 0/200 [|TEST DATA|]
@@ -867,7 +865,7 @@ it did previously. This is to help note generation with long term memory/dependa
 	Input dimension = 12, Hidden dimension = 64, Output dimension = 12, Hidden layers = 4
 	Train set size = 800, Test set size = 200
 	Learning Rate = 0.001, Weight decay = 0.001
-	Repeat note weight = 0.3, Fith note weight = 0.3
+	Repeat note weight = 0.3, Fifth note weight = 0.3
 	Total Epochs = 200
 	Optimisation algorithm = SGD
 		testing average: 5.09732082407368 | top 3 accuracy: 0.23471999105258276 -- epoch 0/200 [|TEST DATA|]
@@ -896,7 +894,7 @@ it did previously. This is to help note generation with long term memory/dependa
 	Input dimension = 12, Hidden dimension = 64, Output dimension = 12, Hidden layers = 4
 	Train set size = 800, Test set size = 200
 	Learning Rate = 0.001, Weight decay = 0.001
-	Repeat note weight = 0.35, Fith note weight = 0.35
+	Repeat note weight = 0.35, Fifth note weight = 0.35
 	Total Epochs = 200
 	Optimisation algorithm = SGD
 		testing average: 4.940534883676135 | top 3 accuracy: 0.17478673472865663 -- epoch 0/200 [|TEST DATA|]
@@ -925,18 +923,14 @@ it did previously. This is to help note generation with long term memory/dependa
 	Input dimension = 12, Hidden dimension = 64, Output dimension = 12, Hidden layers = 4
 	Train set size = 800, Test set size = 200
 	Learning Rate = 0.001, Weight decay = 0.001
-	Repeat note weight = 0.3, Fith note weight = 0.25
-	Total Epochs = 20
+	Repeat note weight = 0.3, Fifth note weight = 0.25
+	Total Epochs = 30
 	Optimisation algorithm = SGD
 		testing average: 4.98638397162089 | top 3 accuracy: 0.20629194119613323 -- epoch 0/20 [|TEST DATA|]
 		training average: 3.7552076596152526 | top 3 accuracy: 0.4732042999311346 -- epoch 10/20
 		testing average: 3.7384010885734287 | top 3 accuracy: 0.4938115830412144 -- epoch 10/20 [|TEST DATA|]
 		training average: 3.836661147704965 | top 3 accuracy: 0.4732042999311346 -- epoch 20/20
 		testing average: 3.8455135309366946 | top 3 accuracy: 0.4938115830412144 -- epoch 20/20 [|TEST DATA|]
-		training average: 3.850928105124377 | top 3 accuracy: 0.4751029133160349 -- epoch 10/30
-		testing average: 3.754734177612808 | top 3 accuracy: 0.49346533849653995 -- epoch 10/30 [|TEST DATA|]
-		training average: 3.850928105124377 | top 3 accuracy: 0.4751029133160349 -- epoch 20/30
-		testing average: 3.754734177612808 | top 3 accuracy: 0.49346533849653995 -- epoch 20/30 [|TEST DATA|]
 		training average: 3.850199122538198 | top 3 accuracy: 0.4751029133160349 -- epoch 30/30
 		testing average: 3.754734177612808 | top 3 accuracy: 0.49346533849653995 -- epoch 30/30 [|TEST DATA|]
 
@@ -944,8 +938,8 @@ it did previously. This is to help note generation with long term memory/dependa
 	Input dimension = 12, Hidden dimension = 256, Output dimension = 12, Hidden layers = 2
 	Train set size = 800, Test set size = 200
 	Learning Rate = 0.001, Weight decay = 0.001
-	Repeat note weight = 0.3, Fith note weight = 0.25
-	Total Epochs = 10
+	Repeat note weight = 0.3, Fifth note weight = 0.25
+	Total Epochs = 30
 	Optimisation algorithm = SGD	
 		testing average: 5.853215902004903 | top 3 accuracy: 0.27257377049287856 -- epoch 0/30 [|TEST DATA|]
 		training average: 3.6891416366474106 | top 3 accuracy: 0.48545395670618297 -- epoch 10/30
@@ -962,7 +956,7 @@ GAN model results:
 	Sequence length = 8
 	Generator: Input dimension = 5, Hidden dimension = 144, Hidden Depth = 4
 	Discriminator: Hidden dimension = 144, Hidden Depth = 4
-	Train set size = 500
+	Train set size = 500	
 	Learning Rate = 0.0002, Adam Betas = (0.5, 0.999), Gumbel Temperature = 0.1
 	Epochs = 1000
 	Optimisation algorithm = Adam
@@ -1044,7 +1038,7 @@ GAN model results:
 	Discriminator: Hidden dimension = 144, Hidden Depth = 4
 	Train set size = 1000
 	Learning Rate = 0.0002, Adam Betas = (0.5, 0.999), Gumbel Temperature = 0.1
-	Total Epochs = 1300
+	Total Epochs = 1000
 	Optimisation algorithm = Adam	
 		Discriminator Accuracy: 0.9726098139534153 | Generator Accuracy: 0.011303356915560817 -- epoch 1/1000
 		Discriminator Accuracy: 0.9725962558318066 | Generator Accuracy: 0.010642350437051381 -- epoch 101/1000
@@ -1097,3 +1091,45 @@ GAN model results:
 		Discriminator Accuracy: 1.0 | Generator Accuracy: 1.863407909508748e-13 -- epoch 801/1000
 		Discriminator Accuracy: 1.0 | Generator Accuracy: 1.7529955861862607e-13 -- epoch 901/1000
 		Discriminator Accuracy: 1.0 | Generator Accuracy: 1.7256467468805294e-13 -- epoch 1001/1000
+		
+	ID for trained network: 6275
+	Sequence length = 8
+	Generator: Input dimension = 5, Hidden dimension = 144, Hidden Depth = 2
+	Discriminator: Hidden dimension = 144, Hidden Depth = 2
+	Train set size = 200
+	Learning Rate = 0.0002, Adam Betas = (0.5, 0.999), Gumbel Temperature = 0.1
+	Total Epochs = 5000
+	Optimisation algorithm = Adam
+		Discriminator Accuracy: 0.5087844829001905 | Generator Accuracy: 0.5032117851304636 -- epoch 0/5000
+		Discriminator Accuracy: 0.556027786484785 | Generator Accuracy: 0.39584694199731 -- epoch 500/5000
+		Discriminator Accuracy: 0.637258225053478 | Generator Accuracy: 0.22184123002213832 -- epoch 1000/5000
+		Discriminator Accuracy: 0.5738520421088161 | Generator Accuracy: 0.20090844686080858 -- epoch 1500/5000
+		Discriminator Accuracy: 0.6727409723926181 | Generator Accuracy: 0.1473987230872078 -- epoch 2000/5000
+		Discriminator Accuracy: 0.7192269815643932 | Generator Accuracy: 0.08669533724939393 -- epoch 2500/5000
+		Discriminator Accuracy: 0.7187234011653371 | Generator Accuracy: 0.08910658692059133 -- epoch 3000/5000
+		Discriminator Accuracy: 0.7626821158575476 | Generator Accuracy: 0.044729408286071796 -- epoch 3500/500
+		Discriminator Accuracy: 0.8082292507131478 | Generator Accuracy: 0.029996837412848545 -- epoch 4000/5000
+		Discriminator Accuracy: 0.8457287613190101 | Generator Accuracy: 0.01707276090328627 -- epoch 4500/5000
+		Discriminator Accuracy: 0.869403939371687 | Generator Accuracy: 0.013257041259714546 -- epoch 5000/5000
+	
+	ID for trained network: 6276
+	Sequence length = 8
+	Generator: Input dimension = 5, Hidden dimension = 144, Hidden Depth = 1
+	Discriminator: Hidden dimension = 144, Hidden Depth = 1
+	Train set size = 200
+	Learning Rate = 0.0002, Adam Betas = (0.5, 0.999), Gumbel Temperature = 0.1
+	Total Epochs = 5000
+	Optimisation algorithm = Adam
+		Discriminator Accuracy: 0.5134802141253415 | Generator Accuracy: 0.49042934946571815 -- epoch 0/5000
+		Discriminator Accuracy: 0.5402267357910819 | Generator Accuracy: 0.4160392073331355 -- epoch 500/5000
+		Discriminator Accuracy: 0.5835404466234888 | Generator Accuracy: 0.31810638423951776 -- epoch 1000/5000
+		Discriminator Accuracy: 0.5728928682164506 | Generator Accuracy: 0.26724523954284934 -- epoch 1500/5000
+		Discriminator Accuracy: 0.6448394532160204 | Generator Accuracy: 0.19613683451725114 -- epoch 2000/5000
+		Discriminator Accuracy: 0.6693921096246844 | Generator Accuracy: 0.15894083297846567 -- epoch 2500/5000
+		Discriminator Accuracy: 0.67925917988425 | Generator Accuracy: 0.14545909306506388 -- epoch 3000/5000
+		Discriminator Accuracy: 0.707299228133561 | Generator Accuracy: 0.10911230902296545 -- epoch 3500/5000
+		Discriminator Accuracy: 0.7314599660567305 | Generator Accuracy: 0.08208492034158117 -- epoch 4000/5000
+		Discriminator Accuracy: 0.7486315472442978 | Generator Accuracy: 0.07287989263834045 -- epoch 4500/5000
+		Discriminator Accuracy: 0.7739705360645767 | Generator Accuracy: 0.04537952428843257 -- epoch 5000/5000
+
+		
