@@ -23,7 +23,7 @@ class WeightedNumberPicker:
 class InstrumentSection:
 	def __init__(self,sectionName):
 		self.sectionName=sectionName
-		self.numOfBars=1
+		self.numOfBars=0
 		self.numOfRepetitions=1
 		self.creationLog=[]
 		self.bars=[]
@@ -333,8 +333,8 @@ def combineMidi(midiTracks,saveName):
 			track.append(msg)
 	mid.save(saveName)
 
-melodyModel=nnu.VanillaNeuralNet([108, 108, 54, 12])
-melodyModel.readFromcsv("trained networks/v6.csv")
+melodyModel=nnu.VanillaNeuralNet([96, 96, 48, 12])
+melodyModel.readFromcsv("trained networks/v4Class100.csv")
 
 drumsNet=nnu.VanillaNeuralNet([44,44,44,22,11,11])
-drumsNet.readFromcsv('trained networks/d4.csv')
+drumsNet.readFromcsv('trained networks/d3.csv')
