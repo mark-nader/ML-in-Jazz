@@ -5,8 +5,8 @@ import csv
 
 # 0 undecided, 1 agrees with to network
 
-netName="v6_smallBatch.csv"
-netStructure = [108, 108, 12]
+netName="v1_smallBatch100.csv"
+netStructure = [72, 72, 72, 36, 24, 12]
 
 mu.createNewSongNetworks("trained networks/songCategorise_{}".format(netName))
 songList=mu.getSongList("projectMidiTraining")
@@ -48,7 +48,7 @@ for j,songNetPair in enumerate(songNetworkPairs):
 					printTop3Acc+=1
 				basslineSectionsTested+=1
 	if not basslineSectionsTested == 0:
-		if printTopKAvg/basslineSectionsTested < 3.0 and printTop3Acc/basslineSectionsTested > 0.60:
+		if printTopKAvg/basslineSectionsTested < 2.75 and printTop3Acc/basslineSectionsTested > 0.625:
 			songNetworkPairs[j][1]=1
 			songsAgree+=1
 	

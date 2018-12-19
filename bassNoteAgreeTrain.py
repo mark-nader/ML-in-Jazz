@@ -4,20 +4,20 @@ import random
 
 netNum=6
 resumeTraining=False
-netStructure = [84, 84, 42, 12]
+netStructure = [108, 108, 12]
 learningRate, weightDecay = 0.0005, 0.001
-numEpochs=50
+numEpochs=51
 testEvery=10
 optimisationAlg="SGD"
 
 songList=mu.getSongList("projectMidiTraining")
 numSongs=len(songList)
-songNetworkPairs=mu.readSongNetworksFromcsv("trained networks/songCategorise_v{}_smallBatch.csv".format(netNum),numSongs)
+songNetworkPairs=mu.readSongNetworksFromcsv("trained networks/songCategorise_v{}_smallBatch100.csv".format(netNum),numSongs)
 neuralNet=nnu.VanillaNeuralNet(netStructure,learningRate=learningRate,useMomentum=False,momentumGamma=0.1,useL2Reg=True,l2Lambda=weightDecay)
 
 prevEpochs=0
 if resumeTraining:
-	neuralNet.readFromcsv("trained networks/v{}Class".format(netNum))
+	neuralNet.readFromcsv("v{}Class100.csv".format(netNum))
 
 trainSize=0
 songList=[]
@@ -65,7 +65,7 @@ for epoch in range(numEpochs):
 	if epoch % testEvery == 0:
 		print("training average: {} | top 3 accuracy: {} -- epoch {}/{}".format(printTopKAvg/basslineSectionsTrained,printTop3Acc/basslineSectionsTrained,epoch,numEpochs))
 		
-neuralNet.saveTocsv("trained networks/v{}Class".format(netNum))
+neuralNet.saveTocsv("v{}Class100.csv".format(netNum))
 
 print("################################################")
 print("Network Structure = {}".format(netStructure))
