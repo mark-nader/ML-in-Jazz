@@ -64,33 +64,6 @@ TopKAvg < 2.50 and Top3Acc > 0.65, trained on 100:
 	network v6_small batch
 	matches found: 388
 
-taking v3_smallBatch200 and v6_smallBatch200 for TopKAvg < 2.75 and Top3Acc > 0.625, trained on 200, to train on
-saving as v3Class200 and v6Class200
-
-	Network ID v3Class200
-	Network Structure = [84, 84, 42, 12]
-	Train set size = 488
-	Learning Rate = 0.0005, Weight decay = 0.001
-	Total Epochs = 50
-	Optimisation algorithm = SGD
-		training average: 2.08122235775704 | top 3 accuracy: 0.701467517792063 -- epoch 0/50
-		training average: 1.5761859504441467 | top 3 accuracy: 0.7757900723656147 -- epoch 10/50
-		training average: 1.5353558786772135 | top 3 accuracy: 0.781522446810899 -- epoch 20/50
-		training average: 1.523752684711922 | top 3 accuracy: 0.7836253152431769 -- epoch 30/50
-		training average: 1.5162916177119894 | top 3 accuracy: 0.7843474746870018 -- epoch 40/50
-	
-	Network ID v6Class200
-	Network Structure = [108, 108, 12]
-	Train set size = 489
-	Learning Rate = 0.0005, Weight decay = 0.001
-	Total Epochs = 50
-	Optimisation algorithm = SGD
-		training average: 2.0442251864220253 | top 3 accuracy: 0.7058839155266303 -- epoch 0/50
-		training average: 1.6405555660968065 | top 3 accuracy: 0.7649128133123352 -- epoch 10/50
-		training average: 1.6073126766977213 | top 3 accuracy: 0.7696753505493046 -- epoch 20/50
-		training average: 1.595298180369239 | top 3 accuracy: 0.7718080564673738 -- epoch 30/50
-		training average: 1.58997780012523 | top 3 accuracy: 0.7722254900100564 -- epoch 40/50
-
 taking v4_smallBatch100 and v6_smallBatch100 for TopKAvg < 2.50 and Top3Acc > 0.65, trained on 100, to train on
 saving as v4Class100 and v6Class100
 
