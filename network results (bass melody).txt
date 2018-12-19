@@ -1032,46 +1032,6 @@ GAN model results:
 		Discriminator Accuracy: 0.9069143782930277 | Generator Accuracy: 0.03325026693134981 -- epoch 9001/10000
 		Discriminator Accuracy: 0.9060043984930751 | Generator Accuracy: 0.03249200725979632 -- epoch 10001/10000
 
-	ID for trained network: 6272
-	Sequence length = 8
-	Generator: Input dimension = 5, Hidden dimension = 384, Hidden Depth = 6
-	Discriminator: Hidden dimension = 144, Hidden Depth = 4
-	Train set size = 1000
-	Learning Rate = 0.0002, Adam Betas = (0.5, 0.999), Gumbel Temperature = 0.1
-	Total Epochs = 1000
-	Optimisation algorithm = Adam	
-		Discriminator Accuracy: 0.9726098139534153 | Generator Accuracy: 0.011303356915560817 -- epoch 1/1000
-		Discriminator Accuracy: 0.9725962558318066 | Generator Accuracy: 0.010642350437051381 -- epoch 101/1000
-		Discriminator Accuracy: 0.9725415868522727 | Generator Accuracy: 0.010031706739291107 -- epoch 201/1000
-		Discriminator Accuracy: 0.9725624664238941 | Generator Accuracy: 0.010723492594948278 -- epoch 301/1000
-		Discriminator Accuracy: 1.276269175441054e-06 | Generator Accuracy: 1.0 -- epoch 401/1000
-		Discriminator Accuracy: 1.276269175441054e-06 | Generator Accuracy: 1.0 -- epoch 501/1000
-		Discriminator Accuracy: 1.276269175441054e-06 | Generator Accuracy: 1.0 -- epoch 601/1000
-		Discriminator Accuracy: 1.276269175441054e-06 | Generator Accuracy: 1.0 -- epoch 701/1000
-		Discriminator Accuracy: 1.276269175441054e-06 | Generator Accuracy: 1.0 -- epoch 801/1000
-		Discriminator Accuracy: 1.276269175441054e-06 | Generator Accuracy: 1.0 -- epoch 901/1000
-		Discriminator Accuracy: 1.276269175441054e-06 | Generator Accuracy: 1.0 -- epoch 1001/1000
-
-	ID for trained network: 6273		
-	Sequence length = 8
-	Generator: Input dimension = 4, Hidden dimension = 384, Hidden Depth = 6
-	Discriminator: Hidden dimension = 144, Hidden Depth = 4
-	Train set size = 1000
-	Learning Rate = 0.0002, Adam Betas = (0.5, 0.999), Gumbel Temperature = 0.1
-	Total Epochs = 1000
-	Optimisation algorithm = Adam	
-		Discriminator Accuracy: 0.5051565496106458 | Generator Accuracy: 0.4997501392233437 -- epoch 1/1000
-		Discriminator Accuracy: 1.2486975145353863e-06 | Generator Accuracy: 1.0 -- epoch 101/1000
-		Discriminator Accuracy: 1.2486975145353863e-06 | Generator Accuracy: 1.0 -- epoch 201/1000
-		Discriminator Accuracy: 1.2486975145353863e-06 | Generator Accuracy: 1.0 -- epoch 301/1000
-		Discriminator Accuracy: 1.2486975145353863e-06 | Generator Accuracy: 1.0 -- epoch 401/1000
-		Discriminator Accuracy: 1.2486975145353863e-06 | Generator Accuracy: 1.0 -- epoch 501/1000
-		Discriminator Accuracy: 1.2486975145353863e-06 | Generator Accuracy: 1.0 -- epoch 601/1000
-		Discriminator Accuracy: 1.2486975145353863e-06 | Generator Accuracy: 1.0 -- epoch 701/1000
-		Discriminator Accuracy: 1.2486975145353863e-06 | Generator Accuracy: 1.0 -- epoch 801/1000
-		Discriminator Accuracy: 1.2486975145353863e-06 | Generator Accuracy: 1.0 -- epoch 901/1000
-		Discriminator Accuracy: 1.2486975145353863e-06 | Generator Accuracy: 1.0 -- epoch 1001/1000
-
 	ID for trained network: 6274		
 	Sequence length = 8
 	Generator: Input dimension = 3, Hidden dimension = 384, Hidden Depth = 6
