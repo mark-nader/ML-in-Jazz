@@ -191,6 +191,7 @@ class MelodyInstrumentSection(InstrumentSection):
 			blendNoteDepth=0
 			potentialIntervals=[]
 			for i in range(numOfBars):
+				# print("writing bar {}".format(i))
 				attemptsPerBlendDepth=25
 				suitableNoteChoice=False
 				while not suitableNoteChoice:
@@ -206,14 +207,14 @@ class MelodyInstrumentSection(InstrumentSection):
 							generatedNotes=[]
 							for oneHotNote in genOut:
 								generatedNotes.append(oneHotNote[0].tolist().index(1))
-							#print("generatedNotes: {}".format(generatedNotes))
-							#print("generatedNotes[:blendNoteDepth] {}".format(generatedNotes[:blendNoteDepth]))
-							#print("potentialIntervals {}".format(potentialIntervals))
-							#print("potentialIntervals[-blendNoteDepth:] {}".format(potentialIntervals[-blendNoteDepth:]))
-							#input()
+							# print("generatedNotes: {}".format(generatedNotes))
+							# print("generatedNotes[:blendNoteDepth] {}".format(generatedNotes[:blendNoteDepth]))
+							# print("potentialIntervals {}".format(potentialIntervals))
+							# print("potentialIntervals[-blendNoteDepth:] {}".format(potentialIntervals[-blendNoteDepth:]))
+							# input()
 							blendSearching=not (blendNoteDepth == 0 or generatedNotes[:blendNoteDepth] == potentialIntervals[-blendNoteDepth:])
 						potentialIntervals.extend(generatedNotes[blendNoteDepth:])
-						#print("potentialIntervals {}".format(potentialIntervals))
+						# print("potentialIntervals {}".format(potentialIntervals))
 					suitableNotes=0
 					potentialNotes=[]
 					currentNote=chords[0].rootNote
@@ -234,15 +235,19 @@ class MelodyInstrumentSection(InstrumentSection):
 						potentialNotes.append(currentNote)
 						if directionChangeFactor.getValue() == 1:
 							direction=direction-2*direction
-					suitableNoteChoice=(suitableNotes/notesPerBar[i] >= percentPicker(notesPerBar[i]))
-					#print("suitableNoteChoice {}".format(suitableNoteChoice))
+					# print("suitable notes {}".format(suitableNotes))
+					if suitableNotes == 0:
+						suitableNoteChoice=(notesPerBar[i] == 0)
+					else:
+						suitableNoteChoice=(suitableNotes/notesPerBar[i] >= percentPicker(notesPerBar[i]))
+					# print("suitableNoteChoice {}".format(suitableNoteChoice))
 					if not suitableNoteChoice:
 						potentialIntervals=[]
 						blendNoteDepth=0
-						#print("potentialIntervals {}".format(potentialIntervals))
-						#input()
+						# print("potentialIntervals {}".format(potentialIntervals))
+						# input()
 				chosenMelody.extend(potentialNotes[:])
-				#print("chosenMelody {}".format(chosenMelody))
+				# print("chosenMelody {}".format(chosenMelody))
 				potentialIntervals=potentialIntervals[notesPerBar[i]:]
 				blendNoteDepth=len(potentialIntervals)	
 				
