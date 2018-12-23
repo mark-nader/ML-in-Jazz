@@ -195,7 +195,9 @@ class MelodyInstrumentSection(InstrumentSection):
 				attemptsPerBlendDepth=25
 				suitableNoteChoice=False
 				while not suitableNoteChoice:
+					# print("notes in current bar {}".format(notesPerBar[i]))
 					while len(potentialIntervals) < notesPerBar[i]:
+						blendNoteDepth=min(self.melodyNet.numNotesOut,len(potentialIntervals))
 						attempts=0
 						blendSearching=True
 						while blendSearching:
@@ -211,6 +213,7 @@ class MelodyInstrumentSection(InstrumentSection):
 							# print("generatedNotes[:blendNoteDepth] {}".format(generatedNotes[:blendNoteDepth]))
 							# print("potentialIntervals {}".format(potentialIntervals))
 							# print("potentialIntervals[-blendNoteDepth:] {}".format(potentialIntervals[-blendNoteDepth:]))
+							# print("blend note depth {}".format(blendNoteDepth))
 							# input()
 							blendSearching=not (blendNoteDepth == 0 or generatedNotes[:blendNoteDepth] == potentialIntervals[-blendNoteDepth:])
 						potentialIntervals.extend(generatedNotes[blendNoteDepth:])
@@ -231,10 +234,10 @@ class MelodyInstrumentSection(InstrumentSection):
 						while currentNote > self.maxNote:
 							currentNote-=12
 						# print(currentNote)
-						# input()
 						potentialNotes.append(currentNote)
 						if directionChangeFactor.getValue() == 1:
 							direction=direction-2*direction
+					# input()
 					# print("suitable notes {}".format(suitableNotes))
 					if suitableNotes == 0:
 						suitableNoteChoice=(notesPerBar[i] == 0)
@@ -243,13 +246,16 @@ class MelodyInstrumentSection(InstrumentSection):
 					# print("suitableNoteChoice {}".format(suitableNoteChoice))
 					if not suitableNoteChoice:
 						potentialIntervals=[]
-						blendNoteDepth=0
 						# print("potentialIntervals {}".format(potentialIntervals))
+						# input()
+					# if suitableNoteChoice:
+						# print("yay")
 						# input()
 				chosenMelody.extend(potentialNotes[:])
 				# print("chosenMelody {}".format(chosenMelody))
 				potentialIntervals=potentialIntervals[notesPerBar[i]:]
-				blendNoteDepth=len(potentialIntervals)	
+				# print("remaining potentialIntervals {}".format(potentialIntervals))
+				# input()
 				
 			
 			for i in range(noteCount):
