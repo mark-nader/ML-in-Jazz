@@ -311,35 +311,3 @@ def lookUpDrumCategory(categoryNum):
 			drumTypes.append(drumSound)
 	return drumTypes
 
-	
-
-# import mido
-# import time
-# import random
-# outport = mido.open_output()
-
-# skeletonIndex=1
-# sleepTime=0.4
-# # for l in range(0,2):
-# for skeleton in DrumFills:
-	# print(skeleton[:2])
-	# for j in range(0,2):
-		# for i,drumDiv in enumerate(skeleton[2]):
-			# for drumType in drumDiv:
-				# outport.send(mido.Message('note_on', channel=9, note=drumType[0], time=0, velocity=drumType[1]))
-			# time.sleep(sleepTime/skeleton[1])
-
-# noteNum=57
-# outport.send(mido.Message('note_on', channel=9, note=noteNum, time=0, velocity=127))	
-# time.sleep(0.5)
-# outport.send(mido.Message('note_on', channel=9, note=noteNum, time=0, velocity=127))	
-# time.sleep(0.5)
-# outport.send(mido.Message('note_on', channel=9, note=noteNum, time=0, velocity=127))	
-# time.sleep(0.5)
-# outport.send(mido.Message('note_on', channel=9, note=noteNum, time=0, velocity=127))	
-# time.sleep(0.5)
-# outport.send(mido.Message('note_on', channel=9, note=noteNum, time=0, velocity=127))		
-	
-	# # # input()
-
-
